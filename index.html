@@ -234,6 +234,30 @@ p{margin:0}
 .saved-row:last-child{border-bottom:0}
 .saved-row .he{font-size:22px}
 .unsave{border:0;background:none;color:var(--muted);font-size:16px;padding:4px 8px}
+.nq{line-height:1.6}
+.q-prompt .word.nq{font-size:60px;line-height:1.5}
+.q-prompt .glyph.nq{font-size:80px;line-height:1.4}
+.vlist{display:flex;flex-direction:column;gap:12px}
+.vcard{display:flex;flex-direction:column;gap:10px}
+.vhead{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.vhead small{display:block;color:var(--muted);font-size:13px}
+.vlat{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:var(--f-body)}
+.vmarks{display:flex;gap:10px;flex-wrap:wrap}
+.vm{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--sunk);border-radius:12px;padding:8px 16px}
+.vm .glyph{font-size:48px}
+.vm small{font-size:13px;color:var(--muted)}
+.vnote{font-size:15px}
+.cmp{display:flex;flex-direction:column}
+.cmp-row{display:grid;grid-template-columns:56px 1fr 1fr;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.cmp-row:last-child{border-bottom:0}
+.cmp-row.head{font-size:12.5px;color:var(--muted)}
+.cmp-row .glyph{font-size:30px}
+.sp{display:flex;flex-direction:column;gap:10px}
+.sp-head{display:flex;align-items:center;gap:14px}
+.sp-head .glyph{font-size:48px}
+.sign{background:#1E5A3C;color:#FFFFFF;border:4px solid #FFFFFF;outline:2px solid #1E5A3C;border-radius:10px;padding:18px;text-align:center}
+.sign .he{font-size:40px;font-weight:700;color:#FFFFFF}
+.opts.one{grid-template-columns:1fr}
 .section-title{font-family:var(--f-display);font-size:18px;margin:0}
 
 /* path */
@@ -388,7 +412,7 @@ const PAIRS2=[["ב","כ","ב قاعدته طالعة لليمين، כ مدوّ�
 const BUILD=[{ar:"ولد",w:"ילד",extra:["ר","ה"]},{ar:"كلب",w:"כלב",extra:["כ","ד"]},{ar:"شمس",w:"שמש",extra:["ס","ם"]},{ar:"جمل",w:"גמל",extra:["נ","ם"]},{ar:"يوم",w:"יום",extra:["מ","ן"]},{ar:"أرض",w:"ארץ",extra:["צ","ד"]}];
 
 /* steps */
-const STEPS=[
+const STEPS1=[
  {k:"intro"},{k:"abc"},
  {k:"grid",p:1},{k:"pairs",p:1},{k:"drill",p:1},{k:"root",p:1},{k:"read",p:1},
  {k:"grid",p:2},{k:"pairs",p:2},{k:"drill",p:2},{k:"read",p:2},
@@ -396,14 +420,16 @@ const STEPS=[
  {k:"build"},{k:"listen"},{k:"stand"},{k:"check"},{k:"done"}
 ];
 const PART_NAMES={1:"حروف بتعرفها",2:"حروف بصوتين وأصوات جديدة",3:"الحروف النهائية"};
-const TITLES={intro:"مقدمة",abc:"الأبجدية كاملة",grid:"الحروف",pairs:"حروف بتتشابه",drill:"تدريب",root:"جذر الوحدة",read:"اقرأ الكلمة",finals:"الحروف النهائية",build:"ركّب الكلمة",listen:"اسمع واختار",stand:"بكشك الفلافل",check:"صرت بقدر",done:"خلصت"};
+const TITLES1={intro:"مقدمة",abc:"الأبجدية كاملة",grid:"الحروف",pairs:"حروف بتتشابه",drill:"تدريب",root:"جذر الوحدة",read:"اقرأ الكلمة",finals:"الحروف النهائية",build:"ركّب الكلمة",listen:"اسمع واختار",stand:"بكشك الفلافل",check:"صرت بقدر",done:"خلصت"};
 const PASS=9,CHECK_N=12;
 
 /* ---------- state ---------- */
-const KEY="hebrew-u1-v2";
-const S={step:0,xp:0,seen:{},done:{},best:0};
-try{const raw=localStorage.getItem(KEY);if(raw)Object.assign(S,JSON.parse(raw));}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+let UNIT="0-1",S=null,STEPS=null,TITLES=null,R=null,CRUMB="";
+const BLANK=()=>({step:0,xp:0,seen:{},done:{},best:0});
+const keyOf=id=>id==="0-1"?"hebrew-u1-v2":"gesher-unit-"+id;
+function loadState(id){const s=BLANK();try{const raw=localStorage.getItem(keyOf(id));if(raw)Object.assign(s,JSON.parse(raw));}catch(e){}return s;}
+function save(){if(!S)return;try{localStorage.setItem(keyOf(UNIT),JSON.stringify(S));}catch(e){}}
+const UNITS={};
 
 const $=id=>document.getElementById(id);
 const screen=$("screen"),nextBtn=$("next"),backBtn=$("back");
@@ -473,8 +499,8 @@ function listenQ(w){const o=shuffle([w,...pick(WORDS_ALL,3,x=>x.w===w.w)]);retur
 function pairQ(p){const l=p[Math.random()<.5?0:1],L=LETTERS.find(x=>x.h===l);const o=shuffle([p[0],p[1]].map(h=>LETTERS.find(x=>x.h===h).ar));return{prompt:`<span class="glyph" lang="he">${l}</span><p class="lead">انتبه، هاد حرف بيتشابه مع غيره. شو صوته؟</p>`,opts:o,ans:o.indexOf(L.ar),optClass:"ar-letter",explain:p[2]};}
 
 /* ---------- screens ---------- */
-const R={};
-R.intro=()=>{screen.innerHTML=`
+const R1={};
+R1.intro=()=>{screen.innerHTML=`
   <div class="stack pop">
     <h1>بنهاية هالوحدة رح تكون خلصت الأبجدية العبرية كلها</h1>
     <p class="lead">22 حرف و5 أشكال نهائية، مقسمين على 3 أجزاء. وأغلبهم إلهم مقابل بالعربي، لأنه العبري والعربي إخوة.</p>
@@ -487,7 +513,7 @@ R.intro=()=>{screen.innerHTML=`
     <div class="note"><b>رح تتعلم كل حرف بشكلين:</b> المطبوع اللي بتقراه بالكتب واللافتات، والمكتوب بخط اليد اللي بيكتبوه الناس.</div>
   </div>`;return true;};
 
-R.abc=()=>{
+R1.abc=()=>{
   const row=l=>`<button type="button" class="abc-row" data-say="${esc(l.n)}" aria-label="اسمع اسم الحرف ${l.name}"><span class="glyph" lang="he">${l.h}</span><span class="hand" lang="he">${l.h}</span><span class="nm"><b>${l.name}</b><small class="he" lang="he">${l.n}</small></span><span class="snd">${l.ar}</span><span class="play">${SPK}</span></button>`;
   screen.innerHTML=`<div class="stack pop"><h2>الأبجدية كاملة</h2>
   <p class="lead">هاي كل الحروف قدامك من أولها لآخرها، بالترتيب. كبس على أي سطر تسمع اسم الحرف. ما في داعي تحفظهم هلأ، رح نتعلمهم جزء جزء.</p>
@@ -515,7 +541,7 @@ function openSheet(l){
   const c=w.querySelector(".cls");c.addEventListener("click",close);c.focus();
 }
 
-R.grid=(p)=>{const set=LETTERS.filter(l=>l.p===p),n=()=>set.filter(l=>S.seen[l.h]).length;
+R1.grid=(p)=>{const set=LETTERS.filter(l=>l.p===p),n=()=>set.filter(l=>S.seen[l.h]).length;
   const leads={1:"هدول الحروف إلهم مقابل مباشر بالعربي. كبس على كل حرف تشوف شكله المطبوع وبخط اليد، ولفظه، ونصيحة تحفظه فيها.",2:"هدول الحروف إما إلهم صوتين، أو صوتهم مش موجود بالعربي. ركّز بالنطق."};
   screen.innerHTML=`<div class="stack pop">${partTag(p)}<h2>${PART_NAMES[p]}</h2>
   <p class="lead">${leads[p]}</p>
@@ -525,12 +551,12 @@ R.grid=(p)=>{const set=LETTERS.filter(l=>l.p===p),n=()=>set.filter(l=>S.seen[l.h
   screen.querySelectorAll(".tile").forEach(t=>t.addEventListener("click",()=>{const l=set.find(x=>x.h===t.dataset.h);if(!S.seen[l.h]){S.seen[l.h]=1;addXP(2);t.classList.add("seen");screen.querySelector(".cnt").textContent=`شفت ${n()} من ${set.length}`;}openSheet(l);}));
   return true;};
 
-R.pairs=(p)=>{const P=p===1?PAIRS1:PAIRS2;
+R1.pairs=(p)=>{const P=p===1?PAIRS1:PAIRS2;
   screen.innerHTML=`<div class="stack pop">${partTag(p)}<h2>حروف بتتشابه</h2>
   <p class="lead">هدول أكثر أزواج بيغلّطوا المبتدئين. ركّز بالفرق الصغير.</p>
   <div class="panel pairs">${P.map(x=>{const a=LETTERS.find(y=>y.h===x[0]),b=LETTERS.find(y=>y.h===x[1]);return `<div class="pair"><span class="glyph" lang="he">${x[0]}</span><span class="glyph" lang="he">${x[1]}</span><div><strong>${a.ar} ، ${b.ar}</strong><p>${x[2]}</p></div></div>`;}).join('<hr style="border:0;border-top:1px solid var(--line);margin:0">')}</div></div>`;return true;};
 
-R.finals=()=>{
+R1.finals=()=>{
   screen.innerHTML=`<div class="stack pop">${partTag(3)}<h2>الحروف النهائية</h2>
   <p class="lead">خمس حروف بيتغير شكلهم لما ييجوا بآخر الكلمة. الصوت نفسه، بس الشكل غير. الإسرائيليين بيحفظوهم بكلمة وحدة: <b>«كَمْنَفِتس»</b> ${he("כמנפץ")}.</p>
   <div class="finals">${FINALS.map(f=>`<button type="button" class="final tile-f" data-h="${f.h}" style="width:100%"><span class="glyph" lang="he">${f.base}</span><span class="arrow">بآخر الكلمة ←</span><span class="glyph" lang="he">${f.h}</span><span class="hand" lang="he">${f.h}</span></button>`).join("")}</div>
@@ -546,20 +572,20 @@ function quizScreen(key,head,title,lead,build,minPass){
   return key==="check"?S.best>=minPass:S.done[key]!==undefined;
 }
 const P1=LETTERS.filter(l=>l.p===1),P2=LETTERS.filter(l=>l.p===2);
-R.drill=(p)=>{
+R1.drill=(p)=>{
   if(p===1)return quizScreen("drill1",partTag(1),"تدريب الجزء 1","شوف الحرف، مطبوع أو بخط اليد، واختار صوته.",()=>shuffle([...pick(P1,8).map(l=>letterQ(l,P1)),...PAIRS1.slice(0,2).map(pairQ)]));
   if(p===2)return quizScreen("drill2",partTag(2),"تدريب الجزء 2","الحروف الجديدة، ومعها شوية من الجزء الأول.",()=>shuffle([...P2.map(l=>letterQ(l,P2)),...pick(P1,1).map(l=>letterQ(l,LETTERS)),pairQ(PAIRS2[0]),pairQ(PAIRS2[1])]));
   return quizScreen("drill3",partTag(3),"تدريب الحروف النهائية","شوف الحرف النهائي واختار الحرف العادي اللي بيقابله.",()=>shuffle([...FINALS.map(finalQ),...pick(FINALS,3).map(f=>letterQ(f,FINALS))]));
 };
-R.read=(p)=>{
+R1.read=(p)=>{
   const pools={1:WORDS1,2:WORDS2,3:WORDS3},pool=pools[p],n=p===3?6:8;
   const leads={1:"هاي أول كلمات بتقراها بالعبري، وكلها من حروف الجزء 1.",2:"كلمات فيها الحروف الجديدة. لاحظ قديش منها بتشبه العربي.",3:"كلمات بتخلص بحرف نهائي."};
   return quizScreen("read"+p,partTag(p),"اقرأ الكلمة",leads[p],()=>pick(pool,n).map(w=>wordQ(w,pool)));
 };
-R.listen=()=>quizScreen("listen","","اسمع واختار","اسمع الكلمة واختار كيف بتنكتب.",()=>pick(WORDS_ALL,6).map(listenQ));
-R.check=()=>quizScreen("check","","صرت بقدر أقرأ الأبجدية كلها؟",`${CHECK_N} سؤال من كل الوحدة. إذا جبت ${PASS} أو أكثر، بتكون خلصت الأبجدية وبتفتح الوحدة الجاية.`,()=>shuffle([...pick(P1,3).map(l=>letterQ(l,LETTERS)),...pick(P2,3).map(l=>letterQ(l,LETTERS)),...pick(FINALS,2).map(finalQ),...pick(WORDS_ALL,3).map(w=>wordQ(w,WORDS_ALL)),pairQ(pick([...PAIRS1,...PAIRS2],1)[0])]),PASS);
+R1.listen=()=>quizScreen("listen","","اسمع واختار","اسمع الكلمة واختار كيف بتنكتب.",()=>pick(WORDS_ALL,6).map(listenQ));
+R1.check=()=>quizScreen("check","","صرت بقدر أقرأ الأبجدية كلها؟",`${CHECK_N} سؤال من كل الوحدة. إذا جبت ${PASS} أو أكثر، بتكون خلصت الأبجدية وبتفتح الوحدة الجاية.`,()=>shuffle([...pick(P1,3).map(l=>letterQ(l,LETTERS)),...pick(P2,3).map(l=>letterQ(l,LETTERS)),...pick(FINALS,2).map(finalQ),...pick(WORDS_ALL,3).map(w=>wordQ(w,WORDS_ALL)),pairQ(pick([...PAIRS1,...PAIRS2],1)[0])]),PASS);
 
-R.root=()=>{screen.innerHTML=`<div class="stack pop">${partTag(1)}<h2>جذر الوحدة</h2>
+R1.root=()=>{screen.innerHTML=`<div class="stack pop">${partTag(1)}<h2>جذر الوحدة</h2>
   <p class="lead">العبري زي العربي مبني على جذور من 3 حروف. وكثير جذور مشتركة بين اللغتين.</p>
   <div class="root-letters"><span lang="he">ל</span><span lang="he">מ</span><span lang="he">ד</span></div>
   <p style="text-align:center">الجذر <b>ل-م-د</b> معناه بالعبري <b>تعلّم</b></p>
@@ -570,7 +596,7 @@ R.root=()=>{screen.innerHTML=`<div class="stack pop">${partTag(1)}<h2>جذر ا�
   </div>
   <div class="note"><b>شفت؟</b> كلمة «تلميذ» اللي بتستعملها بالعربي جاية من نفس الجذر. هيك رح نتعلم مع بعض: من اللي بتعرفه للي لسا ما بتعرفه.</div></div>`;return true;};
 
-R.build=()=>{let bi=0;
+R1.build=()=>{let bi=0;
   function render(){
     const t=BUILD[bi],letters=shuffle([...t.w.split(""),...t.extra]);let typed=[];
     screen.innerHTML=`<div class="stack pop"><h2>ركّب الكلمة</h2><p class="lead">كبس على الحروف بالترتيب من اليمين للشمال، وانتبه للحرف النهائي. (${bi+1} من ${BUILD.length})</p>
@@ -591,7 +617,7 @@ R.build=()=>{let bi=0;
   }
   render();return !!S.done.build;};
 
-R.stand=()=>{const items=[{w:"סלט",m:"سلطة",p:"₪12"},{w:"לחם",m:"خبز",p:"₪5"},{w:"מלח",m:"ملح",p:"₪0"}];
+R1.stand=()=>{const items=[{w:"סלט",m:"سلطة",p:"₪12"},{w:"לחם",m:"خبز",p:"₪5"},{w:"מלח",m:"ملح",p:"₪0"}];
   const tasks=[{ask:"بدك تطلب سلطة. على أي سطر بتكبس؟",a:"סלט"},{ask:"بدك تطلب خبز مع الفلافل. وين؟",a:"לחם"},{ask:"الصحن بدو ملح. وين الملح؟",a:"מלח"}];let ti=0;
   function render(){const t=tasks[ti];
     screen.innerHTML=`<div class="stack pop"><h2>بكشك الفلافل</h2><p class="lead">انت واقف قدام كشك بالقدس، والمنيو بالعبري بس. يلا نجرب.</p>
@@ -611,16 +637,121 @@ R.stand=()=>{const items=[{w:"סלט",m:"سلطة",p:"₪12"},{w:"לחם",m:"خ�
     }));}
   render();return !!S.done.stand;};
 
-R.done=()=>{if(window.onUnitDone)window.onUnitDone("0-1");screen.innerHTML=`<div class="stack pop" style="text-align:center">
+R1.done=()=>{if(window.onUnitDone)window.onUnitDone("0-1");screen.innerHTML=`<div class="stack pop" style="text-align:center">
   <div class="badge"><span class="glyph" lang="he">א–ת</span><small>الوحدة 1</small></div>
   <h1>خلصت الأبجدية العبرية كلها</h1>
   <p class="lead">22 حرف و5 أشكال نهائية، مطبوعين وبخط اليد. وقرأت أول كلماتك وطلبت أكل من كشك.</p>
   <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK_N}</b><span>الفحص النهائي</span></div><div><b>${ALL.filter(l=>S.seen[l.h]).length}/27</b><span>حرف شفته</span></div></div>
-  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">انفتحت</span><p><b>الوحدة 2: الحركات (${he("נִקּוּד")})</b></p><p class="lead" style="font-size:14px">الحركات العبرية مقارنة بالفتحة والكسرة والضمة</p></div><span class="counter">قريبًا</span></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">انفتحت</span><p><b>الوحدة 2: الحركات (${he("נִקּוּד")})</b></p><p class="lead" style="font-size:14px">الحركات العبرية مقارنة بالفتحة والكسرة والضمة</p></div><span class="counter">جاهزة</span></div>
   <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
   screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
-  screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,{step:0,xp:0,seen:{},done:{},best:0});save();$("xp").textContent="0 نقطة";go(0);});
+  screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,BLANK());save();$("xp").textContent="0 نقطة";go(0);});
   return true;};
+UNITS["0-1"]={steps:STEPS1,titles:TITLES1,screens:R1,crumb:"المستوى 0 · الوحدة 1"};
+
+/* ================= Unit 0-2: vowels (niqqud) ================= */
+const VOWELS=[
+ {k:"a",lat:"a",ar:"فتحة",marks:[["ַ","פַּתַח","پَتاح"],["ָ","קָמָץ","كاماتس"]],ex:{w:"דָּג",r:"داچ",m:"سمكة"},note:"زي الفتحة بالزبط. علامتين مختلفات، بس نفس الصوت بالعبري الحديث.",look:"خط أفقي تحت الحرف، أو خط مع رجل صغيرة تحته زي T."},
+ {k:"e",lat:"e",ar:"إي خفيفة",marks:[["ֶ","סֶגּוֹל","سيچول"],["ֵ","צֵירֵי","تسيريه"]],ex:{w:"סֵפֶר",r:"سيفِر",m:"كتاب"},note:"مش موجودة بالفصحى، بس موجودة بلهجتنا: زي «بيت» لما نحكيها «بيت» مش «بَيت».",look:"ثلاث نقاط تحت الحرف، أو نقطتين جنب بعض."},
+ {k:"i",lat:"i",ar:"كسرة",marks:[["ִ","חִירִיק","حيريك"]],ex:{w:"עִיר",r:"عير",m:"مدينة"},note:"زي الكسرة. وكثير مرات بييجي بعدها י زي الياء الممدودة.",look:"نقطة وحدة تحت الحرف."},
+ {k:"o",lat:"o",ar:"أو",marks:[["ֹ","חוֹלָם","حولام"]],ex:{w:"יוֹם",r:"يوم",m:"يوم"},note:"مش موجودة بالفصحى، بس موجودة بلهجتنا: زي «يوم» و«لون» لما نحكيها.",look:"نقطة فوق الحرف، وغالبًا فوق ו: וֹ."},
+ {k:"u",lat:"u",ar:"ضمة",marks:[["וּ","שׁוּרוּק","شوروك"],["ֻ","קֻבּוּץ","كوبوتس"]],ex:{w:"סוּס",r:"سوس",m:"حصان"},note:"زي الضمة. أكثر إشي بتنكتب كـ ו وجواها نقطة: וּ.",look:"ו جواها نقطة، أو ثلاث نقاط مايلة تحت الحرف."}
+];
+const VSYL=[["בַּ","a"],["לָ","a"],["מַ","a"],["דֶ","e"],["נֵ","e"],["סֶ","e"],["לִ","i"],["תִּ","i"],["רִ","i"],["מוֹ","o"],["לֹ","o"],["דוֹ","o"],["נוּ","u"],["סוּ","u"],["קֻ","u"],["תֵּ","e"],["גָּ","a"],["חוֹ","o"],["כִּ","i"],["רוּ","u"]];
+const VLAB={a:"a · فتحة",e:"e · إي خفيفة",i:"i · كسرة",o:"o · أو",u:"u · ضمة"};
+const PWORDS=[
+ {w:"שָׁלוֹם",r:"شالوم",m:"سلام"},{w:"תּוֹדָה",r:"تودا",m:"شكرًا"},{w:"יֶלֶד",r:"يِلِد",m:"ولد"},{w:"אִמָּא",r:"إيما",m:"ماما"},
+ {w:"סֵפֶר",r:"سيفِر",m:"كتاب"},{w:"בַּיִת",r:"بايِت",m:"بيت"},{w:"מַיִם",r:"مايِم",m:"مي"},{w:"לֶחֶם",r:"لِحِم",m:"خبز"},
+ {w:"כֶּלֶב",r:"كيلِڤ",m:"كلب"},{w:"יוֹם",r:"يوم",m:"يوم"},{w:"שֶׁמֶשׁ",r:"شيميش",m:"شمس"},{w:"חָבֵר",r:"حاڤير",m:"صاحب"},
+ {w:"עִיר",r:"عير",m:"مدينة"},{w:"גָּמָל",r:"چامال",m:"جمل"},{w:"פֶּרַח",r:"پيراح",m:"وردة"},{w:"סוּס",r:"سوس",m:"حصان"},
+ {w:"דֶּלֶת",r:"دِلِت",m:"باب"},{w:"כִּסֵּא",r:"كيسيه",m:"كرسي"},{w:"דָּג",r:"داچ",m:"سمكة"},{w:"עֵט",r:"عيط",m:"قلم"}
+];
+const SPECIAL=[
+ {h:"שְׁ",t:"شْوا (שְׁוָא)",d:"نقطتين فوق بعض تحت الحرف. يا إما سكون، يا إما e خفيفة كثير. زي «شْ» بكلمة «שְׁמוֹנֶה».",q:{w:"שְׁמוֹנֶה",r:"شْمونيه",m:"ثمانية"}},
+ {h:"בּ",t:"داچيش (דָּגֵשׁ)",d:"نقطة جوا الحرف. بالعبري الحديث بتغيّر صوت 3 حروف بس: בּ = ب، כּ = ك، פּ = پ. وبدون النقطة: ב = ڤ، כ = خ، פ = ف.",q:{w:"כֶּלֶב",r:"كيلِڤ",m:"كلب"}},
+ {h:"שׁ",t:"نقطة الشين",d:"نقطة فوق اليمين: שׁ = ش. نقطة فوق الشمال: שׂ = س.",q:{w:"שָׂרָה",r:"سارا",m:"سارة"}}
+];
+const SIGNS=[
+ {w:"גַּן יְלָדִים",r:"چان يِلاديم",m:"روضة أطفال"},
+ {w:"בֵּית סֵפֶר",r:"بيت سيفِر",m:"مدرسة"},
+ {w:"קֻפַּת חוֹלִים",r:"كوپات حوليم",m:"صندوق المرضى"}
+];
+const STEPS2=[{k:"intro"},{k:"vowels"},{k:"arabic"},{k:"drill"},{k:"special"},{k:"drill2"},{k:"read"},{k:"listen"},{k:"street"},{k:"check"},{k:"done"}];
+const TITLES2={intro:"مقدمة",vowels:"الحركات الخمس",arabic:"قارن بالعربي",drill:"تدريب",special:"علامات خاصة",drill2:"تدريب العلامات",read:"اقرأ المشكّل",listen:"اسمع واختار",street:"مشوار بالحارة",check:"صرت بقدر",done:"خلصت"};
+const PASS2=7,CHECK2=10;
+const R2={};
+const vq=(s,v)=>{const o=shuffle(Object.keys(VLAB));return{prompt:`<span class="word nq" lang="he">${s}</span><p class="lead">شو صوت الحركة؟</p>`,opts:o.map(k=>VLAB[k]),ans:o.indexOf(v),explain:`${he(s)} بتنلفظ مع صوت ${VLAB[v]}.`};};
+const pwq=(w,pool)=>{const o=shuffle([w,...pick(pool,3,x=>x.w===w.w)]);return{prompt:`<span class="word nq" lang="he">${w.w}</span><p class="lead">كيف بتنقرأ هالكلمة؟</p>`,opts:o.map(x=>"«"+x.r+"»"),ans:o.indexOf(w),explain:`${he(w.w)} بتنقرأ «${w.r}» ومعناها ${w.m}.`};};
+const plq=w=>{const o=shuffle([w,...pick(PWORDS,3,x=>x.w===w.w)]);return{prompt:`${speakBtn(w.w,"اسمع الكلمة")}<p class="lead">أي كلمة سمعت؟</p><details><summary class="counter">ما اشتغل الصوت؟ اعرض اللفظ</summary><p>«${w.r}»</p></details>`,auto:w.w,opts:o.map(x=>`<span class="he nq" lang="he">${x.w}</span>`),ans:o.indexOf(w),explain:`سمعت ${he(w.w)}، ومعناها ${w.m}.`};};
+const dq=()=>{const items=[["בּ","ب"],["ב","ڤ"],["כּ","ك"],["כ","خ"],["פּ","پ"],["פ","ف"],["שׁ","ش"],["שׂ","س"]];const it=items[Math.floor(Math.random()*items.length)];const o=shuffle([it[1],...pick(["ب","ڤ","ك","خ","پ","ف","ش","س"],3,x=>x===it[1])]);return{prompt:`<span class="glyph nq" lang="he">${it[0]}</span><p class="lead">انتبه للنقطة. شو صوت الحرف؟</p>`,opts:o,ans:o.indexOf(it[1]),optClass:"ar-letter",explain:`${he(it[0])} صوته ${it[1]}. النقطة بتفرق!`};};
+
+R2.intro=()=>{screen.innerHTML=`<div class="stack pop">
+  <h1>العبري إله 5 أصوات حركات بس</h1>
+  <p class="lead">بالعادة العبري بينكتب بدون حركات، زي العربي. بس بكتب الأطفال والدين والشعر، وبكتب تعليم المبتدئين، بيحطوا حركات اسمها <b>נִקּוּד</b> (نيكود). وهاي هي المفتاح لتقرأ صح من الأول.</p>
+  <div class="panel hero"><span class="glyph nq" lang="he">שָׁלוֹם</span><span class="eq">=</span><span class="ar">شالوم</span></div>
+  <div class="note"><b>بنهاية الوحدة رح تقدر:</b> تقرأ أي كلمة عليها حركات، وتفهم شو بتعمل النقطة جوا الحرف، وتقرأ لافتات مشكّلة بالحارة.</div></div>`;return true;};
+
+R2.vowels=()=>{screen.innerHTML=`<div class="stack pop"><h2>الحركات الخمس</h2>
+  <p class="lead">كل الحركات العبرية بترجع لـ5 أصوات بس. شفت الحرف ב تحت كل حركة؟ كبس على الصوت تسمعه.</p>
+  <div class="vlist">${VOWELS.map(v=>`<div class="panel vcard">
+    <div class="vhead"><span class="vlat">${v.lat}</span><div><b>${v.ar}</b><small>${v.marks.map(m=>m[2]).join(" أو ")}</small></div>${speakBtn(v.ex.w,"اسمع")}</div>
+    <div class="vmarks">${v.marks.map(m=>`<span class="vm"><span class="glyph nq" lang="he">ב${m[0]==="וּ"?"וּ":m[0]}</span><small class="he" lang="he">${m[1]}</small></span>`).join("")}</div>
+    <p class="vnote">${v.note}</p><p class="vnote lead">شكلها: ${v.look}</p>
+    <div class="ex"><div><span class="he nq" lang="he" style="font-size:30px">${v.ex.w}</span><small style="display:block;color:var(--muted)">«${v.ex.r}» = ${v.ex.m}</small></div>${speakBtn(v.ex.w)}</div>
+  </div>`).join("")}</div></div>`;
+  S.done.vowels=1;save();return true;};
+
+R2.arabic=()=>{screen.innerHTML=`<div class="stack pop"><h2>قارن بالعربي</h2>
+  <p class="lead">العربي الفصيح إله 3 حركات. العبري إله 5، والثنتين الزايدات موجودات أصلًا بلهجتنا.</p>
+  <div class="panel cmp">
+    <div class="cmp-row head"><span>الصوت</span><span>العربي</span><span>العبري</span></div>
+    <div class="cmp-row"><span class="vlat">a</span><span>فتحة ـَ</span><span class="glyph nq" lang="he">בַ בָ</span></div>
+    <div class="cmp-row"><span class="vlat">i</span><span>كسرة ـِ</span><span class="glyph nq" lang="he">בִ</span></div>
+    <div class="cmp-row"><span class="vlat">u</span><span>ضمة ـُ</span><span class="glyph nq" lang="he">בוּ בֻ</span></div>
+    <div class="cmp-row"><span class="vlat">e</span><span>«بيت» باللهجة</span><span class="glyph nq" lang="he">בֶ בֵ</span></div>
+    <div class="cmp-row"><span class="vlat">o</span><span>«يوم» باللهجة</span><span class="glyph nq" lang="he">בוֹ</span></div>
+    <div class="cmp-row"><span class="vlat">ـْ</span><span>سكون</span><span class="glyph nq" lang="he">בְ</span></div>
+  </div>
+  <div class="note"><b>الفرق الكبير:</b> بالعربي الحركة فوق أو تحت الحرف. بالعبري أغلبها تحت، وحركة o و u بتنكتب كثير مع ו.</div></div>`;return true;};
+
+R2.drill=()=>quizScreen("drill","","تدريب الحركات","شوف المقطع واختار صوت الحركة.",()=>shuffle(pick(VSYL,10).map(x=>vq(x[0],x[1]))));
+
+R2.special=()=>{screen.innerHTML=`<div class="stack pop"><h2>علامات خاصة</h2>
+  <p class="lead">في 3 علامات لازم تعرفهم عشان تقرأ صح. أهمهم النقطة جوا الحرف، لأنها بتغير الصوت كله.</p>
+  ${SPECIAL.map(x=>`<div class="panel sp"><div class="sp-head"><span class="glyph nq" lang="he">${x.h}</span><b>${x.t}</b></div><p>${x.d}</p>
+    <div class="ex"><div><span class="he nq" lang="he" style="font-size:28px">${x.q.w}</span><small style="display:block;color:var(--muted)">«${x.q.r}» = ${x.q.m}</small></div>${speakBtn(x.q.w)}</div></div>`).join("")}
+  <div class="note"><b>تذكر من الوحدة 1:</b> قلنا إنه ב و כ و פ إلهم صوتين. هلأ صرت تعرف كيف تفرق بيناتهم بالنقطة.</div></div>`;return true;};
+
+R2.drill2=()=>quizScreen("drill2","","تدريب العلامات","النقطة جوا الحرف وفوق الشين. ركّز!",()=>Array.from({length:8},dq));
+R2.read=()=>quizScreen("read","","اقرأ المشكّل","كلمات كاملة بالحركات. اقرأها بعقلك قبل ما تختار.",()=>pick(PWORDS,8).map(w=>pwq(w,PWORDS)));
+R2.listen=()=>quizScreen("listen","","اسمع واختار","اسمع الكلمة واختار أي وحدة مكتوبة.",()=>pick(PWORDS,6).map(plq));
+
+R2.street=()=>{let si=0;
+  function render(){const t=SIGNS[si],o=shuffle([t,...SIGNS.filter(x=>x!==t)]);
+    screen.innerHTML=`<div class="stack pop"><h2>مشوار بالحارة</h2><p class="lead">انت ماشي بحارة جديدة، واللافتات مكتوبة بالعبري مع حركات. شو مكتوب؟ (${si+1} من ${SIGNS.length})</p>
+    <div class="sign"><span class="he nq" lang="he">${t.w}</span></div>
+    <div class="opts one">${o.map((x,k)=>`<button type="button" class="opt" data-k="${k}">«${x.r}» · ${x.m}</button>`).join("")}</div><div class="sfb"></div></div>`;
+    screen.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{const k=+b.dataset.k,ok=o[k]===t;
+      screen.querySelectorAll(".opt").forEach((x,n)=>{x.disabled=true;if(o[n]===t)x.classList.add("right");else if(n===k)x.classList.add("wrong");});
+      if(ok)addXP(10);speak(t.w);const last=si+1>=SIGNS.length,fb=screen.querySelector(".sfb");
+      fb.innerHTML=`<div class="feedback ${ok?"good":"bad"}">${ok?"صح!":"مش هاي."} ${he(t.w)} = ${t.m}</div><button type="button" class="btn sn" style="width:100%;margin-top:10px">${last?"خلص المشوار":"اللافتة الجاية"}</button>`;
+      fb.querySelector(".sn").addEventListener("click",()=>{if(!last){si++;render();}else{S.done.street=1;save();refreshNav(true);fb.querySelector(".sn").remove();toast("برافو، قرأت لافتات الحارة!");}});}));}
+  render();return !!S.done.street;};
+
+R2.check=()=>quizScreen("check","","صرت بقدر أقرأ المشكّل؟",`${CHECK2} أسئلة من كل الوحدة. إذا جبت ${PASS2} أو أكثر، بتخلص الوحدة.`,()=>shuffle([...pick(VSYL,4).map(x=>vq(x[0],x[1])),dq(),dq(),...pick(PWORDS,4).map(w=>pwq(w,PWORDS))]),PASS2);
+
+R2.done=()=>{if(window.onUnitDone)window.onUnitDone("0-2");screen.innerHTML=`<div class="stack pop" style="text-align:center">
+  <div class="badge"><span class="glyph nq" lang="he">בַּ בִּ בּוּ</span><small>الوحدة 2</small></div>
+  <h1>صرت تقرأ أي كلمة مشكّلة</h1>
+  <p class="lead">الحركات الخمس، والشْوا، والنقطة جوا الحرف، ونقطة الشين.</p>
+  <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK2}</b><span>الفحص النهائي</span></div><div><b>5</b><span>أصوات</span></div></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاية</span><p><b>الوحدة 3: القراءة بدون تشكيل</b></p><p class="lead" style="font-size:14px">كيف تقرأ العبري الحقيقي بالشارع</p></div><span class="counter">قريبًا</span></div>
+  <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
+  screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
+  screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,BLANK());save();$("xp").textContent="0 نقطة";go(0);});
+  return true;};
+UNITS["0-2"]={steps:STEPS2,titles:TITLES2,screens:R2,crumb:"المستوى 0 · الوحدة 2"};
+
 
 /* ---------- nav ---------- */
 function refreshNav(can){
@@ -632,15 +763,15 @@ function refreshNav(can){
 function go(n){
   S.step=Math.max(0,Math.min(STEPS.length-1,n));save();
   const st=STEPS[S.step];
-  $("crumb").textContent=`المستوى 0 · الوحدة 1 · ${st.p?"الجزء "+st.p+" · ":""}${TITLES[st.k]}`;
+  $("crumb").textContent=`${CRUMB} · ${st.p?"الجزء "+st.p+" · ":""}${TITLES[st.k]}`;
   $("bar").style.width=(S.step/(STEPS.length-1)*100)+"%";
   ($("lessonView")||window).scrollTo(0,0);
   refreshNav(R[st.k](st.p));
 }
-nextBtn.addEventListener("click",()=>go(S.step+1));
-backBtn.addEventListener("click",()=>go(S.step-1));
-$("xp").textContent=S.xp+" نقطة";
-window.Lesson={open:()=>go(S.step),progress:()=>S.step/(STEPS.length-1),state:()=>S,ALL,WORDS_ALL,reset:()=>{Object.assign(S,{step:0,xp:0,seen:{},done:{},best:0});save();$("xp").textContent="0 نقطة";}};
+nextBtn.addEventListener("click",()=>{if(S)go(S.step+1);});
+backBtn.addEventListener("click",()=>{if(S)go(S.step-1);});
+function open(id){UNIT=id;const u=UNITS[id];STEPS=u.steps;TITLES=u.titles;R=u.screens;CRUMB=u.crumb;S=loadState(id);$("xp").textContent=S.xp+" نقطة";go(S.step);}
+window.Lesson={open,has:id=>!!UNITS[id],progress:id=>{const u=UNITS[id];if(!u)return 0;const st=(id===UNIT&&S)?S:loadState(id);return st.step/(u.steps.length-1);},state:id=>loadState(id||"0-1"),ALL,WORDS_ALL,reset:()=>{Object.keys(UNITS).forEach(id=>{try{localStorage.removeItem(keyOf(id));}catch(e){}});S=null;}};
 })();
 </script>
 <script>// Word of the day bank: [hebrew, transliteration, meaning, example (he), example (ar), shared-root note]
@@ -1063,7 +1194,7 @@ const LEVELS=[
 ];
 const TOTAL=LEVELS.reduce((a,l)=>a+l.units.length,0);
 const uid=(l,u)=>l+"-"+(u+1);
-const PLAYABLE={"0-1":true};
+const PLAYABLE={};["0-1","0-2"].forEach(id=>{if(L.has(id))PLAYABLE[id]=true;});
 const isDone=id=>!!P.units[id];
 function prevId(l,u){if(u>0)return uid(l,u-1);if(l>0)return uid(l-1,LEVELS[l-1].units.length-1);return null;}
 function unitState(l,u){const id=uid(l,u);if(isDone(id))return"done";const pv=prevId(l,u);if(!pv||isDone(pv))return PLAYABLE[id]?"current":"soon";return"locked";}
@@ -1079,7 +1210,7 @@ window.onXP=n=>{const d=today();if(P.today.d!==d)P.today={d,xp:0};P.today.xp+=n;
 window.onUnitDone=id=>{if(!P.units[id]){P.units[id]=today();save();}};
 window.closeLesson=()=>{$("lessonView").hidden=true;$("tabs").hidden=false;document.body.style.overflow="";route(curView);};
 
-function openLesson(){$("lessonView").hidden=false;$("tabs").hidden=true;document.body.style.overflow="hidden";L.open();}
+function openLesson(id){$("lessonView").hidden=false;$("tabs").hidden=true;document.body.style.overflow="hidden";L.open(id);}
 
 /* chips */
 function chips(){document.querySelectorAll("[data-xp]").forEach(e=>e.textContent=P.xp);document.querySelectorAll("[data-streak]").forEach(e=>e.textContent=P.streak);}
@@ -1088,13 +1219,13 @@ const brand=()=>`<div class="brand"><div class="logo"><b>جسر</b><span lang="h
 /* views */
 const V={};
 V.home=()=>{
-  const c=currentUnit(),lvl=c?LEVELS[c.l]:null,ln=L.progress();
+  const c=currentUnit(),lvl=c?LEVELS[c.l]:null,ln=c?L.progress(uid(c.l,c.u)):0;
   const pct=c&&c.s==="current"?Math.round(ln*100):0;
   const wi=((daysBetween(P.start,today())%WOD.length)+WOD.length)%WOD.length,w=WOD[wi],isSaved=P.saved.includes(wi);
   const g=Math.min(100,Math.round(P.today.xp/P.goal*100));
   return `${brand()}
   <div class="hello"><h1>${P.xp?"أهلا فيك من جديد":"أهلا فيك بجسر"}</h1><p class="lead">العبري من العربي اللي بتعرفه.</p></div>
-  ${c?`<button type="button" class="continue" data-act="${c.s==="current"?"lesson":"soon"}">
+  ${c?`<button type="button" class="continue" data-act="${c.s==="current"?"lesson":"soon"}" data-id="${uid(c.l,c.u)}">
     <span class="eyebrow">${pct>0?"كمّل من وين وقفت":"الدرس الجاي"} · المستوى ${c.l} · الوحدة ${c.u+1}</span>
     <h2>${esc(lvl.units[c.u][0])}</h2>
     ${c.s==="current"?`<div class="prog"><i style="width:${pct}%"></i></div><span class="go">${pct>0?"كمّل":"ابدأ"}</span>`:`<span class="go">قريبًا</span>`}
@@ -1133,7 +1264,7 @@ V.tracks=()=>`${brand()}<div><h1 style="font-size:24px">التخصصات</h1><p 
   <div class="track"><span class="ic">${IC.more}</span><div><b>تخصصات أخرى</b><small>بنضيفها حسب طلبكم.</small></div><span class="tag">لاحقًا</span></div>
   <div class="note"><b>إمتى بيفتح مسار التخصص؟</b> بعد المستوى 4، أو مباشرة إذا مستواك عالي باختبار تحديد المستوى.</div>`;
 let confirmReset=false;
-V.me=()=>{const seen=L.state().seen||{};const letters=L.ALL.map(l=>`<span class="${seen[l.h]?"on":""}" lang="he">${l.h}</span>`).join("");const nSeen=L.ALL.filter(l=>seen[l.h]).length;
+V.me=()=>{const seen=L.state("0-1").seen||{};const letters=L.ALL.map(l=>`<span class="${seen[l.h]?"on":""}" lang="he">${l.h}</span>`).join("");const nSeen=L.ALL.filter(l=>seen[l.h]).length;
   return `${brand()}<h1 style="font-size:24px">حسابي</h1>
   <div class="statgrid">
     <div class="stat"><b data-xp>${P.xp}</b><span>نقطة</span></div>
@@ -1158,13 +1289,13 @@ document.addEventListener("click",e=>{
   const t=e.target.closest(".tab");if(t){confirmReset=false;route(t.dataset.tab);return;}
   const a=e.target.closest("[data-act]");
   if(a){const act=a.dataset.act;
-    if(act==="lesson")openLesson();
+    if(act==="lesson")openLesson(a.dataset.id);
     else if(act==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");
     else if(act==="placement")toast("اختبار تحديد المستوى قيد التحضير.");
     else if(act==="reset"){if(!confirmReset){confirmReset=true;route("me");}else{confirmReset=false;Object.assign(P,{xp:0,streak:0,last:null,today:{d:today(),xp:0},units:{},start:today(),saved:[]});save();L.reset();route("me");toast("انمسح تقدمك.");}}
     return;}
   const lv=e.target.closest("[data-lv]");if(lv){const n=+lv.dataset.lv;openLv=openLv===n?-1:n;route("path");return;}
-  const un=e.target.closest("[data-unit]");if(un){const s=un.dataset.s;if(s==="current"||(s==="done"&&PLAYABLE[un.dataset.unit]))openLesson();else if(s==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");else toast("خلّص الوحدة اللي قبلها أول.");return;}
+  const un=e.target.closest("[data-unit]");if(un){const s=un.dataset.s;if(s==="current"||(s==="done"&&PLAYABLE[un.dataset.unit]))openLesson(un.dataset.unit);else if(s==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");else toast("خلّص الوحدة اللي قبلها أول.");return;}
   const sv=e.target.closest("[data-save]");if(sv){const i=+sv.dataset.save;const k=P.saved.indexOf(i);if(k<0){P.saved.push(i);toast("انحفظت الكلمة بمراجعتك.");}else P.saved.splice(k,1);save();route("home");return;}
   const us=e.target.closest("[data-unsave]");if(us){const i=+us.dataset.unsave;P.saved=P.saved.filter(x=>x!==i);save();route("me");return;}
   const g=e.target.closest("[data-goal]");if(g){P.goal=+g.dataset.goal;save();route("me");}
