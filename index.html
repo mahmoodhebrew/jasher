@@ -290,6 +290,14 @@ p{margin:0}
 .wtiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .wtile{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-family:var(--f-he);font-size:24px;font-weight:700}
 .wtile[disabled]{opacity:.3}
+.chat{display:flex;flex-direction:column;gap:8px;background:var(--sunk);border-radius:var(--r);padding:12px}
+.msg{max-width:85%;border-radius:14px;padding:8px 12px;display:flex;flex-direction:column;gap:2px}
+.msg b{font-size:12px;color:var(--accent)}
+.msg .he{font-size:20px}
+.msg small{font-size:13px;color:var(--muted)}
+.msg.them{align-self:flex-start;background:var(--surface);border:1px solid var(--line)}
+.msg.me{align-self:flex-end;background:var(--accent);color:#FFFFFF}
+.msg.me .he{color:#FFFFFF}
 .section-title{font-family:var(--f-display);font-size:18px;margin:0}
 
 /* path */
@@ -953,12 +961,138 @@ R4.done=()=>{if(window.onUnitDone)window.onUnitDone("0-4");screen.innerHTML=`<di
   <h1>خلصت المستوى 0 كامل!</h1>
   <p class="lead">صرت تقرأ وتكتب العبري: الأبجدية، والحركات، والقراءة بدون تشكيل، وخط اليد، والكيبورد. هاد الأساس اللي كل إشي جاي مبني عليه.</p>
   <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK4}</b><span>الفحص النهائي</span></div><div><b>4/4</b><span>وحدات</span></div></div>
-  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاي</span><p><b>المستوى 1: الحياة اليومية</b></p><p class="lead" style="font-size:14px">التعارف، والعيلة، والأرقام، والسوق</p></div><span class="counter">قريبًا</span></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاي</span><p><b>المستوى 1: الحياة اليومية</b></p><p class="lead" style="font-size:14px">التعارف، والعيلة، والأرقام، والسوق</p></div><span class="counter">انفتح</span></div>
   <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
   screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
   screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,BLANK());save();$("xp").textContent="0 نقطة";go(0);});
   return true;};
 UNITS["0-4"]={steps:STEPS4,titles:TITLES4,screens:R4,crumb:"المستوى 0 · الوحدة 4"};
+
+/* ================= Unit 1-1: who am I ================= */
+const PRON=[
+ {h:"אני",r:"أني",m:"أنا",ar:"أنا"},{h:"אתה",r:"أتا",m:"انتَ",ar:"أنتَ"},{h:"את",r:"أت",m:"انتِ",ar:"أنتِ"},
+ {h:"הוא",r:"هو",m:"هو",ar:"هو"},{h:"היא",r:"هي",m:"هي",ar:"هي"},{h:"אנחנו",r:"أناخنو",m:"احنا",ar:"نحن"},
+ {h:"אתם",r:"أتيم",m:"انتو (شباب)",ar:"أنتم"},{h:"אתן",r:"أتين",m:"انتن (صبايا)",ar:"أنتنّ"},
+ {h:"הם",r:"هيم",m:"هم (شباب)",ar:"هم"},{h:"הן",r:"هين",m:"هن (صبايا)",ar:"هنّ"}
+];
+const NOMINAL=[["אני מחמוד","أني محمود","أنا محمود"],["היא אחות","هي أحوت","هي ممرضة"],["הוא סטודנט","هو سطودِنط","هو طالب"],["אנחנו מירושלים","أناخنو ميروشالايِم","احنا من القدس"]];
+const PHR=g=>[
+ {h:"מה שלומך?",r:"ما شلومخا؟ لشب · ما شلوميخ؟ لصبية",m:"كيف حالك؟",note:"نفس الكتابة، بس اللفظ بيتغير حسب مين بتحكي معه."},
+ {h:"מה נשמע?",r:"ما نِشماع؟",m:"شو الأخبار؟",note:"أكثر سؤال بتسمعه بالبلاد، وبيمشي مع الكل."},
+ {h:"בסדר, תודה",r:"بِسيدِر، تودا",m:"منيح، شكرًا"},
+ {h:"איך קוראים לך?",r:"إيخ كورئيم لِخا؟ لشب · إيخ كورئيم لاخ؟ لصبية",m:"شو اسمك؟"},
+ {h:"קוראים לי מחמוד",r:"كورئيم لي محمود",m:"اسمي محمود",note:"حرفيًا: «بينادولي محمود». ممكن كمان تحكي: שמי מחמוד."},
+ {h:"נעים מאוד",r:"نَعيم مِئود",m:"تشرفنا",note:"«نَعيم» زي «نعيم» بالعربي: إشي لطيف ومريح."},
+ {h:g==="f"?"מאיפה את?":"מאיפה אתה?",r:g==="f"?"مِئيفو أت؟":"مِئيفو أتا؟",m:"من وين انت؟"},
+ {h:"אני מירושלים",r:"أني ميروشالايِم",m:"أنا من القدس",note:"«مِ» بأول الكلمة = «من»."},
+ {h:g==="f"?"אני אחות":"אני אח",r:g==="f"?"أني أحوت":"أني أح",m:g==="f"?"أنا ممرضة":"أنا ممرض",note:"אח = أخ وممرض، אחות = أخت وممرضة. السياق بيحكي."},
+ {h:"להתראות",r:"لِهِترائوت",m:"مع السلامة",note:"حرفيًا: «لنشوف بعض»."}
+];
+const DLG=g=>{const f=g==="f";return[
+ {who:"דנה",line:f?"שלום! את חדשה פה?":"שלום! אתה חדש פה?",tr:f?"مرحبا! انتِ جديدة هون؟":"مرحبا! انت جديد هون؟",opts:[f?"כן, אני חדשה.":"כן, אני חדש.","להתראות!","אני לא יודע."],ok:0,why:"هي سألتك إذا انت جديد، فبتجاوب «أيوا، أنا جديد»."},
+ {who:"דנה",line:f?"נעים מאוד, אני דנה. מאיפה את?":"נעים מאוד, אני דנה. מאיפה אתה?",tr:"تشرفنا، أنا دانا. من وين انت؟",opts:["תודה רבה.","אני מירושלים.",f?"אני אחות.":"אני אח."],ok:1,why:"سألتك «من وين»، فالجواب «أنا من القدس»."},
+ {who:"דנה",line:f?"ומה את עושה פה?":"ומה אתה עושה פה?",tr:"وشو بتعمل هون؟",opts:[f?"אני אחות חדשה במחלקה.":"אני אח חדש במחלקה.","בסדר, תודה.","אני מירושלים."],ok:0,why:"سألتك شو شغلك، فبتحكيلها إنك ممرض جديد بالقسم."},
+ {who:"דנה",line:"יופי! מה שלומך היום?",tr:"حلو! كيف حالك اليوم؟",opts:["קוראים לי דנה.","טוב, תודה. ואת?","להתראות."],ok:1,why:"«منيح شكرًا، وانتِ؟». وبتحكي «ואת» لأنها صبية."},
+ {who:"דנה",line:"גם אני בסדר. טוב, אני הולכת. להתראות!",tr:"أنا كمان منيحة. يلا، أنا رايحة. مع السلامة!",opts:["נעים מאוד.","מה נשמע?","להתראות!"],ok:2,why:"ودّعتك، فبترد «مع السلامة»: להתראות."}
+];};
+const BUILD5=[{ar:"أنا من القدس",w:["אני","מירושלים"],x:["הוא","מחיפה"]},{ar:"هي ممرضة",w:["היא","אחות"],x:["הוא","אח"]},{ar:"اسمي محمود",w:["קוראים","לי","מחמוד"],x:["לך","שמך"]},{ar:"احنا طلاب",w:["אנחנו","סטודנטים"],x:["אתם","סטודנט"]}];
+const STEPS5=[{k:"intro"},{k:"gender"},{k:"pronouns"},{k:"drill"},{k:"nominal"},{k:"phrases"},{k:"root"},{k:"build"},{k:"dialog"},{k:"check"},{k:"done"}];
+const TITLES5={intro:"مقدمة",gender:"عرّفنا عليك",pronouns:"الضمائر",drill:"تدريب الضمائر",nominal:"بدون «يكون»",phrases:"جمل التعارف",root:"جذر الوحدة",build:"ركّب الجملة",dialog:"أول يوم بالشغل",check:"صرت بقدر",done:"خلصت"};
+const PASS5=7,CHECK5=10;
+const R5={};
+const gOf=()=>S.g||"m";
+const prq=p=>{const o=shuffle([p,...pick(PRON,3,x=>x.h===p.h)]);return{prompt:`<span class="word" lang="he">${p.h}</span><p class="lead">شو معنى هالضمير؟</p>`,opts:o.map(x=>x.m),ans:o.indexOf(p),explain:`${he(p.h)} «${p.r}» = ${p.m}، زي «${p.ar}» بالفصحى.`};};
+const prq2=p=>{const o=shuffle([p,...pick(PRON,3,x=>x.h===p.h)]);return{prompt:`<span class="target">${p.m}</span><p class="lead">كيف بتحكيها بالعبري؟</p>`,opts:o.map(x=>`<span class="he" lang="he">${x.h}</span>`),ans:o.indexOf(p),explain:`${p.m} = ${he(p.h)} «${p.r}».`};};
+const nsq=()=>{const items=[["هي ممرضة","היא אחות",["הוא אחות","היא אח","אני אחות"]],["هو طالب","הוא סטודנט",["היא סטודנט","הוא סטודנטית","אתה סטודנט"]],["أنا من القدس","אני מירושלים",["אתה מירושלים","אני ירושלים","הוא מירושלים"]],["احنا أصحاب","אנחנו חברים",["הם חברים","אנחנו חבר","אתם חברים"]]];
+  const it=items[Math.floor(Math.random()*items.length)];const o=shuffle([it[1],...it[2]]);return{prompt:`<span class="target">${it[0]}</span><p class="lead">أي جملة صح؟</p>`,opts:o.map(x=>`<span class="he" lang="he">${x}</span>`),ans:o.indexOf(it[1]),explain:`الصح: ${he(it[1])}.`};};
+const phq=()=>{const items=[["بدك تسأل حدا عن اسمه","איך קוראים לך?"],["بدك تحكي «تشرفنا»","נעים מאוד"],["بدك تودّع حدا","להתראות"],["بدك تسأل «شو الأخبار؟»","מה נשמע?"],["بدك تحكي إنك من القدس","אני מירושלים"]];
+  const it=items[Math.floor(Math.random()*items.length)];const o=shuffle([it[1],...pick(items.map(x=>x[1]),3,x=>x===it[1])]);return{prompt:`<span class="target" style="font-size:22px">${it[0]}</span><p class="lead">شو بتحكي؟</p>`,opts:o.map(x=>`<span class="he" lang="he">${x}</span>`),ans:o.indexOf(it[1]),explain:`بتحكي ${he(it[1])}.`};};
+
+R5.intro=()=>{screen.innerHTML=`<div class="stack pop">
+  <h1>أول محادثة إلك بالعبري</h1>
+  <p class="lead">بهالوحدة بتتعلم تعرّف عن حالك: مين انت، ومن وين، وشو بتشتغل. وبتشوف قديش الضمائر العبرية قريبة من العربي.</p>
+  <div class="panel hero"><span class="glyph" lang="he" style="font-size:52px">אני מחמוד</span></div>
+  <div class="note"><b>بنهاية الوحدة رح تقدر:</b> تعمل محادثة تعارف كاملة مع زميل بأول يوم شغل.</div></div>`;return true;};
+
+R5.gender=()=>{const g=S.g;screen.innerHTML=`<div class="stack pop"><h2>عرّفنا عليك</h2>
+  <p class="lead">العبري زي العربي، بيفرق بين الحكي مع شب والحكي مع صبية. عشان نعلمك الجمل الصح إلك، انت:</p>
+  <div class="opts"><button type="button" class="opt g-pick ${g==="m"?"right":""}" data-g="m">شب</button><button type="button" class="opt g-pick ${g==="f"?"right":""}" data-g="f">صبية</button></div>
+  <p class="lead" style="font-size:14px">بتقدر تغيره بأي وقت إذا رجعت لهالخطوة.</p></div>`;
+  screen.querySelectorAll(".g-pick").forEach(b=>b.addEventListener("click",()=>{S.g=b.dataset.g;save();screen.querySelectorAll(".g-pick").forEach(x=>x.classList.toggle("right",x===b));refreshNav(true);}));
+  return !!S.g;};
+
+R5.pronouns=()=>{screen.innerHTML=`<div class="stack pop"><h2>الضمائر</h2>
+  <p class="lead">شوف قديش قريبين من الفصحى. كبس على أي واحد تسمعه.</p>
+  <div class="rows">${PRON.map(p=>`<div class="row"><div><span class="he" lang="he">${p.h}</span><small>«${p.r}» = ${p.m} · بالفصحى: ${p.ar}</small></div>${speakBtn(p.h)}</div>`).join("")}</div>
+  <div class="note"><b>لاحظ:</b> ${he("אתה")} = أنتَ و${he("את")} = أنتِ، بالزبط زي العربي، بس ما في حركة بآخرها.</div></div>`;return true;};
+
+R5.drill=()=>quizScreen("drill","","تدريب الضمائر","من العبري للعربي ومن العربي للعبري.",()=>shuffle([...pick(PRON,5).map(prq),...pick(PRON,5).map(prq2)]));
+
+R5.nominal=()=>{screen.innerHTML=`<div class="stack pop"><h2>بدون «يكون»</h2>
+  <p class="lead">بالعبري، زي العربي، ما بتحتاج فعل «يكون» بالحاضر. بالإنجليزي بتحكي I <b>am</b> a nurse، بس بالعبري والعربي: «أنا ممرض» وخلص.</p>
+  <div class="rows">${NOMINAL.map(n=>`<div class="row"><div><span class="he" lang="he">${n[0]}</span><small>«${n[1]}» = ${n[2]}</small></div>${speakBtn(n[0])}</div>`).join("")}</div>
+  <div class="note"><b>وانتبه للمؤنث:</b> ${he("אח")} ممرض و${he("אחות")} ممرضة، ${he("סטודנט")} طالب و${he("סטודנטית")} طالبة. زي التاء بالعربي، بالعبري غالبًا بتزيد ת أو ה.</div></div>`;return true;};
+
+R5.phrases=()=>{const P=PHR(gOf());screen.innerHTML=`<div class="stack pop"><h2>جمل التعارف</h2>
+  <p class="lead">هدول الجمل اللي رح تحتاجها بأي تعارف. اسمعهم وردّدهم بصوت عالي.</p>
+  <div class="rows">${P.map(p=>`<div class="row"><div><span class="he" lang="he">${esc(p.h)}</span><small>«${esc(p.r)}» = ${esc(p.m)}</small>${p.note?`<small style="color:var(--fg)">${esc(p.note)}</small>`:""}</div>${speakBtn(p.say||p.h)}</div>`).join("")}</div></div>`;return true;};
+
+R5.root=()=>{screen.innerHTML=`<div class="stack pop"><h2>جذر الوحدة</h2>
+  <p class="lead">أول كلمة بتتعلمها بالعبري، «שלום»، جايّة من جذر بتعرفه منيح.</p>
+  <div class="root-letters"><span lang="he">ש</span><span lang="he">ל</span><span lang="he">ם</span></div>
+  <p style="text-align:center">الجذر <b>ش-ل-م</b> زي <b>س-ل-م</b> بالعربي</p>
+  <div class="rows">
+    <div class="row"><div>${he("שָׁלוֹם")}<small>«شالوم» = سلام</small></div>${speakBtn("שָׁלוֹם")}</div>
+    <div class="row"><div>${he("שָׁלֵם")}<small>«شاليم» = كامل، سليم</small></div>${speakBtn("שָׁלֵם")}</div>
+    <div class="row"><div>${he("לְשַׁלֵּם")}<small>«لِشَليم» = يدفع (يسلّم المصاري)</small></div>${speakBtn("לְשַׁלֵּם")}</div>
+    <div class="row"><div>${he("תַּשְׁלוּם")}<small>«تَشلوم» = دفعة</small></div>${speakBtn("תַּשְׁלוּם")}</div>
+  </div>
+  <div class="note"><b>لاحظ:</b> بالعبري ש بتقابل س بالعربي بكثير كلمات: שלום/سلام، שמש/شمس، שם/اسم.</div></div>`;return true;};
+
+R5.build=()=>{let si=0;
+  function render(){const t=BUILD5[si],tiles=shuffle([...t.w,...t.x]);let picked=[];
+    screen.innerHTML=`<div class="stack pop"><h2>ركّب الجملة</h2><p class="lead">ركّب الجملة من الكلمات. (${si+1} من ${BUILD5.length})</p>
+    <div class="panel stack"><p class="target">${t.ar}</p><div class="sent" lang="he" dir="rtl"></div>
+    <div class="wtiles" dir="rtl">${tiles.map(w=>`<button type="button" class="wtile" lang="he">${w}</button>`).join("")}</div>
+    <button type="button" class="btn ghost undo">امسح آخر كلمة</button></div><div class="wfb"></div></div>`;
+    const box=screen.querySelector(".sent"),fb=screen.querySelector(".wfb");
+    const paint=()=>{box.textContent=picked.map(x=>x.w).join(" ");};
+    screen.querySelectorAll(".wtile").forEach(b=>b.addEventListener("click",()=>{if(picked.length>=t.w.length)return;picked.push({w:b.textContent,b});b.disabled=true;paint();
+      if(picked.length===t.w.length){const ok=picked.map(x=>x.w).join(" ")===t.w.join(" ");box.classList.add(ok?"ok":"no");
+        if(ok){addXP(10);speak(t.w.join(" "));const last=si+1>=BUILD5.length;fb.innerHTML=`<div class="feedback good">صح! ${he(t.w.join(" "))} = ${t.ar}</div>`+(last?"":'<button type="button" class="btn nx" style="width:100%;margin-top:10px">الجملة الجاية</button>');
+          if(last){S.done.build=1;save();refreshNav(true);}else fb.querySelector(".nx").addEventListener("click",()=>{si++;render();});}
+        else fb.innerHTML=`<div class="feedback bad">قريب! امسح وجرب كمان مرة.</div>`;}}));
+    screen.querySelector(".undo").addEventListener("click",()=>{const x=picked.pop();if(x)x.b.disabled=false;box.classList.remove("ok","no");fb.innerHTML="";paint();});}
+  render();return !!S.done.build;};
+
+R5.dialog=()=>{const D=DLG(gOf());let di=0,log=[];
+  function render(){const t=D[di];
+    screen.innerHTML=`<div class="stack pop"><h2>أول يوم بالشغل</h2><p class="lead">انت بأول يوم بقسم جديد بالمستشفى، وزميلتك دانا جاي تتعرف عليك. اختار ردّك. (${di+1} من ${D.length})</p>
+    <div class="chat">${log.join("")}<div class="msg them"><b>${t.who}</b><span class="he" lang="he">${esc(t.line)}</span><small>${esc(t.tr)}</small></div></div>
+    <div class="opts one">${t.opts.map((o,k)=>`<button type="button" class="opt" data-k="${k}"><span class="he" lang="he">${esc(o)}</span></button>`).join("")}</div><div class="dfb"></div></div>`;
+    setTimeout(()=>speak(t.line),250);
+    screen.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{const k=+b.dataset.k,ok=k===t.ok;
+      screen.querySelectorAll(".opt").forEach((x,n)=>{x.disabled=true;if(n===t.ok)x.classList.add("right");else if(n===k)x.classList.add("wrong");});
+      if(ok)addXP(10);const last=di+1>=D.length,fb=screen.querySelector(".dfb");
+      fb.innerHTML=`<div class="feedback ${ok?"good":"bad"}">${ok?"صح! ":"مش هاد. "}${t.why}</div><button type="button" class="btn nx" style="width:100%;margin-top:10px">${last?"خلصت المحادثة":"كمّل"}</button>`;
+      fb.querySelector(".nx").addEventListener("click",()=>{log.push(`<div class="msg them"><b>${t.who}</b><span class="he" lang="he">${esc(t.line)}</span></div><div class="msg me"><span class="he" lang="he">${esc(t.opts[t.ok])}</span></div>`);
+        if(!last){di++;render();}else{S.done.dialog=1;save();refreshNav(true);fb.querySelector(".nx").remove();toast("برافو! عملت أول محادثة كاملة بالعبري.");}});}));}
+  render();return !!S.done.dialog;};
+
+R5.check=()=>quizScreen("check","","صرت بقدر أعرّف عن حالي؟",`${CHECK5} أسئلة. إذا جبت ${PASS5} أو أكثر، بتخلص الوحدة.`,()=>shuffle([...pick(PRON,3).map(prq),...pick(PRON,2).map(prq2),nsq(),nsq(),phq(),phq(),phq()]),PASS5);
+
+R5.done=()=>{if(window.onUnitDone)window.onUnitDone("1-1");screen.innerHTML=`<div class="stack pop" style="text-align:center">
+  <div class="badge"><span class="glyph" lang="he" style="font-size:30px">אני</span><small>المستوى 1 · الوحدة 1</small></div>
+  <h1>صرت تعرّف عن حالك بالعبري</h1>
+  <p class="lead">الضمائر، والجملة بدون «يكون»، وجمل التعارف، وأول محادثة كاملة.</p>
+  <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK5}</b><span>الفحص النهائي</span></div><div><b>10</b><span>جمل</span></div></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاية</span><p><b>الوحدة 2: العيلة</b></p><p class="lead" style="font-size:14px">المذكر والمؤنث والجمع</p></div><span class="counter">قريبًا</span></div>
+  <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
+  screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
+  screen.querySelector(".reset").addEventListener("click",()=>{const g=S.g;Object.assign(S,BLANK(),{g});save();$("xp").textContent="0 نقطة";go(0);});
+  return true;};
+UNITS["1-1"]={steps:STEPS5,titles:TITLES5,screens:R5,crumb:"المستوى 1 · الوحدة 1"};
+
 
 
 
@@ -1404,7 +1538,7 @@ const LEVELS=[
 ];
 const TOTAL=LEVELS.reduce((a,l)=>a+l.units.length,0);
 const uid=(l,u)=>l+"-"+(u+1);
-const PLAYABLE={};["0-1","0-2","0-3","0-4"].forEach(id=>{if(L.has(id))PLAYABLE[id]=true;});
+const PLAYABLE={};["0-1","0-2","0-3","0-4","1-1"].forEach(id=>{if(L.has(id))PLAYABLE[id]=true;});
 const isDone=id=>!!P.units[id];
 function prevId(l,u){if(u>0)return uid(l,u-1);if(l>0)return uid(l-1,LEVELS[l-1].units.length-1);return null;}
 function unitState(l,u){const id=uid(l,u);if(isDone(id))return"done";if(P.admin)return PLAYABLE[id]?"current":"soon";const pv=prevId(l,u);if(!pv||isDone(pv))return PLAYABLE[id]?"current":"soon";return"locked";}
