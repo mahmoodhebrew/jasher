@@ -309,6 +309,22 @@ p{margin:0}
 .fc.on .fc-back{display:flex}
 .fc .speak{position:absolute;bottom:6px;inset-inline-start:6px;padding:4px 8px;border-radius:99px}
 .fc .speak svg{width:15px;height:15px}
+.dsearch input{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:14px;padding:0 16px;font:inherit;font-size:17px;background:var(--surface);color:var(--fg);box-shadow:var(--shadow)}
+.dsearch input:focus{outline:none;border-color:var(--accent)}
+.dchips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.dchip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;font-size:13.5px;white-space:nowrap}
+.dchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#FFFFFF;font-weight:700}
+.dlist{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.dentry{display:grid;grid-template-columns:1fr auto;border-bottom:1px solid var(--line)}
+.dentry:last-child{border-bottom:0}
+.dentry.open{background:var(--accent-soft)}
+.dmain{border:0;background:none;display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 14px;text-align:start;min-width:0}
+.dmain .he{font-size:22px;font-weight:700;flex:0 0 auto}
+.dmean{color:var(--muted);font-size:14.5px;text-align:end;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dsay{border:0;background:none;color:var(--muted);padding:0 14px;display:flex;align-items:center}
+.dsay svg{width:20px;height:20px}
+.dmore{grid-column:1/-1;padding:0 14px 14px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.tab{font-size:11.5px}
 .section-title{font-family:var(--f-display);font-size:18px;margin:0}
 
 /* path */
@@ -361,7 +377,7 @@ p{margin:0}
 
 /* tabs */
 .tabs{position:fixed;bottom:0;inset-inline:0;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));z-index:10}
-.tabs-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tabs-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
 .tab{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:12px;color:var(--muted);border-radius:10px}
 .tab svg{width:24px;height:24px}
 .tab[aria-current="page"]{color:var(--accent);font-weight:700}
@@ -381,6 +397,7 @@ p{margin:0}
   <div class="tabs-in">
     <button type="button" class="tab" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>الرئيسية</button>
     <button type="button" class="tab" data-tab="path"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a4 4 0 0 0 0-8h-4a4 4 0 0 1 0-8h6"/></svg>مساري</button>
+    <button type="button" class="tab" data-tab="dict"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/><path d="M4 17a3 3 0 0 1 3-3h11"/><path d="M9 8h5"/></svg>القاموس</button>
     <button type="button" class="tab" data-tab="tracks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>التخصصات</button>
     <button type="button" class="tab" data-tab="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>حسابي</button>
   </div>
@@ -1771,7 +1788,28 @@ function go(n){
 nextBtn.addEventListener("click",()=>{if(S)go(S.step+1);});
 backBtn.addEventListener("click",()=>{if(S)go(S.step-1);});
 function open(id){UNIT=id;const u=UNITS[id];STEPS=u.steps;TITLES=u.titles;R=u.screens;CRUMB=u.crumb;S=loadState(id);$("xp").textContent=S.xp+" نقطة";go(S.step);}
-window.Lesson={open,has:id=>!!UNITS[id],progress:id=>{const u=UNITS[id];if(!u)return 0;const st=(id===UNIT&&S)?S:loadState(id);return st.step/(u.steps.length-1);},state:id=>loadState(id||"0-1"),ALL,WORDS_ALL,reset:()=>{Object.keys(UNITS).forEach(id=>{try{localStorage.removeItem(keyOf(id));}catch(e){}});S=null;}};
+
+/* ---------- dictionary ---------- */
+function buildDict(){
+  const strip=t=>String(t).replace(/[֑-ׇ]/g,"").trim();
+  const map=new Map();
+  const add=(h,r,m,src,lv,root)=>{h=String(h);if(!h||!/[א-ת]/.test(h))return;const k=strip(h);
+    if(!map.has(k))map.set(k,{h:k,p:h!==k?h:"",r:String(r||""),m:String(m||""),src:[],lv:lv,root:root||""});
+    const e=map.get(k);if(src&&!e.src.includes(src))e.src.push(src);if(lv<e.lv)e.lv=lv;if(root&&!e.root)e.root=root;if(!e.p&&h!==k)e.p=h;};
+  const g=v=>(v&&typeof v==="object"&&!Array.isArray(v)&&("m" in v))?v.m:v;
+  WORDS_ALL.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · الأبجدية",0));
+  LETTERS.forEach(l=>add(l.ex.w,l.ex.r,l.ex.m,"المستوى 0 · الأبجدية",0));
+  if(typeof PWORDS!=="undefined")PWORDS.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · الحركات",0));
+  if(typeof UWORDS!=="undefined")UWORDS.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · القراءة",0));
+  [[L1,1],[L2,2],[L3,3],[L4,4]].forEach(([list,lv])=>list.forEach(d=>{const src=`المستوى ${lv} · ${d.title}`;
+    (d.vocab||[]).forEach(v=>add(g(v[0]),g(v[1]),g(v[2]),src,lv));
+    (EXTRA[d.id]||[]).forEach(v=>add(g(v[0]),g(v[1]),g(v[2]),src,lv));
+    if(d.root)d.root.words.forEach(w=>add(w[0],w[1],w[2],src,lv,d.root.ar));}));
+  if(typeof WOD!=="undefined")WOD.forEach(w=>add(w[0],w[1],w[2],"كلمة اليوم",5,w[5]));
+  return [...map.values()];
+}
+let DICT=null;
+window.Lesson={dict:()=>DICT||(DICT=buildDict()),open,has:id=>!!UNITS[id],progress:id=>{const u=UNITS[id];if(!u)return 0;const st=(id===UNIT&&S)?S:loadState(id);return st.step/(u.steps.length-1);},state:id=>loadState(id||"0-1"),ALL,WORDS_ALL,reset:()=>{Object.keys(UNITS).forEach(id=>{try{localStorage.removeItem(keyOf(id));}catch(e){}});S=null;}};
 })();
 </script>
 <script>// Word of the day bank: [hebrew, transliteration, meaning, example (he), example (ar), shared-root note]
@@ -2264,6 +2302,28 @@ V.tracks=()=>`${brand()}<div><h1 style="font-size:24px">التخصصات</h1><p 
   <div class="track"><span class="ic">${IC.more}</span><div><b>تخصصات أخرى</b><small>بنضيفها حسب طلبكم.</small></div><span class="tag">لاحقًا</span></div>
   <div class="note"><b>إمتى بيفتح مسار التخصص؟</b> بعد المستوى 4، أو مباشرة إذا مستواك عالي باختبار تحديد المستوى.</div>`;
 let confirmReset=false,showAdmin=false,logoTaps=0,logoT=null;
+let dq="",dlv="all",dlimit=60,dopen=null;
+const norm=t=>String(t).replace(/[\u0591-\u05C7\u064B-\u0652\u0640«»]/g,"").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").toLowerCase().trim();
+const SAY='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>';
+function dictResults(){const D=L.dict();const q=norm(dq);let out=D;
+  if(dlv!=="all")out=out.filter(e=>String(e.lv)===dlv);
+  if(q){const sc=e=>{let b=9;for(const f of [e.h,e.m,e.r]){const v=norm(f);if(!v.includes(q))continue;const ws=v.split(/[\s،,؛;\/()\-]+/).filter(Boolean);
+      if(v===q)b=Math.min(b,0);else if(ws.includes(q))b=Math.min(b,1);else if(v.startsWith(q)||ws.some(w=>w.startsWith(q)))b=Math.min(b,2);else b=Math.min(b,3);}return b;};
+    out=out.map(e=>[sc(e),e]).filter(x=>x[0]<9).sort((a,b)=>a[0]-b[0]||String(a[1].h).length-String(b[1].h).length).map(x=>x[1]);return out;}
+  return out.slice().sort((a,b)=>a.h.localeCompare(b.h,"he"));}
+V.dict=()=>{const D=L.dict(),res=dictResults();if(!Array.isArray(P.myWords))P.myWords=[];
+  const chip=(v,l)=>`<button type="button" class="dchip" data-dlv="${v}" aria-pressed="${dlv===v}">${l}</button>`;
+  return `${brand()}<div><h1 style="font-size:24px">القاموس</h1><p class="lead">${D.length.toLocaleString("en")} كلمة عبري-عربي من كل المنصة. دوّر بالعبري أو بالعربي أو باللفظ.</p></div>
+  <div class="dsearch"><input id="dq" type="search" placeholder="مثلًا: بيت، בית، بايِت" value="${esc(dq)}" autocomplete="off" aria-label="دوّر بالقاموس"></div>
+  <div class="dchips">${chip("all","الكل")}${chip("0","المستوى 0")}${chip("1","المستوى 1")}${chip("2","المستوى 2")}${chip("3","المستوى 3")}${chip("4","المستوى 4")}${chip("5","كلمة اليوم")}</div>
+  <p class="counter">${res.length.toLocaleString("en")} نتيجة</p>
+  <div class="dlist">${res.slice(0,dlimit).map(e=>{const saved=P.myWords.includes(e.h),open=dopen===e.h;return `<div class="dentry ${open?"open":""}">
+    <button type="button" class="dmain" data-dopen="${esc(e.h)}"><span class="he" lang="he">${esc(e.p||e.h)}</span><span class="dmean">${esc(e.m)}</span></button>
+    <button type="button" class="dsay" data-say="${esc(e.h)}" aria-label="اسمع">${SAY}</button>
+    ${open?`<div class="dmore"><p>«${esc(e.r)}»</p>${e.root?`<p class="root-chip">جذر مشترك: ${esc(e.root)}</p>`:""}<p class="lead">بتتعلمها بـ: ${esc(e.src.join(" · "))}</p>
+      <button type="button" class="btn ghost dsave" data-dsave="${esc(e.h)}" style="min-height:40px;padding:6px 14px">${saved?"✓ بكلماتي":"احفظها بكلماتي"}</button></div>`:""}</div>`;}).join("")}</div>
+  ${res.length>dlimit?`<button type="button" class="btn ghost" data-act="dmore">أظهر المزيد</button>`:""}
+  ${res.length===0?`<div class="panel"><b>ما لقينا هالكلمة</b><p class="lead" style="font-size:14px">جرب تكتبها بطريقة ثانية، أو بالعربي. القاموس بيكبر مع كل جولة كلمات.</p></div>`:""}`;};showAdmin=false,logoTaps=0,logoT=null;
 V.me=()=>{const seen=L.state("0-1").seen||{};const letters=L.ALL.map(l=>`<span class="${seen[l.h]?"on":""}" lang="he">${l.h}</span>`).join("");const nSeen=L.ALL.filter(l=>seen[l.h]).length;
   return `${brand()}<h1 style="font-size:24px">حسابي</h1>
   <div class="statgrid">
@@ -2273,7 +2333,8 @@ V.me=()=>{const seen=L.state("0-1").seen||{};const letters=L.ALL.map(l=>`<span c
     <div class="stat"><b>${doneCount()}/${TOTAL}</b><span>وحدة خلصتها</span></div>
   </div>
   <div class="panel stack"><span class="eyebrow">الحروف</span><div class="letters-learned">${letters}</div></div>
-  <div class="panel stack"><div class="wod-top"><span class="eyebrow">كلماتي المحفوظة</span><span class="counter">${P.saved.length}</span></div>
+  <div class="panel stack"><div class="wod-top"><span class="eyebrow">كلماتي المحفوظة</span><span class="counter">${P.saved.length+(P.myWords||[]).length}</span></div>
+    ${(P.myWords||[]).length?`<div class="saved-list">${P.myWords.map(h=>{const e=L.dict().find(x=>x.h===h);return e?`<div class="saved-row"><span class="he" lang="he">${esc(e.h)}</span><span class="lead">${esc(e.m)}</span><button type="button" class="unsave" data-dsave="${esc(e.h)}" aria-label="شيل الكلمة">✕</button></div>`:"";}).join("")}</div>`:""}
     ${P.saved.length?`<div class="saved-list">${P.saved.map(i=>WOD[i]?`<div class="saved-row"><span class="he" lang="he">${esc(WOD[i][0])}</span><span class="lead">${esc(WOD[i][2])}</span><button type="button" class="unsave" data-unsave="${i}" aria-label="شيل الكلمة">✕</button></div>`:"").join("")}</div>`:`<p class="lead" style="font-size:14px">لسا ما حفظت ولا كلمة. كل يوم بتطلعلك كلمة جديدة بالرئيسية، وبتقدر تحفظها هون.</p>`}
   </div>
   <div class="panel setting"><div><b>هدفي اليومي</b><p class="lead" style="font-size:14px">نقاط بدك تجمعها كل يوم</p></div>
@@ -2295,6 +2356,7 @@ document.addEventListener("click",e=>{
     else if(act==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");
     else if(act==="admin-on"){const v=(document.getElementById("admin-code")||{}).value||"";if(v.trim()==="jasher-admin"){P.admin=true;save();route("me");toast("تفعّل وضع المدير. كل الوحدات الجاهزة صارت مفتوحة.");}else toast("الرمز غلط. جرب كمان مرة.");}
     else if(act==="admin-off"){P.admin=false;save();route("me");toast("وقّفت وضع المدير.");}
+    else if(act==="dmore"){dlimit+=60;route("dict");}
     else if(act==="placement")toast("اختبار تحديد المستوى قيد التحضير.");
     else if(act==="reset"){if(!confirmReset){confirmReset=true;route("me");}else{confirmReset=false;Object.assign(P,{xp:0,streak:0,last:null,today:{d:today(),xp:0},units:{},start:today(),saved:[]});save();L.reset();route("me");toast("انمسح تقدمك.");}}
     return;}
@@ -2302,8 +2364,12 @@ document.addEventListener("click",e=>{
   const un=e.target.closest("[data-unit]");if(un){const s=un.dataset.s;if(s==="current"||(s==="done"&&PLAYABLE[un.dataset.unit]))openLesson(un.dataset.unit);else if(s==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");else toast("خلّص الوحدة اللي قبلها أول.");return;}
   const sv=e.target.closest("[data-save]");if(sv){const i=+sv.dataset.save;const k=P.saved.indexOf(i);if(k<0){P.saved.push(i);toast("انحفظت الكلمة بمراجعتك.");}else P.saved.splice(k,1);save();route("home");return;}
   const us=e.target.closest("[data-unsave]");if(us){const i=+us.dataset.unsave;P.saved=P.saved.filter(x=>x!==i);save();route("me");return;}
+  const dl=e.target.closest("[data-dlv]");if(dl){dlv=dl.dataset.dlv;dlimit=60;route("dict");return;}
+  const dop=e.target.closest("[data-dopen]");if(dop){dopen=dopen===dop.dataset.dopen?null:dop.dataset.dopen;const y=window.scrollY;route("dict");window.scrollTo(0,y);return;}
+  const ds=e.target.closest("[data-dsave]");if(ds){const h=ds.dataset.dsave;if(!Array.isArray(P.myWords))P.myWords=[];const k=P.myWords.indexOf(h);if(k<0)P.myWords.push(h);else P.myWords.splice(k,1);save();const y=window.scrollY;route("dict");window.scrollTo(0,y);return;}
   const g=e.target.closest("[data-goal]");if(g){P.goal=+g.dataset.goal;save();route("me");}
 });
+let dT;document.addEventListener("input",e=>{if(e.target.id==="dq"){clearTimeout(dT);const v=e.target.value;dT=setTimeout(()=>{dq=v;dlimit=60;route("dict");const i=document.getElementById("dq");if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length);}},180);}});
 const h=(location.hash||"").slice(1);
 route(V[h]?h:"home");
 })();
