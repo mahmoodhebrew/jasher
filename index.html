@@ -269,6 +269,27 @@ p{margin:0}
 .chip.admin{color:var(--surface);background:var(--accent);border-color:var(--accent)}
 .admin-form{display:flex;gap:8px;align-items:center}
 .admin-form input{width:110px;min-height:44px;border:1px solid var(--line);border-radius:10px;padding:0 10px;font:inherit;background:var(--surface);color:var(--fg)}
+.trace-pick{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;direction:rtl}
+.tp{flex:0 0 auto;width:44px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-family:var(--f-he);font-size:24px;font-weight:700}
+.tp.seen{background:var(--accent-soft);border-color:var(--accent-soft)}
+.tp.on{border-color:var(--accent);color:var(--accent)}
+.trace-box{padding:8px}
+.trace-box canvas{display:block;width:100%;max-width:100%;aspect-ratio:1;border-radius:12px;touch-action:none;cursor:crosshair}
+.trace-actions{display:flex;gap:10px}
+.trace-actions .btn{flex:1}
+.typed,.sent{min-height:60px;border-bottom:3px solid var(--line);font-family:var(--f-he);font-size:34px;font-weight:700;text-align:center;padding:6px;word-break:break-all}
+.typed.ok,.sent.ok{border-color:var(--good);color:var(--good)}
+.typed.no,.sent.no{border-color:var(--bad);color:var(--bad)}
+.kb{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.kb-row{display:flex;gap:4px;justify-content:center}
+.key{flex:1 1 0;min-width:0;max-width:48px;height:48px;border-radius:8px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;box-shadow:0 1px 0 var(--line)}
+.key .he{font-size:20px;font-weight:700;line-height:1}
+.key small{font-size:9.5px;color:var(--muted);line-height:1;margin-top:2px}
+.key.wide{max-width:none;flex:2 1 0;font-size:13px}
+.key:active{background:var(--accent-soft)}
+.wtiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.wtile{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-family:var(--f-he);font-size:24px;font-weight:700}
+.wtile[disabled]{opacity:.3}
 .section-title{font-family:var(--f-display);font-size:18px;margin:0}
 
 /* path */
@@ -835,12 +856,110 @@ R3.done=()=>{if(window.onUnitDone)window.onUnitDone("0-3");screen.innerHTML=`<di
   <h1>صرت تقرأ العبري الحقيقي</h1>
   <p class="lead">بدون حركات، زي ما بينكتب باللافتات والرسايل.</p>
   <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK3}</b><span>الفحص النهائي</span></div><div><b>4</b><span>قواعد</span></div></div>
-  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاية</span><p><b>الوحدة 4: الكتابة</b></p><p class="lead" style="font-size:14px">خط اليد والكيبورد العبري</p></div><span class="counter">قريبًا</span></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاية</span><p><b>الوحدة 4: الكتابة</b></p><p class="lead" style="font-size:14px">خط اليد والكيبورد العبري</p></div><span class="counter">جاهزة</span></div>
   <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
   screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
   screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,BLANK());save();$("xp").textContent="0 نقطة";go(0);});
   return true;};
 UNITS["0-3"]={steps:STEPS3,titles:TITLES3,screens:R3,crumb:"المستوى 0 · الوحدة 3"};
+
+/* ================= Unit 0-4: writing ================= */
+const KB=[["/","'","ק","ר","א","ט","ו","ן","ם","פ"],["ש","ד","ג","כ","ע","י","ח","ל","ך","ף"],["ז","ס","ב","ה","נ","מ","צ","ת","ץ"]];
+const KBLAT=[["Q","W","E","R","T","Y","U","I","O","P"],["A","S","D","F","G","H","J","K","L",";"],["Z","X","C","V","B","N","M",",","."]];
+const TYPE=[{ar:"شالوم · سلام",w:"שלום"},{ar:"تودا · شكرًا",w:"תודה"},{ar:"يِلِد · ولد",w:"ילד"},{ar:"بايِت · بيت",w:"בית"},{ar:"مايِم · مي",w:"מים"},{ar:"عير · مدينة",w:"עיר"}];
+const SENT=[{ar:"أنا بتعلم عبري",w:["אני","לומד","עברית"],x:["אתה","ערבית"]},{ar:"اسمي محمود",w:["שמי","מחמוד"],x:["שמך","אני"]},{ar:"أنا من القدس",w:["אני","מירושלים"],x:["מחיפה","אתה"]}];
+const STEPS4=[{k:"intro"},{k:"trace"},{k:"kbd"},{k:"type"},{k:"sentence"},{k:"check"},{k:"done"}];
+const TITLES4={intro:"مقدمة",trace:"خط اليد",kbd:"الكيبورد العبري",type:"اكتب الكلمة",sentence:"أول جملة",check:"صرت بقدر",done:"خلصت المستوى"};
+const PASS4=7,CHECK4=10;
+const R4={};
+const handQ=l=>{const o=shuffle([l.h,...pick(LETTERS.map(x=>x.h),3,x=>x===l.h)]);return{prompt:`<span class="hand" lang="he">${l.h}</span><p class="lead">هاد حرف بخط اليد. أي حرف هو بالمطبوع؟</p>`,opts:o.map(x=>`<span class="he" lang="he">${x}</span>`),ans:o.indexOf(l.h),explain:`هاد ${he(l.h)} «${l.name}».`};};
+const keyQ=()=>{const r=Math.floor(Math.random()*3),c=Math.floor(Math.random()*KB[r].length);const h=KB[r][c];if(!/[א-ת]/.test(h))return keyQ();const lat=KBLAT[r][c];const pool=KBLAT.flat().filter(x=>/[A-Z]/.test(x));const o=shuffle([lat,...pick(pool,3,x=>x===lat)]);return{prompt:`<span class="glyph" lang="he">${h}</span><p class="lead">على كيبورد الكمبيوتر، أي زر بيكتب هالحرف؟</p>`,opts:o,ans:o.indexOf(lat),explain:`${he(h)} موجود على زر ${lat}.`};};
+const spellQ=()=>{const items=[["שלום","שלומ"],["מים","מימ"],["עין","עינ"],["ארץ","ארצ"],["מלך","מלכ"],["אף","אפ"]];const it=items[Math.floor(Math.random()*items.length)];const o=shuffle([it[0],it[1]]);return{prompt:`<p class="lead">أي كتابة صح؟</p>`,opts:o.map(x=>`<span class="he" lang="he">${x}</span>`),ans:o.indexOf(it[0]),explain:`الصح ${he(it[0])}، لأنه آخر حرف لازم يكون بشكله النهائي.`};};
+
+R4.intro=()=>{screen.innerHTML=`<div class="stack pop">
+  <h1>هلأ دورك تكتب</h1>
+  <p class="lead">بهالوحدة بتتعلم تكتب بإيدك بخط اليد العبري، وتكتب على الكيبورد العبري بالجوال والكمبيوتر، وتركّب أول جملك.</p>
+  <div class="panel hero"><span class="hand" lang="he" style="font-size:80px">שלום</span></div>
+  <div class="note"><b>بنهاية الوحدة رح تقدر:</b> تكتب اسمك وجمل تعارف بخط اليد وعلى الكيبورد. وبهيك بتخلص المستوى 0 كامل!</div>
+  <div class="note"><b>نصيحة:</b> ضيف الكيبورد العبري لجوالك من إعدادات لوحة المفاتيح، عشان تتدرب برا المنصة كمان.</div></div>`;return true;};
+
+R4.trace=()=>{const done=S.traced||(S.traced={});const need=5;let cur=LETTERS[0];
+  screen.innerHTML=`<div class="stack pop"><h2>خط اليد</h2><p class="lead">اختار حرف، وامشي بإصبعك فوق الشكل الفاتح. اكتب ${need} حروف على الأقل. الكتابة من اليمين للشمال، ومن فوق لتحت.</p>
+  <div class="trace-pick">${ALL.map(l=>`<button type="button" class="tp ${done[l.h]?"seen":""}" data-h="${l.h}" lang="he">${l.h}</button>`).join("")}</div>
+  <div class="panel trace-box"><canvas id="pad" width="600" height="600" aria-label="مساحة الكتابة"></canvas></div>
+  <div class="trace-actions"><button type="button" class="btn ghost" id="clr">امسح</button><button type="button" class="btn" id="ok">كتبته ✓</button></div>
+  <p class="counter tcount">كتبت ${Object.keys(done).length} من ${need}</p></div>`;
+  const cv=screen.querySelector("#pad"),ctx=cv.getContext("2d");
+  const css=getComputedStyle(document.documentElement);
+  function guide(){ctx.clearRect(0,0,600,600);ctx.fillStyle=css.getPropertyValue("--sunk").trim()||"#eee";ctx.fillRect(0,0,600,600);
+    ctx.strokeStyle=css.getPropertyValue("--line").trim()||"#ddd";ctx.lineWidth=2;ctx.setLineDash([10,10]);ctx.beginPath();ctx.moveTo(0,420);ctx.lineTo(600,420);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle=css.getPropertyValue("--line").trim()||"#ccc";ctx.font='380px "Gveret Levin","Frank Ruhl Libre",serif';ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.fillText(cur.h,300,420);}
+  const draw=()=>{if(document.fonts&&document.fonts.load){document.fonts.load('380px "Gveret Levin"').then(guide,guide);}else guide();};
+  draw();
+  let down=false,last=null;
+  const pt=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*600/r.width,(e.clientY-r.top)*600/r.height];};
+  cv.addEventListener("pointerdown",e=>{down=true;last=pt(e);cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener("pointermove",e=>{if(!down)return;const p=pt(e);ctx.strokeStyle=css.getPropertyValue("--accent").trim()||"#6C3CE1";ctx.lineWidth=16;ctx.lineCap="round";ctx.lineJoin="round";ctx.beginPath();ctx.moveTo(last[0],last[1]);ctx.lineTo(p[0],p[1]);ctx.stroke();last=p;});
+  ["pointerup","pointercancel","pointerleave"].forEach(ev=>cv.addEventListener(ev,()=>{down=false;}));
+  screen.querySelectorAll(".tp").forEach(b=>b.addEventListener("click",()=>{cur=ALL.find(x=>x.h===b.dataset.h);screen.querySelectorAll(".tp").forEach(x=>x.classList.toggle("on",x===b));draw();}));
+  screen.querySelector(".tp").classList.add("on");
+  screen.querySelector("#clr").addEventListener("click",draw);
+  screen.querySelector("#ok").addEventListener("click",()=>{if(!done[cur.h]){done[cur.h]=1;addXP(3);}save();screen.querySelector(`.tp[data-h="${cur.h}"]`).classList.add("seen");const n=Object.keys(done).length;screen.querySelector(".tcount").textContent=`كتبت ${n} من ${need}`;if(n>=need)refreshNav(true);const i=ALL.indexOf(cur),nx=ALL[(i+1)%ALL.length];cur=nx;screen.querySelectorAll(".tp").forEach(x=>x.classList.toggle("on",x.dataset.h===nx.h));draw();});
+  return Object.keys(done).length>=need;};
+
+function kbHTML(){return `<div class="kb" dir="ltr">${KB.map((row,r)=>`<div class="kb-row">${row.map((k,c)=>`<button type="button" class="key" data-k="${k}"><span class="he" lang="he">${k}</span><small>${KBLAT[r][c]}</small></button>`).join("")}</div>`).join("")}<div class="kb-row"><button type="button" class="key wide" data-k=" ">مسافة</button><button type="button" class="key wide" data-k="⌫">⌫ امسح</button></div></div>`;}
+
+R4.kbd=()=>{screen.innerHTML=`<div class="stack pop"><h2>الكيبورد العبري</h2>
+  <p class="lead">هاد ترتيب الحروف على الكيبورد العبري، نفسه بالكمبيوتر وبأغلب الجوالات. الحرف الصغير الإنجليزي هو الزر اللي بيطلع عليه الحرف بالكمبيوتر.</p>
+  <div class="panel"><div class="typed" id="typed" lang="he" dir="rtl"></div>${kbHTML()}</div>
+  <div class="note"><b>جرّب:</b> اكتب اسمك بالعبري. مثلًا محمود = <span class="he" lang="he">מחמוד</span>، وسارة = <span class="he" lang="he">שרה</span>.</div>
+  <div class="note"><b>لاحظ:</b> الحروف النهائية (ך ם ן ף ץ) إلها أزرار لحالها.</div></div>`;
+  const t=screen.querySelector("#typed");let v="";
+  screen.querySelectorAll(".key").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.k;v=k==="⌫"?v.slice(0,-1):v+k;t.textContent=v;}));
+  S.done.kbd=1;save();return true;};
+
+R4.type=()=>{let ti=0;
+  function render(){const t=TYPE[ti];let v="";
+    screen.innerHTML=`<div class="stack pop"><h2>اكتب الكلمة</h2><p class="lead">اكتب الكلمة بالعبري على الكيبورد. انتبه للحرف النهائي. (${ti+1} من ${TYPE.length})</p>
+    <div class="panel stack"><p class="target">${t.ar}</p><div class="typed" lang="he" dir="rtl"></div>${kbHTML()}<button type="button" class="btn chk">تأكد</button></div><div class="tfb"></div></div>`;
+    const box=screen.querySelector(".typed"),fb=screen.querySelector(".tfb");
+    screen.querySelectorAll(".key").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.k;v=k==="⌫"?v.slice(0,-1):v+k;box.textContent=v;fb.innerHTML="";box.classList.remove("ok","no");}));
+    screen.querySelector(".chk").addEventListener("click",()=>{const ok=v.trim()===t.w;box.classList.add(ok?"ok":"no");
+      if(ok){addXP(10);speak(t.w);const last=ti+1>=TYPE.length;fb.innerHTML=`<div class="feedback good">صح! ${he(t.w)}</div>`+(last?"":'<button type="button" class="btn nx" style="width:100%;margin-top:10px">الكلمة الجاية</button>');
+        if(last){S.done.type=1;save();refreshNav(true);}else fb.querySelector(".nx").addEventListener("click",()=>{ti++;render();});}
+      else fb.innerHTML=`<div class="feedback bad">مش هيك بالزبط. الصح: ${he(t.w)}. امسح وجرب كمان مرة.</div>`;});}
+  render();return !!S.done.type;};
+
+R4.sentence=()=>{let si=0;
+  function render(){const t=SENT[si],tiles=shuffle([...t.w,...t.x]);let picked=[];
+    screen.innerHTML=`<div class="stack pop"><h2>أول جملة</h2><p class="lead">ركّب الجملة بالعبري. الجملة العبرية بتنقرأ من اليمين للشمال زي العربي. (${si+1} من ${SENT.length})</p>
+    <div class="panel stack"><p class="target">${t.ar}</p><div class="sent" lang="he" dir="rtl"></div>
+    <div class="wtiles" dir="rtl">${tiles.map(w=>`<button type="button" class="wtile" lang="he">${w}</button>`).join("")}</div>
+    <button type="button" class="btn ghost undo">امسح آخر كلمة</button></div><div class="wfb"></div></div>`;
+    const box=screen.querySelector(".sent"),fb=screen.querySelector(".wfb");
+    const paint=()=>{box.textContent=picked.map(x=>x.w).join(" ");};
+    screen.querySelectorAll(".wtile").forEach(b=>b.addEventListener("click",()=>{picked.push({w:b.textContent,b});b.disabled=true;paint();
+      if(picked.length===t.w.length){const ok=picked.map(x=>x.w).join(" ")===t.w.join(" ");box.classList.add(ok?"ok":"no");
+        if(ok){addXP(10);speak(t.w.join(" "));const last=si+1>=SENT.length;fb.innerHTML=`<div class="feedback good">صح! ${he(t.w.join(" "))} = ${t.ar}</div>`+(last?"":'<button type="button" class="btn nx" style="width:100%;margin-top:10px">الجملة الجاية</button>');
+          if(last){S.done.sentence=1;save();refreshNav(true);}else fb.querySelector(".nx").addEventListener("click",()=>{si++;render();});}
+        else fb.innerHTML=`<div class="feedback bad">قريب! امسح وجرب ترتيب ثاني.</div>`;}}));
+    screen.querySelector(".undo").addEventListener("click",()=>{const x=picked.pop();if(x)x.b.disabled=false;box.classList.remove("ok","no");fb.innerHTML="";paint();});}
+  render();return !!S.done.sentence;};
+
+R4.check=()=>quizScreen("check","","صرت بقدر أكتب؟",`${CHECK4} أسئلة. إذا جبت ${PASS4} أو أكثر، بتخلص المستوى 0 كله.`,()=>shuffle([...pick(LETTERS,4).map(handQ),keyQ(),keyQ(),keyQ(),spellQ(),spellQ(),spellQ()]),PASS4);
+
+R4.done=()=>{if(window.onUnitDone)window.onUnitDone("0-4");screen.innerHTML=`<div class="stack pop" style="text-align:center">
+  <div class="badge"><span class="glyph" lang="he">0</span><small>المستوى 0</small></div>
+  <h1>خلصت المستوى 0 كامل!</h1>
+  <p class="lead">صرت تقرأ وتكتب العبري: الأبجدية، والحركات، والقراءة بدون تشكيل، وخط اليد، والكيبورد. هاد الأساس اللي كل إشي جاي مبني عليه.</p>
+  <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK4}</b><span>الفحص النهائي</span></div><div><b>4/4</b><span>وحدات</span></div></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاي</span><p><b>المستوى 1: الحياة اليومية</b></p><p class="lead" style="font-size:14px">التعارف، والعيلة، والأرقام، والسوق</p></div><span class="counter">قريبًا</span></div>
+  <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
+  screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
+  screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,BLANK());save();$("xp").textContent="0 نقطة";go(0);});
+  return true;};
+UNITS["0-4"]={steps:STEPS4,titles:TITLES4,screens:R4,crumb:"المستوى 0 · الوحدة 4"};
+
 
 
 
@@ -1285,7 +1404,7 @@ const LEVELS=[
 ];
 const TOTAL=LEVELS.reduce((a,l)=>a+l.units.length,0);
 const uid=(l,u)=>l+"-"+(u+1);
-const PLAYABLE={};["0-1","0-2","0-3"].forEach(id=>{if(L.has(id))PLAYABLE[id]=true;});
+const PLAYABLE={};["0-1","0-2","0-3","0-4"].forEach(id=>{if(L.has(id))PLAYABLE[id]=true;});
 const isDone=id=>!!P.units[id];
 function prevId(l,u){if(u>0)return uid(l,u-1);if(l>0)return uid(l-1,LEVELS[l-1].units.length-1);return null;}
 function unitState(l,u){const id=uid(l,u);if(isDone(id))return"done";if(P.admin)return PLAYABLE[id]?"current":"soon";const pv=prevId(l,u);if(!pv||isDone(pv))return PLAYABLE[id]?"current":"soon";return"locked";}
