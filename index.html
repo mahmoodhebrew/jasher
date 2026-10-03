@@ -386,6 +386,45 @@ p{margin:0}
 #lessonView{position:fixed;inset:0;background:var(--bg);z-index:15;overflow:auto;padding-top:env(safe-area-inset-top,0px)}
 .lesson-close{border:0;background:var(--surface);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;color:var(--muted);flex:0 0 auto}
 .top-row .left{display:flex;align-items:center;gap:10px}
+
+/* training */
+.tr-home{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;text-align:start;width:100%;color:var(--fg)}.tr-home .ic{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}.tr-home .ic svg{width:22px;height:22px}.tr-home b{display:block}.tr-home small{color:var(--muted);font-size:13px}.tr-home .go{background:var(--accent);color:var(--on-hero);font-weight:700;border-radius:10px;padding:6px 14px;font-size:14px}
+.tr-today{background:var(--hero);color:var(--on-hero);border-radius:22px;box-shadow:0 10px 28px rgba(108,60,225,.28);padding:18px;display:flex;flex-direction:column;gap:10px;border:0;text-align:start;width:100%}
+.tr-today .eyebrow{color:inherit;opacity:.8}.tr-today h2{font-size:22px;color:inherit}
+.tr-stats{display:flex;gap:16px;font-size:13.5px;opacity:.92}.tr-stats b{font-size:17px;font-variant-numeric:tabular-nums}
+.tr-today .go{align-self:flex-start;background:var(--on-hero);color:var(--hero);font-weight:700;border-radius:10px;padding:8px 16px}
+.tr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tr-mode{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:start;box-shadow:var(--shadow);min-width:0}
+.tr-mode .ic{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.tr-mode .ic svg{width:22px;height:22px}.tr-mode b{font-size:15.5px}.tr-mode small{color:var(--muted);font-size:12.5px;line-height:1.45}
+.tr-wrap{display:flex;flex-direction:column;gap:14px}
+.tr-head{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.tr-x{border:0;background:var(--sunk);color:var(--muted);width:40px;height:40px;border-radius:50%;font-size:16px}
+.tr-head .prog{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}.tr-head .prog i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+.tr-ask{font-weight:700;font-size:17px}
+.tr-word{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 16px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;box-shadow:var(--shadow);min-height:110px}
+.tr-word .he{font-size:40px;line-height:1.2}.tr-ar{font-size:24px}
+.tr-root{flex-direction:column;gap:6px}.tr-root small{color:var(--muted);font-size:14px;text-align:center}
+.tr-big{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:var(--accent);color:var(--on-hero);border-radius:50%;width:96px;height:96px;justify-content:center;font-weight:700;font-size:13px}
+.tr-big svg{width:34px;height:34px}
+.tr-reveal{text-align:center;font-size:28px}.tr-reveal small{font-family:var(--f-body,inherit);font-size:15px;color:var(--muted)}
+.tr-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tr-opt{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 10px;min-height:64px;font-size:16px;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--fg)}
+.tr-opt .he{font-size:24px}.tr-opt small{color:var(--muted);font-size:12.5px}
+.tr-opt.ok{border-color:var(--good);background:var(--good-soft)}.tr-opt.bad{border-color:var(--bad);background:var(--bad-soft)}
+.tr-opt[disabled]{cursor:default}.tr-opt[disabled]:not(.ok):not(.bad){opacity:.55}
+.tr-slot{min-height:64px;border:2px dashed var(--line);border-radius:14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;padding:10px;font-family:var(--f-he);font-size:30px}
+.tr-slot.sent{font-size:22px}.tr-slot em{font-family:inherit;font-style:normal;font-size:14px;color:var(--muted)}
+.tr-slot.ok{border-style:solid;border-color:var(--good);background:var(--good-soft)}.tr-slot.bad{border-style:solid;border-color:var(--bad);background:var(--bad-soft)}
+.tr-tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tr-tile{min-width:52px;height:52px;border:1.5px solid var(--line);background:var(--surface);border-radius:12px;font-family:var(--f-he);font-size:26px;color:var(--fg);box-shadow:var(--shadow);padding:0 10px}
+.tr-tiles.sent .tr-tile{font-size:20px}.tr-tile[disabled]{opacity:.25;box-shadow:none}
+.tr-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tr-fb{border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.tr-fb.ok{background:var(--good-soft)}.tr-fb.ok>b{color:var(--good)}.tr-fb.bad{background:var(--bad-soft)}.tr-fb.bad>b{color:var(--bad)}
+.tr-ans{display:flex;align-items:center;gap:10px}.tr-ans .he{font-size:24px}.tr-fb small{color:var(--muted);font-size:14px}
+.tr-end{align-items:center;text-align:center}.tr-end .ring{width:110px;height:110px}.tr-end .ring span{width:88px;height:88px;font-size:22px}
+.tr-end .panel{width:100%;text-align:start}.tr-end .tr-row{width:100%}
 </style>
 </head>
 <body>
@@ -398,7 +437,7 @@ p{margin:0}
     <button type="button" class="tab" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>الرئيسية</button>
     <button type="button" class="tab" data-tab="path"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a4 4 0 0 0 0-8h-4a4 4 0 0 1 0-8h6"/></svg>مساري</button>
     <button type="button" class="tab" data-tab="dict"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/><path d="M4 17a3 3 0 0 1 3-3h11"/><path d="M9 8h5"/></svg>القاموس</button>
-    <button type="button" class="tab" data-tab="tracks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>التخصصات</button>
+    <button type="button" class="tab" data-tab="train"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>تدريب</button>
     <button type="button" class="tab" data-tab="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>حسابي</button>
   </div>
 </nav>
@@ -1793,23 +1832,24 @@ function open(id){UNIT=id;const u=UNITS[id];STEPS=u.steps;TITLES=u.titles;R=u.sc
 function buildDict(){
   const strip=t=>String(t).replace(/[֑-ׇ]/g,"").trim();
   const map=new Map();
-  const add=(h,r,m,src,lv,root)=>{h=String(h);if(!h||!/[א-ת]/.test(h))return;const k=strip(h);
-    if(!map.has(k))map.set(k,{h:k,p:h!==k?h:"",r:String(r||""),m:String(m||""),src:[],lv:lv,root:root||""});
-    const e=map.get(k);if(src&&!e.src.includes(src))e.src.push(src);if(lv<e.lv)e.lv=lv;if(root&&!e.root)e.root=root;if(!e.p&&h!==k)e.p=h;};
+  const add=(h,r,m,src,lv,root,uid)=>{h=String(h);if(!h||!/[א-ת]/.test(h))return;const k=strip(h);
+    if(!map.has(k))map.set(k,{h:k,p:h!==k?h:"",r:String(r||""),m:String(m||""),src:[],lv:lv,root:root||"",u:[]});
+    const e=map.get(k);if(uid&&!e.u.includes(uid))e.u.push(uid);if(src&&!e.src.includes(src))e.src.push(src);if(lv<e.lv)e.lv=lv;if(root&&!e.root)e.root=root;if(!e.p&&h!==k)e.p=h;};
   const g=v=>(v&&typeof v==="object"&&!Array.isArray(v)&&("m" in v))?v.m:v;
-  WORDS_ALL.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · الأبجدية",0));
-  LETTERS.forEach(l=>add(l.ex.w,l.ex.r,l.ex.m,"المستوى 0 · الأبجدية",0));
-  if(typeof PWORDS!=="undefined")PWORDS.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · الحركات",0));
-  if(typeof UWORDS!=="undefined")UWORDS.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · القراءة",0));
+  WORDS_ALL.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · الأبجدية",0,"","0-1"));
+  LETTERS.forEach(l=>add(l.ex.w,l.ex.r,l.ex.m,"المستوى 0 · الأبجدية",0,"","0-1"));
+  if(typeof PWORDS!=="undefined")PWORDS.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · الحركات",0,"","0-2"));
+  if(typeof UWORDS!=="undefined")UWORDS.forEach(w=>add(w.w,w.r,w.m,"المستوى 0 · القراءة",0,"","0-3"));
   [[L1,1],[L2,2],[L3,3],[L4,4]].forEach(([list,lv])=>list.forEach(d=>{const src=`المستوى ${lv} · ${d.title}`;
-    (d.vocab||[]).forEach(v=>add(g(v[0]),g(v[1]),g(v[2]),src,lv));
-    (EXTRA[d.id]||[]).forEach(v=>add(g(v[0]),g(v[1]),g(v[2]),src,lv));
-    if(d.root)d.root.words.forEach(w=>add(w[0],w[1],w[2],src,lv,d.root.ar));}));
+    (d.vocab||[]).forEach(v=>add(g(v[0]),g(v[1]),g(v[2]),src,lv,"",d.id));
+    (EXTRA[d.id]||[]).forEach(v=>add(g(v[0]),g(v[1]),g(v[2]),src,lv,"",d.id));
+    if(d.root)d.root.words.forEach(w=>add(w[0],w[1],w[2],src,lv,d.root.ar,d.id));}));
   if(typeof WOD!=="undefined")WOD.forEach(w=>add(w[0],w[1],w[2],"كلمة اليوم",5,w[5]));
   return [...map.values()];
 }
 let DICT=null;
-window.Lesson={dict:()=>DICT||(DICT=buildDict()),open,has:id=>!!UNITS[id],progress:id=>{const u=UNITS[id];if(!u)return 0;const st=(id===UNIT&&S)?S:loadState(id);return st.step/(u.steps.length-1);},state:id=>loadState(id||"0-1"),ALL,WORDS_ALL,reset:()=>{Object.keys(UNITS).forEach(id=>{try{localStorage.removeItem(keyOf(id));}catch(e){}});S=null;}};
+const ROOTS=()=>{const o=[];[L1,L2,L3,L4].forEach(list=>list.forEach(d=>{if(d.root)o.push({id:d.id,l:d.root.l,ar:d.root.ar,mean:d.root.mean,words:d.root.words});}));return o;};
+window.Lesson={dict:()=>DICT||(DICT=buildDict()),roots:ROOTS,open,has:id=>!!UNITS[id],progress:id=>{const u=UNITS[id];if(!u)return 0;const st=(id===UNIT&&S)?S:loadState(id);return st.step/(u.steps.length-1);},state:id=>loadState(id||"0-1"),ALL,WORDS_ALL,reset:()=>{Object.keys(UNITS).forEach(id=>{try{localStorage.removeItem(keyOf(id));}catch(e){}});S=null;}};
 })();
 </script>
 <script>// Word of the day bank: [hebrew, transliteration, meaning, example (he), example (ar), shared-root note]
@@ -2268,6 +2308,7 @@ V.home=()=>{
     <h2>${esc(lvl.units[c.u][0])}</h2>
     ${c.s==="current"?`<div class="prog"><i style="width:${pct}%"></i></div><span class="go">${pct>0?"كمّل":"ابدأ"}</span>`:`<span class="go">قريبًا</span>`}
   </button>`:`<div class="panel"><b>خلصت كل الوحدات المتاحة 🎉</b></div>`}
+  ${(()=>{const {pool}=trainPool(),c=srsCounts(pool),n=Math.min(12,c.due+c.fresh);return `<button type="button" class="panel tr-home" data-act="train"><span class="ic">${IC_T.srs}</span><span><b>مراجعة اليوم</b><small>${n?`${n} كلمة بتستناك بالتدريب`:"خلصت مراجعة اليوم 👏"}</small></span><span class="go">${n?"راجع":"تدرّب"}</span></button>`;})()}
   <div class="cards2">
     <div class="mini"><span class="eyebrow">هدف اليوم</span><div class="ring" style="--p:${g}"><span>${P.today.xp}</span></div><small class="lead">من ${P.goal} نقطة</small></div>
     <div class="mini"><span class="eyebrow">تقدمك</span><b style="font-family:var(--f-display);font-size:28px;font-variant-numeric:tabular-nums">${doneCount()}/${TOTAL}</b><small class="lead">وحدة خلصتها</small></div>
@@ -2289,14 +2330,15 @@ V.path=()=>{
       return `<button type="button" class="unit ${s}" data-unit="${uid(lv.n,u)}" data-s="${s}"><span class="dot">${s==="done"?"✓":u+1}</span><span class="u-name">${esc(un[0])}<small>${esc(un[1])}</small></span><span class="state">${lab}</span></button>`;}).join("")}</div>`:""}</div>`;}).join("");
   return `${brand()}<div><h1 style="font-size:24px">مسارك</h1><p class="lead">5 مستويات و${TOTAL} وحدة، من أول حرف لحد ما تشتغل بالعبري.</p></div>
   <div class="panel placement"><div><b>بتعرف عبري أصلًا؟</b><p class="lead" style="font-size:14px">اختبار تحديد المستوى بيوفّر عليك الوحدات اللي بتعرفها.</p></div><button type="button" class="btn ghost" data-act="placement" style="min-height:44px;padding:8px 14px">قريبًا</button></div>
-  ${lvls}`;
+  ${lvls}
+  <div style="margin-top:8px"><h2 style="font-size:20px">مسارات التخصص</h2><p class="lead" style="font-size:14px">بعد الأساسيات، بتكمّل بالعبري المهني لمجالك.</p></div>
+  ${tracksList()}`;
 };
 const IC={nurse:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v10M7 12h10"/><rect x="3" y="3" width="18" height="18" rx="4"/></svg>',
   med:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a6 6 0 0 0 12 0V3"/><path d="M12 15v2a4 4 0 0 0 8 0v-3"/><circle cx="20" cy="12" r="2"/></svg>',
   law:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M4 7h16M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z"/></svg>',
   more:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>'};
-V.tracks=()=>`${brand()}<div><h1 style="font-size:24px">التخصصات</h1><p class="lead">العبري اللي بتحتاجه بشغلك بالزبط: المصطلحات، والمحادثات، والكتابة المهنية.</p></div>
-  <div class="track first"><span class="ic">${IC.nurse}</span><div><b>العبري للتمريض</b><small>تسليم المناوبة، الحديث مع المريض، الملاحظات التمريضية، وقاموس طبي بـ3 لغات.</small></div><span class="tag soon">أول مسار</span></div>
+const tracksList=()=>`  <div class="track first"><span class="ic">${IC.nurse}</span><div><b>العبري للتمريض</b><small>تسليم المناوبة، الحديث مع المريض، الملاحظات التمريضية، وقاموس طبي بـ3 لغات.</small></div><span class="tag soon">أول مسار</span></div>
   <div class="track"><span class="ic">${IC.med}</span><div><b>العبري للطب</b><small>للأطباء وطلاب الطب.</small></div><span class="tag">لاحقًا</span></div>
   <div class="track"><span class="ic">${IC.law}</span><div><b>العبري للقانون</b><small>للمحامين وطلاب القانون.</small></div><span class="tag">لاحقًا</span></div>
   <div class="track"><span class="ic">${IC.more}</span><div><b>تخصصات أخرى</b><small>بنضيفها حسب طلبكم.</small></div><span class="tag">لاحقًا</span></div>
@@ -2344,8 +2386,126 @@ V.me=()=>{const seen=L.state("0-1").seen||{};const letters=L.ALL.map(l=>`<span c
   <p class="lead" style="font-size:13px">تقدمك محفوظ على هالجهاز بس. بالنسخة الرسمية رح يكون في حساب بيحفظ تقدمك على كل أجهزتك.</p>`;};
 
 /* router */
+/* ===== training ===== */
+const SRS_INT=[0,1,2,4,7,15,30];
+const addDays=n=>dstr(new Date(Date.now()+n*864e5));
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const stripN=t=>String(t).replace(/[֑-ׇ]/g,"").trim();
+const show=e=>e.p||e.h;
+function srsGet(){if(!P.srs||typeof P.srs!=="object")P.srs={};return P.srs;}
+function srsMark(e,ok){const S=srsGet(),c=S[e.h]||[0,today()];let b=c[0];b=ok?Math.min(b+1,SRS_INT.length-1):0;S[e.h]=[b,addDays(ok?SRS_INT[b]:1)];}
+function reachedUnits(){const r=[];LEVELS.forEach(lv=>lv.units.forEach((_,u)=>{const id=uid(lv.n,u);if(isDone(id)||(L.has(id)&&L.progress(id)>0))r.push(id);}));return r;}
+function trainPool(){const D=L.dict(),r=new Set(reachedUnits());let pool=D.filter(e=>e.u&&e.u.some(x=>r.has(x)));
+  const seenDays=Math.max(1,daysBetween(P.start,today())+1),wset=new Set();
+  for(let i=0;i<Math.min(seenDays,WOD.length);i++)wset.add(stripN(WOD[i][0]));
+  (P.saved||[]).forEach(i=>WOD[i]&&wset.add(stripN(WOD[i][0])));(P.myWords||[]).forEach(h=>wset.add(h));
+  const have=new Set(pool.map(e=>e.h));D.forEach(e=>{if(wset.has(e.h)&&!have.has(e.h)){pool.push(e);have.add(e.h);}});
+  let starter=false;if(pool.length<12){starter=true;const add=D.filter(e=>e.u&&(e.u.includes("0-1")||e.u.includes("1-1"))&&!have.has(e.h));pool=pool.concat(add);}
+  return {pool:pool.filter(e=>e.m),starter};}
+function savedPool(){const D=L.dict(),w=new Set((P.myWords||[]).concat((P.saved||[]).filter(i=>WOD[i]).map(i=>stripN(WOD[i][0]))));return D.filter(e=>w.has(e.h)&&e.m);}
+function srsCounts(pool){const S=srsGet(),t=today();let due=0,fresh=0,strong=0;pool.forEach(e=>{const c=S[e.h];if(!c)fresh++;else{if(c[1]<=t)due++;if(c[0]>=4)strong++;}});return{due,fresh,strong};}
+const nm=t=>String(t).replace(/[ً-ْ«»]/g,"").trim();
+function distract(e,pool,k,field){const D=L.dict(),src=pool.length>=8?pool:D;const used=new Set([nm(e.m)]),usedH=new Set([e.h]),out=[];
+  for(const x of shuf(src.filter(x=>x.lv===e.lv).concat(shuf(src)))){if(out.length>=k)break;if(usedH.has(x.h)||used.has(nm(x.m))||!x.m)continue;if(field==="h"&&x.h.includes(" ")!==e.h.includes(" "))continue;out.push(x);usedH.add(x.h);used.add(nm(x.m));}
+  return out;}
+const spellable=e=>!/\s/.test(e.h)&&e.h.length>=2&&e.h.length<=7&&/^[א-ת]+$/.test(e.h);
+const HEB="אבגדהוזחטיכלמנסעפצקרשת";
+function mkQ(t,e,pool){
+  if(t==="spell"){const letters=[...e.h],extra=shuf([...HEB].filter(c=>!letters.includes(c))).slice(0,2);return{t,e,target:letters,tiles:shuf(letters.concat(extra)),picked:[]};}
+  if(t==="ar2he"){const ds=distract(e,pool,3,"h"),opts=shuf([e,...ds]);return{t,e,opts,ok:opts.indexOf(e)};}
+  const ds=distract(e,pool,3,"m"),opts=shuf([e,...ds]);return{t,e,opts,ok:opts.indexOf(e)};}
+function buildSession(mode){const {pool}=trainPool();let qs=[];
+  if(mode==="srs"){const S=srsGet(),t=today();const due=shuf(pool.filter(e=>S[e.h]&&S[e.h][1]<=t)).sort((a,b)=>S[a.h][0]-S[b.h][0]);
+    const fresh=pool.filter(e=>!S[e.h]).sort((a,b)=>a.lv-b.lv);const pick=due.slice(0,12);for(const e of fresh){if(pick.length>=12)break;pick.push(e);}
+    const types=["he2ar","listen","ar2he","spell"];qs=pick.map((e,i)=>{let ty=S[e.h]?types[i%4]:(i%2?"listen":"he2ar");if(ty==="spell"&&!spellable(e))ty="ar2he";return mkQ(ty,e,pool);});}
+  else if(mode==="listen"||mode==="mean"){qs=shuf(pool).slice(0,10).map((e,i)=>mkQ(mode==="listen"?"listen":(i%2?"ar2he":"he2ar"),e,pool));}
+  else if(mode==="spell"){qs=shuf(pool.filter(spellable)).slice(0,10).map(e=>mkQ("spell",e,pool));}
+  else if(mode==="saved"){const sp=savedPool();const ty=["he2ar","listen","ar2he"];qs=shuf(sp).slice(0,12).map((e,i)=>mkQ(ty[i%3],e,sp.length>=4?sp:pool));}
+  else if(mode==="root"){const R=L.roots(),r=new Set(reachedUnits());let rs=R.filter(x=>r.has(x.id));if(rs.length<4)rs=R.slice(0,Math.max(4,rs.length));
+    qs=shuf(rs).slice(0,10).map(x=>{const w=x.words[Math.floor(Math.random()*x.words.length)],others=shuf(R.filter(o=>o!==x&&!o.l.every(c=>x.l.includes(c)))).slice(0,3).map(o=>o.words[Math.floor(Math.random()*o.words.length)]);
+      const opts=shuf([w,...others]).map(v=>({h:stripN(v[0]),p:v[0],r:v[1],m:v[2]}));return{t:"root",x,opts,ok:opts.findIndex(o=>o.p===w[0]),e:{h:stripN(w[0]),p:w[0],r:w[1],m:w[2]}};});}
+  else if(mode==="order"){const n=Math.min(WOD.length,Math.max(80,daysBetween(P.start,today())+80));
+    const ss=WOD.slice(0,n).filter(w=>{const k=w[3].trim().split(/\s+/).length;return k>=3&&k<=7;});
+    qs=shuf(ss).slice(0,8).map(w=>{const target=w[3].trim().split(/\s+/);return{t:"order",w,target,tiles:shuf(target.map((x,i)=>({x,i}))),picked:[]};});}
+  return qs;}
+const MODES={srs:"مراجعة اليوم",listen:"استماع",mean:"معنى سريع",spell:"تهجئة",root:"عائلة الجذر",order:"رتّب الجملة",saved:"كلماتي المحفوظة"};
+let TR=null;
+function startTrain(mode){const qs=buildSession(mode);
+  if(!qs.length){toast(mode==="saved"?"لسا ما حفظت كلمات. احفظ كلمات من القاموس أو من كلمة اليوم.":mode==="srs"?"خلصت مراجعة اليوم 👏 ارجع بكرا.":"ما في كلمات كفاية لهاد التمرين لسا.");return;}
+  TR={mode,qs,i:0,score:0,ans:null,miss:[]};route("train");const s=document.querySelector(".tr-autosay");if(s)setTimeout(()=>s.click(),150);}
+const IC_T={
+  srs:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>',
+  listen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>',
+  mean:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 4 14h7l-1 7 9-11h-7z"/></svg>',
+  spell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="7" height="7" rx="1.5"/><rect x="14" y="6" width="7" height="7" rx="1.5"/><path d="M6 17h12"/></svg>',
+  root:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8"/><path d="M12 13 6 7M12 13l6-6M12 13V4"/><circle cx="6" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="12" cy="3.5" r="1.6"/></svg>',
+  order:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M4 12h16M4 18h7"/></svg>',
+  saved:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"/></svg>'};
+function trainHome(){const {pool,starter}=trainPool(),c=srsCounts(pool),sv=savedPool().length;
+  const todo=Math.min(12,c.due+c.fresh);
+  const card=(m,desc)=>`<button type="button" class="tr-mode" data-tr="${m}"><span class="ic">${IC_T[m]}</span><b>${MODES[m]}</b><small>${desc}</small></button>`;
+  return `${brand()}<div><h1 style="font-size:24px">التدريب</h1><p class="lead">تمارين على الكلمات اللي وصلتلها بالدروس. كل يوم شوي أحسن من كتير مرة وحدة.</p></div>
+  <button type="button" class="tr-today" data-tr="srs"><span class="eyebrow">مراجعة اليوم</span>
+    <h2>${todo?`${todo} كلمة بتستناك`:"خلصت مراجعة اليوم 👏"}</h2>
+    <span class="tr-stats"><span><b>${c.due}</b> للمراجعة</span><span><b>${c.fresh}</b> جديدة</span><span><b>${c.strong}</b> ثابتة</span></span>
+    <span class="go">${todo?"ابدأ":"تدرّب كمان"}</span></button>
+  ${starter?`<p class="lead" style="font-size:13.5px">لسا ببداية الطريق، فحطّينالك كلمات من أول الوحدات. كل ما تتقدم بالدروس، بتزيد كلمات التدريب.</p>`:""}
+  <div class="tr-grid">
+    ${card("listen","اسمع واختار المعنى")}
+    ${card("mean","عبري ← عربي وبالعكس")}
+    ${card("spell","ركّب الكلمة من حروفها")}
+    ${card("root","لاقي الكلمة من نفس الجذر")}
+    ${card("order","رتّب كلمات الجملة")}
+    ${card("saved",sv?`${sv} كلمة حفظتها`:"احفظ كلمات من القاموس")}
+  </div>
+  <p class="counter">${pool.length.toLocaleString("en")} كلمة جاهزة للتدريب · الكلمة بتصير «ثابتة» لما تعرفها 4 مرات بأيام مختلفة</p>`;}
+const sayBtn=(t,cls)=>`<button type="button" class="${cls||"speak icon"}" data-say="${esc(t)}" aria-label="اسمع">${SAY}</button>`;
+function trainQ(){const q=TR.qs[TR.i],n=TR.qs.length,a=TR.ans;
+  const head=`<div class="tr-head"><button type="button" class="tr-x" data-trx aria-label="اطلع من التمرين">✕</button><div class="prog"><i style="width:${Math.round((TR.i+(a?1:0))/n*100)}%"></i></div><span class="counter">${TR.i+1}/${n}</span></div>
+  <span class="eyebrow">${MODES[TR.mode]}</span>`;
+  let body="";
+  const optBtns=(lab)=>`<div class="tr-opts">${q.opts.map((o,i)=>{let cl="";if(a){if(i===q.ok)cl="ok";else if(i===a.pick)cl="bad";}return `<button type="button" class="tr-opt ${cl}" data-tro="${i}" ${a?"disabled":""}>${lab(o)}</button>`;}).join("")}</div>`;
+  const heL=o=>`<span class="he" lang="he">${esc(show(o))}</span>`,arL=o=>`<span>${esc(o.m)}</span>`;
+  if(q.t==="he2ar")body=`<p class="tr-ask">شو معنى الكلمة؟</p><div class="tr-word"><span class="he" lang="he">${esc(show(q.e))}</span>${sayBtn(q.e.h)}</div>${optBtns(arL)}`;
+  else if(q.t==="listen")body=`<p class="tr-ask">اسمع الكلمة واختار معناها</p><div class="tr-word"><button type="button" class="tr-big tr-autosay" data-say="${esc(q.e.h)}" aria-label="اسمع">${SAY}<span>اسمع</span></button></div>${a?`<p class="he tr-reveal" lang="he">${esc(show(q.e))} <small>«${esc(q.e.r)}»</small></p>`:""}${optBtns(arL)}`;
+  else if(q.t==="ar2he")body=`<p class="tr-ask">كيف بنقول بالعبري:</p><div class="tr-word"><b class="tr-ar">${esc(q.e.m)}</b></div>${optBtns(heL)}`;
+  else if(q.t==="root")body=`<p class="tr-ask">أي كلمة من نفس الجذر؟</p><div class="tr-word tr-root"><span class="he" lang="he">${q.x.l.join(" · ")}</span><small>زي «${esc(q.x.ar)}» بالعربي: ${esc(q.x.mean)}</small></div>${optBtns(o=>`<span class="he" lang="he">${esc(o.p)}</span><small>${a?esc(o.m):""}</small>`)}`;
+  else if(q.t==="spell"||q.t==="order"){const isO=q.t==="order",sel=q.picked.map(i=>isO?q.tiles[i].x:q.tiles[i]);
+    body=`<p class="tr-ask">${isO?"رتّب الكلمات عشان تطلع الجملة:":"ركّب الكلمة بالعبري:"}</p>
+    <div class="tr-word"><b class="tr-ar">${esc(isO?q.w[4]:q.e.m)}</b>${isO?"":sayBtn(q.e.h)}</div>
+    <div class="tr-slot ${isO?"sent":""} ${a?(a.ok?"ok":"bad"):""}" lang="he" dir="rtl">${sel.length?sel.map(x=>`<span>${esc(x)}</span>`).join(""):`<em>اكبس على ${isO?"الكلمات":"الحروف"} بالترتيب</em>`}</div>
+    <div class="tr-tiles ${isO?"sent":""}" lang="he" dir="rtl">${q.tiles.map((t,i)=>`<button type="button" class="tr-tile" data-trt="${i}" ${q.picked.includes(i)||a?"disabled":""}>${esc(isO?t.x:t)}</button>`).join("")}</div>
+    ${a?"":`<div class="tr-row"><button type="button" class="btn ghost" data-trundo ${q.picked.length?"":"disabled"}>امسح</button><button type="button" class="btn" data-trcheck ${q.picked.length===(isO?q.target.length:q.target.length)?"":"disabled"}>تحقق</button></div>`}`;}
+  let fb="";
+  if(a){const right=q.t==="order"?q.w[3]:show(q.e),mean=q.t==="order"?q.w[4]:q.e.m;
+    fb=`<div class="tr-fb ${a.ok?"ok":"bad"}"><b>${a.ok?["ممتاز!","برافو!","صح عليك!","عاش!"][TR.i%4]:"مش هيك، ولا يهمك."}</b>
+      <div class="tr-ans"><span class="he" lang="he">${esc(right)}</span>${sayBtn(q.t==="order"?q.w[3]:q.e.h)}</div>
+      <small>${q.t==="order"?"":`«${esc(q.e.r)}» · `}${esc(mean)}</small></div>
+      <button type="button" class="btn" data-trnext>${TR.i+1<n?"التالي":"شوف النتيجة"}</button>`;}
+  return `<div class="tr-wrap">${head}${body}${fb}</div>`;}
+function trainEnd(){const n=TR.qs.length,xp=TR.score*2;
+  return `<div class="tr-wrap tr-end"><span class="eyebrow">${MODES[TR.mode]}</span><div class="ring" style="--p:${Math.round(TR.score/n*100)}"><span>${TR.score}/${n}</span></div>
+  <h2>${TR.score===n?"كاملة! 🌟":TR.score>=n*.7?"شغل حلو 👏":"كل غلطة بتعلّم. كمّل!"}</h2><p class="lead">+${xp} نقطة</p>
+  ${TR.miss.length?`<div class="panel"><b>كلمات بدها مراجعة</b><div class="dlist" style="margin-top:8px">${TR.miss.map(m=>`<div class="dentry"><div class="dmain" style="cursor:default"><span class="he" lang="he">${esc(m.he)}</span><span class="dmean">${esc(m.ar)}</span></div>${sayBtn(m.say,"dsay")}</div>`).join("")}</div><p class="lead" style="font-size:13px;margin-top:8px">رح ترجعلك هاي الكلمات بمراجعة بكرا.</p></div>`:""}
+  <div class="tr-row"><button type="button" class="btn ghost" data-trx>رجوع</button><button type="button" class="btn" data-tr="${TR.mode}">مرة ثانية</button></div></div>`;}
+V.train=()=>!TR?trainHome():(TR.done?trainEnd():trainQ());
+function trAnswer(ok,pick){const q=TR.qs[TR.i];TR.ans={ok,pick};if(ok)TR.score++;
+  if(q.t!=="order"&&q.t!=="root")srsMark(q.e,ok);
+  if(!ok)TR.miss.push(q.t==="order"?{he:q.w[3],ar:q.w[4],say:q.w[3]}:{he:show(q.e),ar:q.e.m,say:q.e.h});save();route("train");}
+document.addEventListener("click",e=>{
+  if(curView!=="train")return;
+  const m=e.target.closest("[data-tr]");if(m){startTrain(m.dataset.tr);return;}
+  if(e.target.closest("[data-trx]")){TR=null;route("train");return;}
+  if(!TR||TR.done)return;const q=TR.qs[TR.i];
+  const o=e.target.closest("[data-tro]");if(o&&!TR.ans){const i=+o.dataset.tro;trAnswer(i===q.ok,i);return;}
+  const t=e.target.closest("[data-trt]");if(t&&!TR.ans){const i=+t.dataset.trt;if(!q.picked.includes(i)){q.picked.push(i);route("train");}return;}
+  if(e.target.closest("[data-trundo]")){q.picked.pop();route("train");return;}
+  if(e.target.closest("[data-trcheck]")){const got=q.picked.map(i=>q.t==="order"?q.tiles[i].x:q.tiles[i]).join(q.t==="order"?" ":"");trAnswer(got===(q.t==="order"?q.target.join(" "):q.target.join("")),-1);return;}
+  if(e.target.closest("[data-trnext]")){TR.ans=null;TR.i++;if(TR.i>=TR.qs.length){TR.done=true;if(TR.score)window.onXP(TR.score*2);}route("train");
+    const s=document.querySelector(".tr-autosay");if(s)setTimeout(()=>s.click(),150);return;}
+});
 let curView="home";
-function route(v){curView=v;$("view").innerHTML=V[v]();document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.tab===v?"page":"false"));window.scrollTo(0,0);try{history.replaceState(null,"","#"+v);}catch(e){}}
+function route(v){if(v==="tracks")v="path";if(!V[v])v="home";curView=v;$("view").innerHTML=V[v]();document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.tab===v?"page":"false"));window.scrollTo(0,0);try{history.replaceState(null,"","#"+v);}catch(e){}}
 document.addEventListener("click",e=>{
   if(e.target.closest(".lesson-close")){window.closeLesson();return;}
   if(e.target.closest("[data-logo]")){logoTaps++;clearTimeout(logoT);logoT=setTimeout(()=>logoTaps=0,1500);if(logoTaps>=5){logoTaps=0;showAdmin=true;route("me");}return;}
@@ -2356,6 +2516,7 @@ document.addEventListener("click",e=>{
     else if(act==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");
     else if(act==="admin-on"){const v=(document.getElementById("admin-code")||{}).value||"";if(v.trim()==="jasher-admin"){P.admin=true;save();route("me");toast("تفعّل وضع المدير. كل الوحدات الجاهزة صارت مفتوحة.");}else toast("الرمز غلط. جرب كمان مرة.");}
     else if(act==="admin-off"){P.admin=false;save();route("me");toast("وقّفت وضع المدير.");}
+    else if(act==="train")route("train");
     else if(act==="dmore"){dlimit+=60;route("dict");}
     else if(act==="placement")toast("اختبار تحديد المستوى قيد التحضير.");
     else if(act==="reset"){if(!confirmReset){confirmReset=true;route("me");}else{confirmReset=false;Object.assign(P,{xp:0,streak:0,last:null,today:{d:today(),xp:0},units:{},start:today(),saved:[]});save();L.reset();route("me");toast("انمسح تقدمك.");}}
