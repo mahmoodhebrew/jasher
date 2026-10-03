@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="جسر: تعلّم العبري من العربي اللي بتعرفه. دروس تفاعلية من أول حرف لحد العبري المهني.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>جسر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Gveret+Levin&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Reem+Kufi:wght@600;700&display=swap">
+<style>
+/* Layout: one-column lesson stepper — progress on top, one card per step, action bar pinned at the bottom */
+:root{
+  /* palette: Jerusalem stone — ink blue on limestone, brass highlights */
+  --bg:#EEEBE5; --surface:#FFFFFF; --sunk:#E5E1D9; --line:#D7D1C5;
+  --fg:#1B2430; --muted:#5E6470; --accent:#1F3A5F; --accent-soft:#E2E8F0;
+  --good:#2E6B45; --good-soft:#E0EEE4; --bad:#A63D32; --bad-soft:#F5E3DF; --gold:#8A6630; --brass:#C9A56A; --hand:#8C5A2B; --hero:#1F3A5F; --on-hero:#FFFFFF;
+  --f-display:"Reem Kufi","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-he:"Frank Ruhl Libre","Noto Serif Hebrew","Times New Roman",serif;
+  --f-hand:"Gveret Levin","Frank Ruhl Libre",cursive;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12161D; --surface:#1A2029; --sunk:#232A35; --line:#323B48;
+  --fg:#ECE8E1; --muted:#A4AAB4; --accent:#8FB0DA; --accent-soft:#1E2D42;
+  --good:#7CC496; --good-soft:#18301F; --bad:#EE9184; --bad-soft:#3A201C; --gold:#D6B27A; --brass:#D6B27A; --hand:#DDAE7C; --hero:#25466F; --on-hero:#F4F1EB; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D; --surface:#1A2029; --sunk:#232A35; --line:#323B48;
+  --fg:#ECE8E1; --muted:#A4AAB4; --accent:#8FB0DA; --accent-soft:#1E2D42;
+  --good:#7CC496; --good-soft:#18301F; --bad:#EE9184; --bad-soft:#3A201C; --gold:#D6B27A; --brass:#D6B27A; --hand:#DDAE7C; --hero:#25466F; --on-hero:#F4F1EB; color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.7}
+#app{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:12px 120px;display:flex;flex-direction:column;gap:16px}
+.he{font-family:var(--f-he);font-weight:500;direction:rtl;unicode-bidi:isolate}
+.hand{font-family:var(--f-hand);font-weight:400;color:var(--hand);direction:rtl;unicode-bidi:isolate}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:8px;display:flex;flex-direction:column;gap:8px}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.eyebrow{font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+.xp{font-variant-numeric:tabular-nums;font-weight:700;color:var(--gold);font-size:14px;white-space:nowrap}
+.bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--brass);border-radius:99px;transition:width .4s ease}
+
+h1,h2{font-family:var(--f-display);font-weight:700;line-height:1.3;text-wrap:balance;margin:0}
+h1{font-size:28px}
+h2{font-size:22px}
+p{margin:0}
+.lead{color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.note{background:var(--accent-soft);border-radius:var(--r);padding:12px 14px;font-size:15px}
+.note b{color:var(--accent)}
+.part{display:inline-flex;align-self:flex-start;gap:6px;align-items:center;font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:99px;padding:3px 12px}
+
+.glyph{font-family:var(--f-he);font-weight:700;line-height:1;color:var(--fg)}
+.hero{display:flex;align-items:center;justify-content:center;gap:20px;padding-block:20px}
+.hero .glyph{font-size:84px}
+.hero .eq{font-size:28px;color:var(--muted)}
+.hero .ar{font-family:var(--f-display);font-size:64px;color:var(--accent)}
+
+/* alphabet table */
+.abc{display:flex;flex-direction:column}
+.abc-head,.abc-row{display:grid;grid-template-columns:52px 52px 1fr 76px 40px;align-items:center;gap:8px;padding:6px 4px}
+.abc-head{font-size:12px;color:var(--muted);border-bottom:1px solid var(--line)}
+.abc-row{border-bottom:1px solid var(--line);background:none;border-inline:0;border-top:0;text-align:start;width:100%}
+.abc-row:last-child{border-bottom:0}
+.abc-row .glyph{font-size:34px;text-align:center}
+.abc-row .hand{font-size:38px;text-align:center;line-height:1}
+.abc-row .nm{display:flex;flex-direction:column;line-height:1.3;min-width:0}
+.abc-row .nm small{color:var(--muted);font-size:12.5px}
+.abc-row .snd{font-family:var(--f-display);font-size:19px;color:var(--accent);text-align:center}
+.abc-row .play{color:var(--muted);display:flex;justify-content:center}
+.abc-row .play svg{width:20px;height:20px}
+.abc-sub{font-family:var(--f-display);font-size:15px;color:var(--muted);padding:14px 4px 4px}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.legend span b{font-weight:700}
+
+/* letters grid */
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+.tile{aspect-ratio:1;max-width:100%;border:1px solid var(--line);background:var(--surface);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:4px;position:relative}
+.tile .glyph{font-size:32px}
+.tile .hand{font-size:22px;line-height:1.1}
+.tile small{font-size:11.5px;color:var(--muted)}
+.tile.seen{border-color:var(--accent);background:var(--accent-soft)}
+.tile.seen::after{content:"✓";position:absolute;top:3px;left:6px;font-size:11px;color:var(--accent);font-weight:700}
+.counter{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
+
+.sheet-wrap{position:fixed;inset:0;background:rgba(10,12,24,.45);display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.sheet{background:var(--surface);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:12px;max-height:90%;overflow:auto}
+.forms{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form{background:var(--sunk);border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.form .glyph{font-size:64px}
+.form .hand{font-size:64px;line-height:1.05}
+.form small{font-size:12.5px;color:var(--muted)}
+.sheet-title{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet-title strong{font-family:var(--f-display);font-size:22px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:15px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+.ex{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--sunk);border-radius:12px;padding:10px 14px}
+.ex .he{font-size:30px}
+
+.btn{border:0;border-radius:12px;padding:14px 18px;font-weight:700;background:var(--accent);color:var(--surface);min-height:52px}
+.btn[disabled]{opacity:.38;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.speak{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-size:14px;font-weight:500}
+.speak svg{width:18px;height:18px}
+
+.q{display:flex;flex-direction:column;gap:14px}
+.q-meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.q-prompt{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;padding-block:8px}
+.q-prompt .glyph{font-size:88px}
+.q-prompt .hand{font-size:92px;line-height:1.05}
+.q-prompt .word{font-family:var(--f-he);font-size:56px;font-weight:700;line-height:1.2}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:14px 10px;min-height:64px;font-size:20px;font-weight:500}
+.opt .he{font-size:30px}
+.opt.ar-letter{font-family:var(--f-display);font-size:26px}
+.opt.right{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+.opt[disabled]{cursor:default}
+.feedback{border-radius:12px;padding:12px 14px;font-size:15px}
+.feedback.good{background:var(--good-soft);color:var(--good)}
+.feedback.bad{background:var(--bad-soft);color:var(--bad)}
+.score{text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center;padding-block:12px}
+.score .big{font-family:var(--f-display);font-size:48px;color:var(--accent);font-variant-numeric:tabular-nums}
+
+.pairs{display:flex;flex-direction:column;gap:10px}
+.pair{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:14px}
+.pair .glyph{font-size:52px;min-width:44px;text-align:center}
+.pair p{font-size:14.5px;color:var(--muted)}
+
+.root-letters{display:flex;justify-content:center;gap:10px;direction:rtl}
+.root-letters span{font-family:var(--f-he);font-size:44px;font-weight:700;width:68px;height:68px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.rows{display:flex;flex-direction:column;gap:8px}
+.row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.row .he{font-size:28px}
+.row small{display:block;color:var(--muted);font-size:13.5px}
+
+.finals{display:flex;flex-direction:column;gap:8px}
+.final{display:grid;grid-template-columns:1fr auto 1fr auto;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.final .glyph{font-size:44px;text-align:center}
+.final .arrow{color:var(--muted);font-size:14px;text-align:center}
+.final .hand{font-size:44px;text-align:center;line-height:1}
+
+.slots{display:flex;justify-content:center;gap:8px;direction:rtl;min-height:72px;flex-wrap:wrap}
+.slot{width:56px;height:64px;border-bottom:3px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--f-he);font-size:40px;font-weight:700}
+.slot.filled{border-color:var(--accent)}
+.slots.ok .slot{border-color:var(--good);color:var(--good)}
+.slots.no .slot{border-color:var(--bad);color:var(--bad)}
+.tiles{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;direction:rtl}
+.ltile{width:58px;height:58px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-family:var(--f-he);font-size:34px;font-weight:700}
+.ltile[disabled]{opacity:.25}
+.target{text-align:center;font-family:var(--f-display);font-size:30px;color:var(--accent)}
+
+.menu{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
+.menu-title{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.menu-title .he{font-size:26px;font-weight:700}
+.menu-item{display:flex;justify-content:space-between;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--surface);width:100%}
+.menu-item .he{font-size:30px}
+.menu-item .price{font-variant-numeric:tabular-nums;color:var(--muted);font-size:15px;direction:ltr}
+.menu-item.right{border-color:var(--good);background:var(--good-soft)}
+.menu-item.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.ff{border:2px dashed var(--gold);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:6px}
+.ff b{color:var(--gold)}
+
+.badge{width:132px;height:132px;border-radius:50%;margin:8px auto;background:var(--accent-soft);border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-direction:column}
+.badge .glyph{font-size:40px;color:var(--accent)}
+.badge small{font-size:12px;color:var(--accent);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.stats div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 4px}
+.stats b{display:block;font-family:var(--f-display);font-size:24px;font-variant-numeric:tabular-nums}
+.stats span{font-size:12.5px;color:var(--muted)}
+.next-unit{display:flex;justify-content:space-between;align-items:center;gap:12px}
+
+.bottom{position:fixed;bottom:0;inset-inline:0;background:var(--bg);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));z-index:10}
+.bottom-in{max-width:528px;margin:0 auto;display:flex;gap:10px}
+.bottom-in .btn{flex:1}
+.bottom-in .ghost{flex:0 0 auto;padding-inline:16px}
+
+.toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));inset-inline:16px;max-width:528px;margin:0 auto;background:var(--fg);color:var(--bg);border-radius:12px;padding:12px 14px;font-size:14.5px;z-index:30}
+@keyframes pop{from{transform:scale(.96);opacity:.6}to{transform:none;opacity:1}}
+.pop{animation:pop .22s ease-out}
+@media (prefers-reduced-motion:reduce){.pop{animation:none}.bar>i{transition:none}}
+@media (max-width:380px){.abc-head,.abc-row{grid-template-columns:44px 44px 1fr 64px 32px;gap:6px}.grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ---------- platform shell ---------- */
+.shell{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:8px 104px;display:flex;flex-direction:column;gap:16px}
+.view{display:flex;flex-direction:column;gap:16px}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:8px 0}
+.logo{display:flex;align-items:baseline;gap:8px}
+.logo b{font-family:var(--f-display);font-size:30px;color:var(--accent);line-height:1}
+.logo span{font-family:var(--f-he);font-size:24px;font-weight:700;color:var(--muted);line-height:1}
+.chips{display:flex;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:4px 12px}
+.chip.fire{color:var(--gold)}
+.chip.star{color:var(--accent)}
+.hello h1{font-size:26px}
+.continue{background:var(--hero);color:var(--on-hero);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;border:0;text-align:start;width:100%}
+.continue .eyebrow{color:inherit;opacity:.8}
+.continue h2{font-size:22px;color:inherit}
+.continue .prog{height:8px;border-radius:99px;background:rgba(255,255,255,.28);overflow:hidden}
+.continue .prog i{display:block;height:100%;background:var(--brass);border-radius:99px}
+.continue .go{align-self:flex-start;background:var(--on-hero);color:var(--hero);font-weight:700;border-radius:10px;padding:8px 16px}
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.mini .eyebrow{font-size:12px}
+.ring{--p:0;width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--brass) calc(var(--p)*1%),var(--sunk) 0);display:flex;align-items:center;justify-content:center}
+.ring span{width:50px;height:50px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
+.wod{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wod .he{font-size:40px;font-weight:700;line-height:1.1}
+.wod-pair{display:flex;align-items:center;gap:10px;font-size:15px}
+.section-title{font-family:var(--f-display);font-size:18px;margin:0}
+
+/* path */
+.level{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.level-head{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;padding:14px;width:100%;background:none;border:0;text-align:start}
+.lv-num{width:48px;height:48px;border-radius:12px;background:var(--sunk);display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-size:22px;color:var(--muted)}
+.level.open .lv-num,.level.active .lv-num{background:var(--accent-soft);color:var(--accent)}
+.lv-meta{display:flex;flex-direction:column;min-width:0;line-height:1.4}
+.lv-meta b{font-size:16px}
+.lv-meta small{color:var(--muted);font-size:13px}
+.cefr{font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:2px 8px;white-space:nowrap}
+.units{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.unit{display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border:0;border-bottom:1px solid var(--line);background:none;text-align:start;width:100%}
+.unit:last-child{border-bottom:0}
+.unit .dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;background:var(--sunk);color:var(--muted)}
+.unit.done .dot{background:var(--good);color:var(--surface)}
+.unit.current .dot{background:var(--accent);color:var(--surface)}
+.unit .u-name{min-width:0;line-height:1.4}
+.unit .u-name small{display:block;color:var(--muted);font-size:12.5px}
+.unit .state{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.unit.current .state{color:var(--accent);font-weight:700}
+.unit.done .state{color:var(--good);font-weight:700}
+.unit.locked{cursor:default}
+.unit.locked .u-name{color:var(--muted)}
+.placement{display:flex;align-items:center;justify-content:space-between;gap:12px}
+
+/* tracks */
+.track{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center}
+.track .ic{width:52px;height:52px;border-radius:14px;background:var(--sunk);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.track .ic svg{width:26px;height:26px}
+.track.first{border-color:var(--accent)}
+.track.first .ic{background:var(--accent-soft);color:var(--accent)}
+.track b{display:block}
+.track small{color:var(--muted);font-size:13.5px;line-height:1.5;display:block}
+.tag{font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.tag.soon{background:var(--accent-soft);color:var(--accent)}
+
+/* me */
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:2px}
+.stat b{font-family:var(--f-display);font-size:28px;font-variant-numeric:tabular-nums;line-height:1.2}
+.stat span{font-size:13px;color:var(--muted)}
+.setting{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.seg{display:flex;background:var(--sunk);border-radius:10px;padding:3px;gap:3px}
+.seg button{border:0;background:none;border-radius:8px;padding:6px 12px;font-size:14px;font-variant-numeric:tabular-nums}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--accent);font-weight:700}
+.letters-learned{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
+.letters-learned span{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--f-he);font-size:22px;font-weight:700;background:var(--sunk);color:var(--muted)}
+.letters-learned span.on{background:var(--accent-soft);color:var(--accent)}
+
+/* tabs */
+.tabs{position:fixed;bottom:0;inset-inline:0;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));z-index:10}
+.tabs-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tab{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:12px;color:var(--muted);border-radius:10px}
+.tab svg{width:24px;height:24px}
+.tab[aria-current="page"]{color:var(--accent);font-weight:700}
+
+/* lesson overlay */
+#lessonView{position:fixed;inset:0;background:var(--bg);z-index:15;overflow:auto;padding-top:env(safe-area-inset-top,0px)}
+.lesson-close{border:0;background:var(--surface);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;color:var(--muted);flex:0 0 auto}
+.top-row .left{display:flex;align-items:center;gap:10px}
+</style>
+</head>
+<body>
+
+
+<div class="shell" dir="rtl" lang="ar"><main id="view" class="view"></main></div>
+
+<nav class="tabs" id="tabs" dir="rtl" aria-label="التنقل">
+  <div class="tabs-in">
+    <button type="button" class="tab" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>الرئيسية</button>
+    <button type="button" class="tab" data-tab="path"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a4 4 0 0 0 0-8h-4a4 4 0 0 1 0-8h6"/></svg>مساري</button>
+    <button type="button" class="tab" data-tab="tracks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>التخصصات</button>
+    <button type="button" class="tab" data-tab="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>حسابي</button>
+  </div>
+</nav>
+
+<div id="lessonView" hidden>
+<div id="app" dir="rtl" lang="ar">
+  <header class="top">
+    <div class="top-row">
+      <span class="left"><button type="button" class="lesson-close" aria-label="سكّر الدرس">✕</button><span class="eyebrow" id="crumb">المستوى 0 · الوحدة 1</span></span>
+      <span class="xp" id="xp">0 نقطة</span>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  </header>
+  <main id="screen" class="stack"></main>
+</div>
+<nav class="bottom" dir="rtl">
+  <div class="bottom-in">
+    <button class="btn ghost" id="back" type="button">رجوع</button>
+    <button class="btn" id="next" type="button">يلا نبلش</button>
+  </div>
+</nav>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- content ---------- */
+const LETTERS=[
+ {p:1,h:"א",n:"אָלֶף",name:"ألِف",ar:"ا",note:"حرف حامل للحركة زي الألف والهمزة. لحاله ما إله صوت.",tip:"شكله زي X مايلة.",ex:{w:"אמא",r:"إيما",m:"ماما"}},
+ {p:2,h:"ב",n:"בֵּית",name:"بيت",ar:"ب / ڤ",note:"إله صوتين: ب، أو ڤ (زي v بالإنجليزي). بأول الكلمة غالبًا ب.",tip:"زي مربع مفتوح من الشمال، وقاعدته طالعة لليمين.",ex:{w:"טוב",r:"طوڤ",m:"منيح (طيّب)"}},
+ {p:2,h:"ג",n:"גִּימֶל",name:"جيمِل",ar:"ج (g)",note:"زي الجيم المصرية (g). اسمه «جيمل» زي كلمة جمل.",tip:"إله رجل صغيرة على الشمال تحت.",ex:{w:"גמל",r:"جامال",m:"جمل"}},
+ {p:1,h:"ד",n:"דָּלֶת",name:"دالِت",ar:"د",note:"نفس الدال بالزبط.",tip:"زاويته فوق حادة. انتبه لا تخلطه مع ר.",ex:{w:"יד",r:"ياد",m:"يد"}},
+ {p:1,h:"ה",n:"הֵא",name:"هيه",ar:"هـ",note:"نفس الهاء. بآخر الكلمة غالبًا ما بتنلفظ، زي التاء المربوطة.",tip:"فيه فتحة صغيرة فوق، بعكس ח المسكّر.",ex:{w:"ילדה",r:"يَلْدا",m:"بنت"}},
+ {p:2,h:"ו",n:"וָו",name:"ڤاڤ",ar:"ڤ / و",note:"صوته ڤ، وكمان بيستعملوه لصوت «او» أو «اوو» زي حرف المد.",tip:"خط واحد قصير نازل. ن النهائية (ן) زيه بس أطول.",ex:{w:"ורד",r:"ڤيرِد",m:"وردة"}},
+ {p:1,h:"ז",n:"זַיִן",name:"زايِن",ar:"ز",note:"نفس الزاي.",tip:"زي عصاية إلها راس.",ex:{w:"זה",r:"زيه",m:"هاد"}},
+ {p:1,h:"ח",n:"חֵית",name:"حيت",ar:"ح",note:"أصله ح، بس أغلب الإسرائيليين اليوم بيلفظوه خ. الثنتين مفهومات.",tip:"مسكّر من فوق زي باب.",ex:{w:"מלח",r:"مِلَح",m:"ملح"}},
+ {p:1,h:"ט",n:"טֵית",name:"طيت",ar:"ط",note:"أصله ط، وبالعبري الحديث بيلفظوه ت خفيفة.",tip:"زي فنجان مفتوح من فوق.",ex:{w:"סלט",r:"سَلَط",m:"سلطة"}},
+ {p:1,h:"י",n:"יוֹד",name:"يود",ar:"ي",note:"نفس الياء. أصغر حرف بالأبجدية.",tip:"صغير ومعلّق فوق السطر زي الهمزة.",ex:{w:"ילד",r:"يِلِد",m:"ولد"}},
+ {p:2,h:"כ",n:"כַּף",name:"كاف",ar:"ك / خ",note:"إله صوتين: ك، أو خ. بأول الكلمة غالبًا ك.",tip:"زي ב بس مدوّر وبدون قاعدة طالعة.",ex:{w:"כלב",r:"كيلِڤ",m:"كلب"}},
+ {p:1,h:"ל",n:"לָמֶד",name:"لامِد",ar:"ل",note:"نفس اللام.",tip:"الحرف الوحيد اللي بيطلع فوق السطر.",ex:{w:"לא",r:"لو",m:"لا"}},
+ {p:1,h:"מ",n:"מֵם",name:"ميم",ar:"م",note:"نفس الميم. إله شكل ثاني بآخر الكلمة: ם.",tip:"إله فتحة صغيرة تحت على الشمال.",ex:{w:"מה",r:"ما",m:"شو؟"}},
+ {p:1,h:"נ",n:"נוּן",name:"نون",ar:"ن",note:"نفس النون. إله شكل ثاني بآخر الكلمة: ן.",tip:"رفيع وإله قاعدة صغيرة.",ex:{w:"נא",r:"نا",m:"رجاءً"}},
+ {p:1,h:"ס",n:"סָמֶךְ",name:"سامِخ",ar:"س",note:"نفس السين.",tip:"دايرة مسكّرة.",ex:{w:"סלט",r:"سَلَط",m:"سلطة"}},
+ {p:1,h:"ע",n:"עַיִן",name:"عايِن",ar:"ع",note:"أصله ع، وبالحكي اليومي كثير ناس بيلفظوه زي الهمزة.",tip:"شكله زي حرف Y.",ex:{w:"עד",r:"عَد",m:"لحدّ"}},
+ {p:2,h:"פ",n:"פֵּא",name:"پيه",ar:"پ / ف",note:"إله صوتين: پ (p، مش موجود بالعربي)، أو ف. بأول الكلمة غالبًا پ.",tip:"زي כ بس جواته سنّة صغيرة.",ex:{w:"כפר",r:"كْفار",m:"قرية (كفر)"}},
+ {p:2,h:"צ",n:"צָדִי",name:"تسادي",ar:"تس",note:"صوته «تس» زي ts. أصله بيقابل الصاد والظاد بالعربي.",tip:"زي Y إلها قاعدة.",ex:{w:"צל",r:"تْسيل",m:"ظل"}},
+ {p:1,h:"ק",n:"קוֹף",name:"قوف",ar:"ق",note:"أصله ق، وبالعبري الحديث بيلفظوه ك.",tip:"رجله نازلة تحت السطر.",ex:{w:"קדימה",r:"كاديما",m:"لقدّام"}},
+ {p:1,h:"ר",n:"רֵישׁ",name:"ريش",ar:"ر",note:"أصله ر، بس الإسرائيليين بيلفظوه قريب من غ.",tip:"زاويته مدوّرة، بعكس ד.",ex:{w:"הר",r:"هار",m:"جبل"}},
+ {p:2,h:"ש",n:"שִׁין",name:"شين",ar:"ش / س",note:"إله صوتين: ش (أكثر إشي)، أو س. شكله وصوته زي الشين العربية.",tip:"زي الشين العربية، بس مقلوبة لفوق.",ex:{w:"שמש",r:"شيميش",m:"شمس"}},
+ {p:1,h:"ת",n:"תָּו",name:"تاف",ar:"ت",note:"نفس التاء.",tip:"إله رجل صغيرة على الشمال، بعكس ח.",ex:{w:"תלמיד",r:"تَلْميد",m:"تلميذ"}}
+];
+const FINALS=[
+ {p:3,h:"ך",base:"כ",n:"כַּף סוֹפִית",name:"كاف نهائية",ar:"خ",note:"الكاف بآخر الكلمة. صوتها غالبًا خ.",tip:"نازلة لتحت السطر زي خط مستقيم.",ex:{w:"מלך",r:"ميلِخ",m:"ملك"}},
+ {p:3,h:"ם",base:"מ",n:"מֵם סוֹפִית",name:"ميم نهائية",ar:"م",note:"الميم بآخر الكلمة. نفس الصوت.",tip:"مربع مسكّر من كل الجهات.",ex:{w:"יום",r:"يوم",m:"يوم"}},
+ {p:3,h:"ן",base:"נ",n:"נוּן סוֹפִית",name:"نون نهائية",ar:"ن",note:"النون بآخر الكلمة. نفس الصوت.",tip:"خط طويل نازل تحت السطر. ו زيه بس أقصر.",ex:{w:"עין",r:"عايِن",m:"عين"}},
+ {p:3,h:"ף",base:"פ",n:"פֵא סוֹפִית",name:"فيه نهائية",ar:"ف",note:"الفاء بآخر الكلمة. صوتها دايمًا ف.",tip:"زي פ بس رجلها نازلة تحت السطر.",ex:{w:"אף",r:"أف",m:"أنف"}},
+ {p:3,h:"ץ",base:"צ",n:"צָדִי סוֹפִית",name:"تسادي نهائية",ar:"تس",note:"التسادي بآخر الكلمة. نفس الصوت.",tip:"زي צ بس رجلها نازلة تحت السطر.",ex:{w:"ארץ",r:"إيرِتس",m:"أرض"}}
+];
+const ALL=[...LETTERS,...FINALS];
+const WORDS1=[
+ {w:"ילד",r:"يِلِد",m:"ولد"},{w:"ילדה",r:"يَلْدا",m:"بنت"},{w:"יד",r:"ياد",m:"يد"},{w:"אמא",r:"إيما",m:"ماما"},
+ {w:"מלח",r:"مِلَح",m:"ملح"},{w:"סלט",r:"سَلَط",m:"سلطة"},{w:"לא",r:"لو",m:"لا"},{w:"מה",r:"ما",m:"شو؟"},
+ {w:"תלמיד",r:"تَلْميد",m:"تلميذ"},{w:"קדימה",r:"كاديما",m:"لقدّام"},{w:"הר",r:"هار",m:"جبل"},
+ {w:"מאה",r:"مِيئا",m:"مية (100)"},{w:"אחת",r:"أخات",m:"وحدة (1)"},{w:"אדמה",r:"أدَما",m:"أرض"}
+];
+const WORDS2=[
+ {w:"כלב",r:"كيلِڤ",m:"كلب"},{w:"גמל",r:"جامال",m:"جمل"},{w:"שמש",r:"شيميش",m:"شمس"},{w:"ורד",r:"ڤيرِد",m:"وردة"},
+ {w:"צל",r:"تْسيل",m:"ظل"},{w:"כפר",r:"كْفار",m:"قرية"},{w:"טוב",r:"طوڤ",m:"منيح"},{w:"פה",r:"پو",m:"هون"},
+ {w:"בית",r:"بايِت",m:"بيت"},{w:"צבע",r:"تْسيڤَع",m:"لون (صبغ)"}
+];
+const WORDS3=[
+ {w:"מלך",r:"ميلِخ",m:"ملك"},{w:"יום",r:"يوم",m:"يوم"},{w:"עין",r:"عايِن",m:"عين"},{w:"אף",r:"أف",m:"أنف"},
+ {w:"ארץ",r:"إيرِتس",m:"أرض / بلد"},{w:"שלום",r:"شالوم",m:"سلام"},{w:"לחם",r:"لِحِم",m:"خبز"}
+];
+const WORDS_ALL=[...WORDS1,...WORDS2,...WORDS3];
+const PAIRS1=[["ד","ר","ד زاويته حادة، ר زاويته مدوّرة."],["ה","ח","ה فيه فتحة فوق، ח مسكّر من فوق."],["ח","ת","ת إله رجل صغيرة على الشمال، ח رجليه مستقيمات."]];
+const PAIRS2=[["ב","כ","ב قاعدته طالعة لليمين، כ مدوّر من تحت."],["ג","נ","ג رجله طالعة للشمال، נ قاعدته ممدودة."],["ו","ז","ו خط بسيط، ז إله راس عريض."]];
+const BUILD=[{ar:"ولد",w:"ילד",extra:["ר","ה"]},{ar:"كلب",w:"כלב",extra:["כ","ד"]},{ar:"شمس",w:"שמש",extra:["ס","ם"]},{ar:"جمل",w:"גמל",extra:["נ","ם"]},{ar:"يوم",w:"יום",extra:["מ","ן"]},{ar:"أرض",w:"ארץ",extra:["צ","ד"]}];
+
+/* steps */
+const STEPS=[
+ {k:"intro"},{k:"abc"},
+ {k:"grid",p:1},{k:"pairs",p:1},{k:"drill",p:1},{k:"root",p:1},{k:"read",p:1},
+ {k:"grid",p:2},{k:"pairs",p:2},{k:"drill",p:2},{k:"read",p:2},
+ {k:"finals",p:3},{k:"drill",p:3},{k:"read",p:3},
+ {k:"build"},{k:"listen"},{k:"stand"},{k:"check"},{k:"done"}
+];
+const PART_NAMES={1:"حروف بتعرفها",2:"حروف بصوتين وأصوات جديدة",3:"الحروف النهائية"};
+const TITLES={intro:"مقدمة",abc:"الأبجدية كاملة",grid:"الحروف",pairs:"حروف بتتشابه",drill:"تدريب",root:"جذر الوحدة",read:"اقرأ الكلمة",finals:"الحروف النهائية",build:"ركّب الكلمة",listen:"اسمع واختار",stand:"بكشك الفلافل",check:"صرت بقدر",done:"خلصت"};
+const PASS=9,CHECK_N=12;
+
+/* ---------- state ---------- */
+const KEY="hebrew-u1-v2";
+const S={step:0,xp:0,seen:{},done:{},best:0};
+try{const raw=localStorage.getItem(KEY);if(raw)Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+const $=id=>document.getElementById(id);
+const screen=$("screen"),nextBtn=$("next"),backBtn=$("back");
+const shuffle=a=>{const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;};
+const pick=(arr,n,not)=>shuffle(arr.filter(x=>!not||!not(x))).slice(0,n);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const he=t=>`<span class="he" lang="he">${esc(t)}</span>`;
+const hand=t=>`<span class="hand" lang="he">${esc(t)}</span>`;
+
+/* ---------- speech ---------- */
+let heVoice=null,warned=false;
+function loadVoices(){try{const v=window.speechSynthesis?speechSynthesis.getVoices():[];heVoice=v.find(x=>/^(he|iw)/i.test(x.lang))||null;}catch(e){}}
+if(window.speechSynthesis){loadVoices();try{speechSynthesis.addEventListener("voiceschanged",loadVoices);}catch(e){}}
+function speak(t){
+  if(!window.speechSynthesis){toast("جهازك ما بيدعم الصوت هون. بالنسخة النهائية رح يكون في تسجيلات صوتية.");return;}
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="he-IL";u.rate=.8;if(heVoice)u.voice=heVoice;speechSynthesis.speak(u);
+    if(!heVoice&&!warned)setTimeout(()=>{loadVoices();if(!heVoice){warned=true;toast("ما لقيت صوت عبري على جهازك، فممكن اللفظ يطلع غلط. استعين باللفظ المكتوب.");}},400);
+  }catch(e){toast("ما زبط تشغيل الصوت.");}
+}
+const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+const speakBtn=(t,label)=>`<button type="button" class="speak" data-say="${esc(t)}">${SPK}${label||"اسمع"}</button>`;
+document.addEventListener("click",e=>{const b=e.target.closest("[data-say]");if(b)speak(b.getAttribute("data-say"));});
+
+let toastT;
+function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,3200);}
+function addXP(n){S.xp+=n;$("xp").textContent=S.xp+" نقطة";save();if(window.onXP)window.onXP(n);}
+const partTag=p=>p?`<span class="part">الجزء ${p} من 3 · ${PART_NAMES[p]}</span>`:"";
+
+/* ---------- quiz engine ---------- */
+function quiz(host,qs,onEnd){
+  let i=0,right=0;
+  function render(){
+    const q=qs[i];
+    host.innerHTML=`<div class="q panel pop">
+      <div class="q-meta"><span>سؤال ${i+1} من ${qs.length}</span><span>${right} صح</span></div>
+      <div class="q-prompt">${q.prompt}</div>
+      <div class="opts">${q.opts.map((o,k)=>`<button type="button" class="opt ${q.optClass||""}" data-k="${k}">${o}</button>`).join("")}</div>
+      <div class="fb"></div></div>`;
+    if(q.auto)setTimeout(()=>speak(q.auto),250);
+    host.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>answer(+b.dataset.k)));
+  }
+  function answer(k){
+    const q=qs[i],ok=k===q.ans;
+    host.querySelectorAll(".opt").forEach((b,n)=>{b.disabled=true;if(n===q.ans)b.classList.add("right");else if(n===k)b.classList.add("wrong");});
+    if(ok){right++;addXP(10);}
+    const fb=host.querySelector(".fb");
+    fb.innerHTML=`<div class="feedback ${ok?"good":"bad"}">${ok?"صح! ":"مش هاي. "}${q.explain||""}</div>
+      <button type="button" class="btn qn" style="width:100%;margin-top:10px">${i+1<qs.length?"السؤال الجاي":"شوف النتيجة"}</button>`;
+    const qn=host.querySelector(".qn");qn.addEventListener("click",()=>{i++;if(i<qs.length)render();else end();});qn.focus();
+  }
+  function end(){
+    host.innerHTML=`<div class="panel score pop"><span class="lead">نتيجتك</span><span class="big">${right}/${qs.length}</span>
+      <p>${right===qs.length?"ممتاز، ولا غلطة!":right>=qs.length*.7?"شغل منيح. كمّل.":"منيح كبداية. ممكن تعيده إذا بدك."}</p>
+      <button type="button" class="btn ghost again">أعيد</button></div>`;
+    host.querySelector(".again").addEventListener("click",()=>onEnd(right,true));
+    onEnd(right,false);
+  }
+  render();
+}
+
+function letterQ(l,pool){const o=shuffle([l.ar,...pick([...new Set(pool.map(x=>x.ar))],3,x=>x===l.ar)]);
+  const useHand=Math.random()<.35;
+  return{prompt:`${useHand?`<span class="hand" lang="he">${l.h}</span><p class="lead">هاد الحرف بخط اليد. شو صوته؟</p>`:`<span class="glyph" lang="he">${l.h}</span><p class="lead">شو صوت هالحرف؟</p>`}`,opts:o,ans:o.indexOf(l.ar),optClass:"ar-letter",explain:`${he(l.h)} اسمه «${l.name}» وصوته ${l.ar}.`};}
+function finalQ(f){const o=shuffle(FINALS.map(x=>x.base));return{prompt:`<span class="glyph" lang="he">${f.h}</span><p class="lead">هاد حرف نهائي. هو شكل أي حرف؟</p>`,opts:o.map(he),ans:o.indexOf(f.base),explain:`${he(f.h)} هو ${he(f.base)} لما ييجي بآخر الكلمة.`};}
+function wordQ(w,pool){const o=shuffle([w.m,...pick([...new Set(pool.map(x=>x.m))],3,x=>x===w.m)]);return{prompt:`<span class="word" lang="he">${w.w}</span><p class="lead">شو معنى هالكلمة؟</p>`,opts:o,ans:o.indexOf(w.m),explain:`${he(w.w)} بتنقرأ «${w.r}» ومعناها ${w.m}.`};}
+function listenQ(w){const o=shuffle([w,...pick(WORDS_ALL,3,x=>x.w===w.w)]);return{prompt:`${speakBtn(w.w,"اسمع الكلمة")}<p class="lead">أي كلمة سمعت؟</p><details><summary class="counter">ما اشتغل الصوت؟ اعرض اللفظ</summary><p>«${w.r}»</p></details>`,auto:w.w,opts:o.map(x=>he(x.w)),ans:o.indexOf(w),explain:`سمعت ${he(w.w)}، ومعناها ${w.m}.`};}
+function pairQ(p){const l=p[Math.random()<.5?0:1],L=LETTERS.find(x=>x.h===l);const o=shuffle([p[0],p[1]].map(h=>LETTERS.find(x=>x.h===h).ar));return{prompt:`<span class="glyph" lang="he">${l}</span><p class="lead">انتبه، هاد حرف بيتشابه مع غيره. شو صوته؟</p>`,opts:o,ans:o.indexOf(L.ar),optClass:"ar-letter",explain:p[2]};}
+
+/* ---------- screens ---------- */
+const R={};
+R.intro=()=>{screen.innerHTML=`
+  <div class="stack pop">
+    <h1>بنهاية هالوحدة رح تكون خلصت الأبجدية العبرية كلها</h1>
+    <p class="lead">22 حرف و5 أشكال نهائية، مقسمين على 3 أجزاء. وأغلبهم إلهم مقابل بالعربي، لأنه العبري والعربي إخوة.</p>
+    <div class="panel hero"><span class="glyph" lang="he">ילד</span><span class="eq">=</span><span class="ar">ولد</span></div>
+    <div class="panel stack">
+      <p><b>الجزء 1:</b> 15 حرف بتعرفهم من العربي</p>
+      <p><b>الجزء 2:</b> 7 حروف بصوتين أو بأصوات جديدة</p>
+      <p><b>الجزء 3:</b> 5 حروف بتتغير بآخر الكلمة</p>
+    </div>
+    <div class="note"><b>رح تتعلم كل حرف بشكلين:</b> المطبوع اللي بتقراه بالكتب واللافتات، والمكتوب بخط اليد اللي بيكتبوه الناس.</div>
+  </div>`;return true;};
+
+R.abc=()=>{
+  const row=l=>`<button type="button" class="abc-row" data-say="${esc(l.n)}" aria-label="اسمع اسم الحرف ${l.name}"><span class="glyph" lang="he">${l.h}</span><span class="hand" lang="he">${l.h}</span><span class="nm"><b>${l.name}</b><small class="he" lang="he">${l.n}</small></span><span class="snd">${l.ar}</span><span class="play">${SPK}</span></button>`;
+  screen.innerHTML=`<div class="stack pop"><h2>الأبجدية كاملة</h2>
+  <p class="lead">هاي كل الحروف قدامك من أولها لآخرها، بالترتيب. كبس على أي سطر تسمع اسم الحرف. ما في داعي تحفظهم هلأ، رح نتعلمهم جزء جزء.</p>
+  <div class="legend"><span><b>مطبوع</b> لقراءة الكتب واللافتات</span><span><b style="color:var(--hand)">خط اليد</b> للكتابة</span></div>
+  <div class="panel abc">
+    <div class="abc-head"><span>مطبوع</span><span>خط اليد</span><span>الاسم</span><span style="text-align:center">الصوت</span><span></span></div>
+    ${LETTERS.map(row).join("")}
+    <div class="abc-sub">الأشكال النهائية (بآخر الكلمة)</div>
+    ${FINALS.map(row).join("")}
+  </div>
+  <div class="note"><b>لاحظ:</b> خط اليد أحيانًا ما بيشبه المطبوع أبدًا، زي ${he("א")} و${hand("א")}. لهيك منتعلم الثنتين من الأول.</div></div>`;
+  return true;};
+
+function openSheet(l){
+  const w=document.createElement("div");w.className="sheet-wrap";
+  w.innerHTML=`<div class="sheet pop" role="dialog" aria-modal="true" aria-label="الحرف ${l.name}" dir="rtl">
+    <div class="sheet-title"><strong>${l.name} · ${l.ar}</strong>${speakBtn(l.n,"اسمع")}</div>
+    <div class="forms"><div class="form"><span class="glyph" lang="he">${l.h}</span><small>مطبوع</small></div><div class="form"><span class="hand" lang="he">${l.h}</span><small>خط اليد</small></div></div>
+    <dl class="kv"><dt>اسمه</dt><dd class="he" lang="he">${l.n}</dd><dt>اللفظ</dt><dd>${l.note}</dd><dt>كيف تحفظه</dt><dd>${l.tip}</dd></dl>
+    <div class="ex"><div>${he(l.ex.w)} <span style="font-size:26px">${hand(l.ex.w)}</span><small style="display:block;color:var(--muted)">«${l.ex.r}» = ${l.ex.m}</small></div>${speakBtn(l.ex.w)}</div>
+    <button type="button" class="btn cls">تمام</button></div>`;
+  document.body.appendChild(w);
+  const close=()=>w.remove();
+  w.addEventListener("click",e=>{if(e.target===w)close();});
+  const c=w.querySelector(".cls");c.addEventListener("click",close);c.focus();
+}
+
+R.grid=(p)=>{const set=LETTERS.filter(l=>l.p===p),n=()=>set.filter(l=>S.seen[l.h]).length;
+  const leads={1:"هدول الحروف إلهم مقابل مباشر بالعربي. كبس على كل حرف تشوف شكله المطبوع وبخط اليد، ولفظه، ونصيحة تحفظه فيها.",2:"هدول الحروف إما إلهم صوتين، أو صوتهم مش موجود بالعربي. ركّز بالنطق."};
+  screen.innerHTML=`<div class="stack pop">${partTag(p)}<h2>${PART_NAMES[p]}</h2>
+  <p class="lead">${leads[p]}</p>
+  <div class="grid ${set.length<10?"g4":""}">${set.map(l=>`<button type="button" class="tile ${S.seen[l.h]?"seen":""}" data-h="${l.h}" aria-label="الحرف ${l.name}"><span class="glyph" lang="he">${l.h}</span><span class="hand" lang="he">${l.h}</span><small>${l.ar}</small></button>`).join("")}</div>
+  <p class="counter cnt">شفت ${n()} من ${set.length}</p>
+  ${p===1?`<div class="note"><b>إشي مهم:</b> بالعبري المطبوع الحروف ما بتتشبك ببعض. كل حرف بيضل لحاله، فالقراءة أسهل مما بتتوقع.</div>`:`<div class="note"><b>قاعدة بتريحك:</b> ${he("ב")} و${he("כ")} و${he("פ")} بأول الكلمة غالبًا بيكونوا ب، ك، پ. بالنص أو بالآخر غالبًا ڤ، خ، ف.</div>`}</div>`;
+  screen.querySelectorAll(".tile").forEach(t=>t.addEventListener("click",()=>{const l=set.find(x=>x.h===t.dataset.h);if(!S.seen[l.h]){S.seen[l.h]=1;addXP(2);t.classList.add("seen");screen.querySelector(".cnt").textContent=`شفت ${n()} من ${set.length}`;}openSheet(l);}));
+  return true;};
+
+R.pairs=(p)=>{const P=p===1?PAIRS1:PAIRS2;
+  screen.innerHTML=`<div class="stack pop">${partTag(p)}<h2>حروف بتتشابه</h2>
+  <p class="lead">هدول أكثر أزواج بيغلّطوا المبتدئين. ركّز بالفرق الصغير.</p>
+  <div class="panel pairs">${P.map(x=>{const a=LETTERS.find(y=>y.h===x[0]),b=LETTERS.find(y=>y.h===x[1]);return `<div class="pair"><span class="glyph" lang="he">${x[0]}</span><span class="glyph" lang="he">${x[1]}</span><div><strong>${a.ar} ، ${b.ar}</strong><p>${x[2]}</p></div></div>`;}).join('<hr style="border:0;border-top:1px solid var(--line);margin:0">')}</div></div>`;return true;};
+
+R.finals=()=>{
+  screen.innerHTML=`<div class="stack pop">${partTag(3)}<h2>الحروف النهائية</h2>
+  <p class="lead">خمس حروف بيتغير شكلهم لما ييجوا بآخر الكلمة. الصوت نفسه، بس الشكل غير. الإسرائيليين بيحفظوهم بكلمة وحدة: <b>«كَمْنَفِتس»</b> ${he("כמנפץ")}.</p>
+  <div class="finals">${FINALS.map(f=>`<button type="button" class="final tile-f" data-h="${f.h}" style="width:100%"><span class="glyph" lang="he">${f.base}</span><span class="arrow">بآخر الكلمة ←</span><span class="glyph" lang="he">${f.h}</span><span class="hand" lang="he">${f.h}</span></button>`).join("")}</div>
+  <div class="note"><b>لاحظ:</b> 4 منهم (${he("ך ן ף ץ")}) بينزلوا تحت السطر، والخامس ${he("ם")} بيتسكّر زي مربع. كبس على أي واحد تشوف تفاصيله.</div></div>`;
+  screen.querySelectorAll(".tile-f").forEach(t=>t.addEventListener("click",()=>{const f=FINALS.find(x=>x.h===t.dataset.h);if(!S.seen[f.h]){S.seen[f.h]=1;addXP(2);}openSheet(f);}));
+  return true;};
+
+function quizScreen(key,head,title,lead,build,minPass){
+  screen.innerHTML=`<div class="stack pop">${head||""}<h2>${title}</h2><p class="lead">${lead}</p><div class="qhost"></div></div>`;
+  const host=screen.querySelector(".qhost");
+  const start=()=>quiz(host,build(),(score,restart)=>{if(restart){start();return;}S.done[key]=Math.max(S.done[key]||0,score);if(key==="check")S.best=Math.max(S.best,score);save();refreshNav(minPass?score>=minPass:true);if(minPass&&score>=minPass)setTimeout(()=>go(S.step+1),900);});
+  start();
+  return key==="check"?S.best>=minPass:S.done[key]!==undefined;
+}
+const P1=LETTERS.filter(l=>l.p===1),P2=LETTERS.filter(l=>l.p===2);
+R.drill=(p)=>{
+  if(p===1)return quizScreen("drill1",partTag(1),"تدريب الجزء 1","شوف الحرف، مطبوع أو بخط اليد، واختار صوته.",()=>shuffle([...pick(P1,8).map(l=>letterQ(l,P1)),...PAIRS1.slice(0,2).map(pairQ)]));
+  if(p===2)return quizScreen("drill2",partTag(2),"تدريب الجزء 2","الحروف الجديدة، ومعها شوية من الجزء الأول.",()=>shuffle([...P2.map(l=>letterQ(l,P2)),...pick(P1,1).map(l=>letterQ(l,LETTERS)),pairQ(PAIRS2[0]),pairQ(PAIRS2[1])]));
+  return quizScreen("drill3",partTag(3),"تدريب الحروف النهائية","شوف الحرف النهائي واختار الحرف العادي اللي بيقابله.",()=>shuffle([...FINALS.map(finalQ),...pick(FINALS,3).map(f=>letterQ(f,FINALS))]));
+};
+R.read=(p)=>{
+  const pools={1:WORDS1,2:WORDS2,3:WORDS3},pool=pools[p],n=p===3?6:8;
+  const leads={1:"هاي أول كلمات بتقراها بالعبري، وكلها من حروف الجزء 1.",2:"كلمات فيها الحروف الجديدة. لاحظ قديش منها بتشبه العربي.",3:"كلمات بتخلص بحرف نهائي."};
+  return quizScreen("read"+p,partTag(p),"اقرأ الكلمة",leads[p],()=>pick(pool,n).map(w=>wordQ(w,pool)));
+};
+R.listen=()=>quizScreen("listen","","اسمع واختار","اسمع الكلمة واختار كيف بتنكتب.",()=>pick(WORDS_ALL,6).map(listenQ));
+R.check=()=>quizScreen("check","","صرت بقدر أقرأ الأبجدية كلها؟",`${CHECK_N} سؤال من كل الوحدة. إذا جبت ${PASS} أو أكثر، بتكون خلصت الأبجدية وبتفتح الوحدة الجاية.`,()=>shuffle([...pick(P1,3).map(l=>letterQ(l,LETTERS)),...pick(P2,3).map(l=>letterQ(l,LETTERS)),...pick(FINALS,2).map(finalQ),...pick(WORDS_ALL,3).map(w=>wordQ(w,WORDS_ALL)),pairQ(pick([...PAIRS1,...PAIRS2],1)[0])]),PASS);
+
+R.root=()=>{screen.innerHTML=`<div class="stack pop">${partTag(1)}<h2>جذر الوحدة</h2>
+  <p class="lead">العبري زي العربي مبني على جذور من 3 حروف. وكثير جذور مشتركة بين اللغتين.</p>
+  <div class="root-letters"><span lang="he">ל</span><span lang="he">מ</span><span lang="he">ד</span></div>
+  <p style="text-align:center">الجذر <b>ل-م-د</b> معناه بالعبري <b>تعلّم</b></p>
+  <div class="rows">
+    <div class="row"><div>${he("לָמַד")}<small>«لامَد» = تعلّم</small></div>${speakBtn("לָמַד")}</div>
+    <div class="row"><div>${he("מְלַמֵּד")}<small>«مِلَمِّد» = بيعلّم</small></div>${speakBtn("מְלַמֵּד")}</div>
+    <div class="row"><div>${he("תַּלְמִיד")}<small>«تَلْميد» = تلميذ</small></div>${speakBtn("תַּלְמִיד")}</div>
+  </div>
+  <div class="note"><b>شفت؟</b> كلمة «تلميذ» اللي بتستعملها بالعربي جاية من نفس الجذر. هيك رح نتعلم مع بعض: من اللي بتعرفه للي لسا ما بتعرفه.</div></div>`;return true;};
+
+R.build=()=>{let bi=0;
+  function render(){
+    const t=BUILD[bi],letters=shuffle([...t.w.split(""),...t.extra]);let typed=[];
+    screen.innerHTML=`<div class="stack pop"><h2>ركّب الكلمة</h2><p class="lead">كبس على الحروف بالترتيب من اليمين للشمال، وانتبه للحرف النهائي. (${bi+1} من ${BUILD.length})</p>
+      <div class="panel stack"><p class="target">${t.ar}</p><div class="slots">${t.w.split("").map(()=>'<span class="slot"></span>').join("")}</div>
+      <div class="tiles">${letters.map(c=>`<button type="button" class="ltile" lang="he">${c}</button>`).join("")}</div>
+      <button type="button" class="btn ghost undo">امسح آخر حرف</button></div><div class="bfb"></div></div>`;
+    const box=screen.querySelector(".slots"),slots=[...box.children],fb=screen.querySelector(".bfb");
+    const paint=()=>slots.forEach((s,n)=>{s.textContent=typed[n]?typed[n].c:"";s.classList.toggle("filled",!!typed[n]);});
+    screen.querySelectorAll(".ltile").forEach(b=>b.addEventListener("click",()=>{
+      if(typed.length>=slots.length)return;typed.push({c:b.textContent,b});b.disabled=true;paint();
+      if(typed.length===slots.length){const ok=typed.map(x=>x.c).join("")===t.w;box.classList.add(ok?"ok":"no");
+        if(ok){addXP(10);speak(t.w);const last=bi+1>=BUILD.length;
+          fb.innerHTML=`<div class="feedback good">صح! ${he(t.w)} = ${t.ar}</div>`+(last?"":'<button type="button" class="btn bn" style="width:100%;margin-top:10px">الكلمة الجاية</button>');
+          if(!last)fb.querySelector(".bn").addEventListener("click",()=>{bi++;render();});else{S.done.build=1;save();refreshNav(true);}}
+        else fb.innerHTML=`<div class="feedback bad">قريب! امسح وجرب كمان مرة.${/[םןךףץ]/.test(t.w)?" تذكر: آخر حرف لازم يكون بشكله النهائي.":""}</div>`;
+      }}));
+    screen.querySelector(".undo").addEventListener("click",()=>{const x=typed.pop();if(x)x.b.disabled=false;box.classList.remove("ok","no");fb.innerHTML="";paint();});
+  }
+  render();return !!S.done.build;};
+
+R.stand=()=>{const items=[{w:"סלט",m:"سلطة",p:"₪12"},{w:"לחם",m:"خبز",p:"₪5"},{w:"מלח",m:"ملح",p:"₪0"}];
+  const tasks=[{ask:"بدك تطلب سلطة. على أي سطر بتكبس؟",a:"סלט"},{ask:"بدك تطلب خبز مع الفلافل. وين؟",a:"לחם"},{ask:"الصحن بدو ملح. وين الملح؟",a:"מלח"}];let ti=0;
+  function render(){const t=tasks[ti];
+    screen.innerHTML=`<div class="stack pop"><h2>بكشك الفلافل</h2><p class="lead">انت واقف قدام كشك بالقدس، والمنيو بالعبري بس. يلا نجرب.</p>
+    <div class="menu"><div class="menu-title">${he("תפריט")}<span class="counter">المنيو</span></div>
+      ${shuffle(items).map(x=>`<button type="button" class="menu-item" data-w="${x.w}">${he(x.w)}<span class="price">${x.p}</span></button>`).join("")}</div>
+    <div class="note"><b>المهمة ${ti+1} من 3:</b> ${t.ask}</div><div class="sfb"></div></div>`;
+    screen.querySelectorAll(".menu-item").forEach(b=>b.addEventListener("click",()=>{
+      const ok=b.dataset.w===t.a;screen.querySelectorAll(".menu-item").forEach(x=>{x.disabled=true;if(x.dataset.w===t.a)x.classList.add("right");else if(x===b)x.classList.add("wrong");});
+      if(ok)addXP(10);
+      const last=ti+1>=tasks.length,item=items.find(x=>x.w===t.a),fb=screen.querySelector(".sfb");
+      let html=`<div class="feedback ${ok?"good":"bad"}">${ok?"صح!":"لا، هاي مش هي."} ${he(item.w)} = ${item.m}</div>`;
+      if(t.a==="לחם")html+=`<div class="ff" style="margin-top:10px"><b>صديق مزيف!</b><p>${he("לחם")} بتشبه «لحم» بالعربي، بس معناها <b style="color:var(--fg)">خبز</b>. إذا طلبت «לחם» وانت بدك لحمة، رح يجيبولك رغيف 😄</p></div>`;
+      html+=`<button type="button" class="btn sn" style="width:100%;margin-top:10px">${last?"خلصت المهمات":"المهمة الجاية"}</button>`;
+      fb.innerHTML=html;
+      const sn=fb.querySelector(".sn");
+      sn.addEventListener("click",()=>{if(!last){ti++;render();}else{S.done.stand=1;save();refreshNav(true);sn.remove();toast("برافو، طلبت أكلك بالعبري!");}});
+    }));}
+  render();return !!S.done.stand;};
+
+R.done=()=>{if(window.onUnitDone)window.onUnitDone("0-1");screen.innerHTML=`<div class="stack pop" style="text-align:center">
+  <div class="badge"><span class="glyph" lang="he">א–ת</span><small>الوحدة 1</small></div>
+  <h1>خلصت الأبجدية العبرية كلها</h1>
+  <p class="lead">22 حرف و5 أشكال نهائية، مطبوعين وبخط اليد. وقرأت أول كلماتك وطلبت أكل من كشك.</p>
+  <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK_N}</b><span>الفحص النهائي</span></div><div><b>${ALL.filter(l=>S.seen[l.h]).length}/27</b><span>حرف شفته</span></div></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">انفتحت</span><p><b>الوحدة 2: الحركات (${he("נִקּוּד")})</b></p><p class="lead" style="font-size:14px">الحركات العبرية مقارنة بالفتحة والكسرة والضمة</p></div><span class="counter">قريبًا</span></div>
+  <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
+  screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
+  screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,{step:0,xp:0,seen:{},done:{},best:0});save();$("xp").textContent="0 نقطة";go(0);});
+  return true;};
+
+/* ---------- nav ---------- */
+function refreshNav(can){
+  const k=STEPS[S.step].k;
+  nextBtn.disabled=!can||k==="done";
+  nextBtn.textContent=k==="intro"?"يلا نبلش":k==="check"?(can?"شوف إنجازك":"خلّص الفحص أول"):k==="done"?"خلصت الوحدة":"التالي";
+  backBtn.hidden=S.step===0;
+}
+function go(n){
+  S.step=Math.max(0,Math.min(STEPS.length-1,n));save();
+  const st=STEPS[S.step];
+  $("crumb").textContent=`المستوى 0 · الوحدة 1 · ${st.p?"الجزء "+st.p+" · ":""}${TITLES[st.k]}`;
+  $("bar").style.width=(S.step/(STEPS.length-1)*100)+"%";
+  ($("lessonView")||window).scrollTo(0,0);
+  refreshNav(R[st.k](st.p));
+}
+nextBtn.addEventListener("click",()=>go(S.step+1));
+backBtn.addEventListener("click",()=>go(S.step-1));
+$("xp").textContent=S.xp+" نقطة";
+window.Lesson={open:()=>go(S.step),progress:()=>S.step/(STEPS.length-1),state:()=>S,ALL,WORDS_ALL,reset:()=>{Object.assign(S,{step:0,xp:0,seen:{},done:{},best:0});save();$("xp").textContent="0 نقطة";}};
+})();
+</script>
+<script>
+(function(){
+"use strict";
+const L=window.Lesson;
+const KEY="gesher-v1";
+const P={xp:0,streak:0,last:null,goal:50,today:{d:null,xp:0},units:{}};
+try{const raw=localStorage.getItem(KEY);if(raw)Object.assign(P,JSON.parse(raw));}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dstr=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const today=()=>dstr(new Date());
+const yesterday=()=>{const d=new Date();d.setDate(d.getDate()-1);return dstr(d);};
+if(P.last&&P.last!==today()&&P.last!==yesterday())P.streak=0;
+if(P.today.d!==today())P.today={d:today(),xp:0};
+
+const LEVELS=[
+ {n:0,name:"الحروف والقراءة",cefr:"قبل A1",units:[["الأبجدية كاملة","22 حرف و5 أشكال نهائية، مطبوع وبخط اليد"],["الحركات","נִקּוּד مقارنة بالفتحة والكسرة والضمة"],["القراءة بدون تشكيل","حروف المد زي العربي"],["الكتابة","خط اليد والكيبورد العبري"]]},
+ {n:1,name:"الحياة اليومية",cefr:"A1",units:[["مين أنا؟","الضمائر والتعارف"],["العيلة","المذكر والمؤنث والجمع"],["الأرقام والوقت","الساعة والتاريخ"],["بالسوق","الأسعار والشراء"],["الأكل","الفعل المضارع"],["المواصلات","الباص والقطار"],["البيت","יש و אין"],["يومي","الروتين وأيام الأسبوع"],["الجسم والصحة","شو بوجعك؟"],["مشروع المستوى","محادثة تعارف كاملة"]]},
+ {n:2,name:"الماضي والمستقبل والمؤسسات",cefr:"A2",units:[["مبارح","الفعل الماضي"],["بكرا","الفعل المستقبل"],["وزن פיעל","زي وزن فعّل"],["وزن הפעיל","زي وزن أفعل"],["קופת חולים","حجز دور"],["البنك والبريد","النماذج والحسابات"],["التلفون","المكالمة الرسمية"],["الدوّارة على شغل","السيرة الذاتية والمقابلة"],["الطقس والأعياد","المقارنة"],["مشروع المستوى","مكالمة وحجز موعد"]]},
+ {n:3,name:"الاستقلالية",cefr:"B1",units:[["وزن התפעל","زي وزن تفعّل"],["وزن נפעל","المبني للمجهول"],["الסמיכות","زي الإضافة بالعربي"],["المؤسسات","ביטוח לאומי والرسائل الرسمية"],["الأخبار","أدوات الربط"],["رأيي","التعبير والنقاش"],["الشكاوى والخدمات","الاعتراض بأدب"],["الإيجار والعقود","قراءة البنود"],["العامية العبرية","סבבה، יאללה، אחלה"],["مشروع المستوى","شكوى رسمية ونقاش"]]},
+ {n:4,name:"الجاهزية المهنية",cefr:"B2",units:[["رسمي أو عامي؟","التنقل بين الأسلوبين"],["الإيميل المهني","الافتتاح والطلب والختام"],["الاجتماعات","الموافقة والاعتراض"],["التعامل مع الجمهور","التهدئة والشرح"],["التقارير","الكتابة المرتبة"],["العرض والتقديم","الشرح أمام الناس"],["حقوقي بالشغل","תלוש שכר والحقوق"],["مشروع التخرج","محاكاة مقابلة عمل"]]}
+];
+const TOTAL=LEVELS.reduce((a,l)=>a+l.units.length,0);
+const uid=(l,u)=>l+"-"+(u+1);
+const PLAYABLE={"0-1":true};
+const isDone=id=>!!P.units[id];
+function prevId(l,u){if(u>0)return uid(l,u-1);if(l>0)return uid(l-1,LEVELS[l-1].units.length-1);return null;}
+function unitState(l,u){const id=uid(l,u);if(isDone(id))return"done";const pv=prevId(l,u);if(!pv||isDone(pv))return PLAYABLE[id]?"current":"soon";return"locked";}
+function currentUnit(){for(const lv of LEVELS)for(let u=0;u<lv.units.length;u++){const s=unitState(lv.n,u);if(s==="current"||s==="soon")return{l:lv.n,u,s};}return null;}
+const doneCount=()=>Object.keys(P.units).length;
+
+let toastT;
+function toast(m){const t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,3000);}
+
+/* hooks from the lesson */
+window.onXP=n=>{const d=today();if(P.today.d!==d)P.today={d,xp:0};P.today.xp+=n;P.xp+=n;
+  if(P.last!==d){P.streak=P.last===yesterday()?P.streak+1:1;P.last=d;}save();chips();};
+window.onUnitDone=id=>{if(!P.units[id]){P.units[id]=today();save();}};
+window.closeLesson=()=>{$("lessonView").hidden=true;$("tabs").hidden=false;document.body.style.overflow="";route(curView);};
+
+function openLesson(){$("lessonView").hidden=false;$("tabs").hidden=true;document.body.style.overflow="hidden";L.open();}
+
+/* chips */
+function chips(){document.querySelectorAll("[data-xp]").forEach(e=>e.textContent=P.xp);document.querySelectorAll("[data-streak]").forEach(e=>e.textContent=P.streak);}
+const brand=()=>`<div class="brand"><div class="logo"><b>جسر</b><span lang="he">גשר</span></div><div class="chips"><span class="chip fire" title="أيام متتالية">🔥 <span data-streak>${P.streak}</span></span><span class="chip star" title="نقاطك">★ <span data-xp>${P.xp}</span></span></div></div>`;
+
+/* views */
+const V={};
+V.home=()=>{
+  const c=currentUnit(),lvl=c?LEVELS[c.l]:null,ln=L.progress();
+  const pct=c&&c.s==="current"?Math.round(ln*100):0;
+  const words=L.WORDS_ALL,w=words[Math.floor(Date.now()/864e5)%words.length];
+  const g=Math.min(100,Math.round(P.today.xp/P.goal*100));
+  return `${brand()}
+  <div class="hello"><h1>${P.xp?"أهلا فيك من جديد":"أهلا فيك بجسر"}</h1><p class="lead">العبري من العربي اللي بتعرفه.</p></div>
+  ${c?`<button type="button" class="continue" data-act="${c.s==="current"?"lesson":"soon"}">
+    <span class="eyebrow">${pct>0?"كمّل من وين وقفت":"الدرس الجاي"} · المستوى ${c.l} · الوحدة ${c.u+1}</span>
+    <h2>${esc(lvl.units[c.u][0])}</h2>
+    ${c.s==="current"?`<div class="prog"><i style="width:${pct}%"></i></div><span class="go">${pct>0?"كمّل":"ابدأ"}</span>`:`<span class="go">قريبًا</span>`}
+  </button>`:`<div class="panel"><b>خلصت كل الوحدات المتاحة 🎉</b></div>`}
+  <div class="cards2">
+    <div class="mini"><span class="eyebrow">هدف اليوم</span><div class="ring" style="--p:${g}"><span>${P.today.xp}</span></div><small class="lead">من ${P.goal} نقطة</small></div>
+    <div class="mini"><span class="eyebrow">تقدمك</span><b style="font-family:var(--f-display);font-size:28px;font-variant-numeric:tabular-nums">${doneCount()}/${TOTAL}</b><small class="lead">وحدة خلصتها</small></div>
+  </div>
+  <div class="panel stack"><span class="eyebrow">كلمة اليوم</span>
+    <div class="wod"><div><span class="he" lang="he" style="font-size:40px;font-weight:700">${esc(w.w)}</span><div class="wod-pair"><span>«${esc(w.r)}»</span><span class="lead">=</span><b>${esc(w.m)}</b></div></div>
+    <button type="button" class="speak" data-say="${esc(w.w)}" aria-label="اسمع الكلمة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>اسمع</button></div></div>`;
+};
+let openLv=0;
+V.path=()=>{
+  const lvls=LEVELS.map(lv=>{const done=lv.units.filter((_,u)=>isDone(uid(lv.n,u))).length,open=openLv===lv.n;
+    return `<div class="level ${open?"open":""}"><button type="button" class="level-head" data-lv="${lv.n}" aria-expanded="${open}"><span class="lv-num">${lv.n}</span><span class="lv-meta"><b>${esc(lv.name)}</b><small>${done} من ${lv.units.length} وحدات</small></span><span class="cefr">${lv.cefr}</span></button>
+    ${open?`<div class="units">${lv.units.map((un,u)=>{const s=unitState(lv.n,u),lab={done:"خلصت ✓",current:"ابدأ",soon:"قريبًا",locked:"🔒"}[s];
+      return `<button type="button" class="unit ${s}" data-unit="${uid(lv.n,u)}" data-s="${s}"><span class="dot">${s==="done"?"✓":u+1}</span><span class="u-name">${esc(un[0])}<small>${esc(un[1])}</small></span><span class="state">${lab}</span></button>`;}).join("")}</div>`:""}</div>`;}).join("");
+  return `${brand()}<div><h1 style="font-size:24px">مسارك</h1><p class="lead">5 مستويات و${TOTAL} وحدة، من أول حرف لحد ما تشتغل بالعبري.</p></div>
+  <div class="panel placement"><div><b>بتعرف عبري أصلًا؟</b><p class="lead" style="font-size:14px">اختبار تحديد المستوى بيوفّر عليك الوحدات اللي بتعرفها.</p></div><button type="button" class="btn ghost" data-act="placement" style="min-height:44px;padding:8px 14px">قريبًا</button></div>
+  ${lvls}`;
+};
+const IC={nurse:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v10M7 12h10"/><rect x="3" y="3" width="18" height="18" rx="4"/></svg>',
+  med:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a6 6 0 0 0 12 0V3"/><path d="M12 15v2a4 4 0 0 0 8 0v-3"/><circle cx="20" cy="12" r="2"/></svg>',
+  law:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M4 7h16M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z"/></svg>',
+  more:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>'};
+V.tracks=()=>`${brand()}<div><h1 style="font-size:24px">التخصصات</h1><p class="lead">العبري اللي بتحتاجه بشغلك بالزبط: المصطلحات، والمحادثات، والكتابة المهنية.</p></div>
+  <div class="track first"><span class="ic">${IC.nurse}</span><div><b>العبري للتمريض</b><small>تسليم المناوبة، الحديث مع المريض، الملاحظات التمريضية، وقاموس طبي بـ3 لغات.</small></div><span class="tag soon">أول مسار</span></div>
+  <div class="track"><span class="ic">${IC.med}</span><div><b>العبري للطب</b><small>للأطباء وطلاب الطب.</small></div><span class="tag">لاحقًا</span></div>
+  <div class="track"><span class="ic">${IC.law}</span><div><b>العبري للقانون</b><small>للمحامين وطلاب القانون.</small></div><span class="tag">لاحقًا</span></div>
+  <div class="track"><span class="ic">${IC.more}</span><div><b>تخصصات أخرى</b><small>بنضيفها حسب طلبكم.</small></div><span class="tag">لاحقًا</span></div>
+  <div class="note"><b>إمتى بيفتح مسار التخصص؟</b> بعد المستوى 4، أو مباشرة إذا مستواك عالي باختبار تحديد المستوى.</div>`;
+let confirmReset=false;
+V.me=()=>{const seen=L.state().seen||{};const letters=L.ALL.map(l=>`<span class="${seen[l.h]?"on":""}" lang="he">${l.h}</span>`).join("");const nSeen=L.ALL.filter(l=>seen[l.h]).length;
+  return `${brand()}<h1 style="font-size:24px">حسابي</h1>
+  <div class="statgrid">
+    <div class="stat"><b data-xp>${P.xp}</b><span>نقطة</span></div>
+    <div class="stat"><b data-streak>${P.streak}</b><span>يوم ورا بعض</span></div>
+    <div class="stat"><b>${nSeen}/27</b><span>حرف تعرفت عليه</span></div>
+    <div class="stat"><b>${doneCount()}/${TOTAL}</b><span>وحدة خلصتها</span></div>
+  </div>
+  <div class="panel stack"><span class="eyebrow">الحروف</span><div class="letters-learned">${letters}</div></div>
+  <div class="panel setting"><div><b>هدفي اليومي</b><p class="lead" style="font-size:14px">نقاط بدك تجمعها كل يوم</p></div>
+    <div class="seg" role="group" aria-label="الهدف اليومي">${[20,50,100].map(g=>`<button type="button" data-goal="${g}" aria-pressed="${P.goal===g}">${g}</button>`).join("")}</div></div>
+  <div class="panel setting"><div><b>ابدأ من جديد</b><p class="lead" style="font-size:14px">بيمسح كل تقدمك على هالجهاز</p></div><button type="button" class="btn ghost" data-act="reset" style="min-height:44px;padding:8px 14px;${confirmReset?"color:var(--bad);border-color:var(--bad)":""}">${confirmReset?"متأكد؟ اكبس مرة ثانية":"امسح"}</button></div>
+  <p class="lead" style="font-size:13px">تقدمك محفوظ على هالجهاز بس. بالنسخة الرسمية رح يكون في حساب بيحفظ تقدمك على كل أجهزتك.</p>`;};
+
+/* router */
+let curView="home";
+function route(v){curView=v;$("view").innerHTML=V[v]();document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.tab===v?"page":"false"));window.scrollTo(0,0);try{history.replaceState(null,"","#"+v);}catch(e){}}
+document.addEventListener("click",e=>{
+  if(e.target.closest(".lesson-close")){window.closeLesson();return;}
+  const t=e.target.closest(".tab");if(t){confirmReset=false;route(t.dataset.tab);return;}
+  const a=e.target.closest("[data-act]");
+  if(a){const act=a.dataset.act;
+    if(act==="lesson")openLesson();
+    else if(act==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");
+    else if(act==="placement")toast("اختبار تحديد المستوى قيد التحضير.");
+    else if(act==="reset"){if(!confirmReset){confirmReset=true;route("me");}else{confirmReset=false;Object.assign(P,{xp:0,streak:0,last:null,today:{d:today(),xp:0},units:{}});save();L.reset();route("me");toast("انمسح تقدمك.");}}
+    return;}
+  const lv=e.target.closest("[data-lv]");if(lv){const n=+lv.dataset.lv;openLv=openLv===n?-1:n;route("path");return;}
+  const un=e.target.closest("[data-unit]");if(un){const s=un.dataset.s;if(s==="current"||(s==="done"&&PLAYABLE[un.dataset.unit]))openLesson();else if(s==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");else toast("خلّص الوحدة اللي قبلها أول.");return;}
+  const g=e.target.closest("[data-goal]");if(g){P.goal=+g.dataset.goal;save();route("me");}
+});
+const h=(location.hash||"").slice(1);
+route(V[h]?h:"home");
+})();
+</script>
+
+</body>
+</html>
