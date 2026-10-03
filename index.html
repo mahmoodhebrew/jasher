@@ -439,6 +439,47 @@ p{margin:0}
 .hdr-r{display:flex;align-items:center;gap:8px}
 .rate-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:17px;line-height:1;display:inline-flex;align-items:center;justify-content:center;filter:grayscale(1);opacity:.7;padding:0}
 .rate-btn[aria-pressed="true"]{filter:none;opacity:1;border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent-soft)}
+
+/* placement test */
+.pt-wrap{display:flex;flex-direction:column;gap:14px;padding-bottom:24px}
+.pt-center{align-items:center;text-align:center;min-height:70vh;justify-content:center}
+.pt-top{display:flex;justify-content:flex-start}
+.pt-center .pt-top{align-self:stretch}
+.pt-hero{background:var(--hero);color:var(--on-hero);border-radius:22px;padding:20px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 28px rgba(108,60,225,.28)}
+.pt-hero .eyebrow,.pt-hero .lead{color:inherit;opacity:.88}.pt-hero h1{font-size:26px;color:inherit}
+.pt-bridge{display:flex;align-items:center;justify-content:center;gap:0;margin:8px 0;direction:rtl}
+.pt-pillar{width:40px;height:40px;border-radius:12px;background:var(--sunk);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:all .3s}
+.pt-pillar i{font-style:normal;font-family:var(--f-he);font-size:20px;color:var(--muted)}
+.pt-pillar.ok{background:var(--good);border-color:var(--good)}.pt-pillar.ok i{color:#fff}
+.pt-pillar.cur{border-color:var(--brass);box-shadow:0 0 0 4px rgba(247,163,37,.25);transform:translateY(-4px)}.pt-pillar.cur i{color:var(--gold)}
+.pt-span{height:4px;flex:1 1 auto;max-width:34px;min-width:10px;background:var(--line);border-radius:2px}
+.pt-hero .pt-pillar{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35)}.pt-hero .pt-pillar i{color:#fff}.pt-hero .pt-span{background:rgba(255,255,255,.35)}
+.pt-tips{display:grid;gap:8px}.pt-tips div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px;display:flex;flex-direction:column}.pt-tips small{color:var(--muted);font-size:13px}
+.pt-starts{display:grid;gap:8px}
+.pt-start{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:14px 16px;text-align:start;display:flex;flex-direction:column;gap:2px;color:var(--fg);box-shadow:var(--shadow)}
+.pt-start b{font-size:16px}.pt-start small{color:var(--muted);font-size:13px}.pt-start:hover{border-color:var(--accent)}
+.pt-dots{display:flex;gap:4px;justify-content:center}.pt-dots i{width:100%;max-width:28px;height:6px;border-radius:99px;background:var(--sunk)}.pt-dots i.done{background:var(--accent)}.pt-dots i.cur{background:var(--brass)}
+.pt-stim{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;font-family:var(--f-he);font-size:30px;text-align:center;line-height:1.6;box-shadow:var(--shadow)}
+.pt-stim.long{font-size:19px;text-align:start;line-height:1.8}
+.pt-stim.doc{border:2px solid var(--fg);border-radius:10px;background:var(--sunk);font-weight:700;font-size:20px}
+.pt-chat{display:flex;flex-direction:column;gap:8px;background:var(--sunk);border-radius:var(--r);padding:12px}
+.pt-bub{align-self:flex-start;max-width:85%;background:var(--surface);border-radius:14px 14px 14px 4px;padding:8px 12px;font-family:var(--f-he);font-size:18px;box-shadow:var(--shadow)}
+.pt-bub b{display:block;font-size:12px;color:var(--accent);font-family:var(--f-body)}
+.pt-bub.me{align-self:flex-end;background:var(--accent-soft);border-radius:14px 14px 4px 14px}
+.pt-opts{display:grid;gap:8px}.pt-opts .tr-opt{min-height:54px;font-size:16px}.pt-opts.he .tr-opt{font-family:var(--f-he);font-size:20px}
+.pt-idk{align-self:center;border:1px dashed var(--line);background:none;color:var(--muted);border-radius:99px;padding:8px 18px;font-size:14px}
+.pt-badge{width:72px;height:72px;border-radius:50%;background:var(--good);color:#fff;font-size:36px;display:flex;align-items:center;justify-content:center;animation:pop .4s}
+@keyframes pop{0%{transform:scale(.4)}80%{transform:scale(1.1)}100%{transform:scale(1)}}
+.pt-result{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+.pt-level{display:flex;gap:14px;align-items:center}.pt-level b{display:block;font-size:18px}.pt-level small{color:var(--muted)}
+.pt-num{width:64px;height:64px;border-radius:18px;background:var(--hero);color:var(--on-hero);font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.pt-skill{display:grid;grid-template-columns:100px 1fr 34px;gap:10px;align-items:center;margin-top:8px;font-size:14px}.pt-skill small{color:var(--muted);text-align:end}
+.pt-bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}.pt-bar i{display:block;height:100%;background:var(--accent);border-radius:99px}.pt-bar i.hi{background:var(--good)}.pt-bar i.lo{background:var(--bad)}
+.pt-review summary{cursor:pointer}.pt-rv{border-top:1px solid var(--line);padding:10px 0;display:flex;flex-direction:column;gap:4px}.pt-rv p{margin:0}.pt-rv .he{font-family:var(--f-he);font-size:18px}
+.pt-ans .bad{color:var(--bad);text-decoration:line-through}.pt-ans .idk{color:var(--muted)}.pt-ans .ok{color:var(--good);font-weight:700}.pt-ans [lang="he"]{font-family:var(--f-he);font-size:17px}
+.pt-invite{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;text-align:start;width:100%;color:var(--fg);border-color:var(--brass)}
+.pt-inv-ic{width:52px;height:52px;border-radius:14px;background:rgba(247,163,37,.15);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--f-he);font-weight:700;font-size:15px}
+.pt-invite b{display:block}.pt-invite small{color:var(--muted);font-size:13px}.pt-invite .go{background:var(--brass);color:#2B1B00;font-weight:700;border-radius:10px;padding:6px 14px;font-size:14px}
 /* training */
 .tr-home{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;text-align:start;width:100%;color:var(--fg)}.tr-home .ic{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}.tr-home .ic svg{width:22px;height:22px}.tr-home b{display:block}.tr-home small{color:var(--muted);font-size:13px}.tr-home .go{background:var(--accent);color:var(--on-hero);font-weight:700;border-radius:10px;padding:6px 14px;font-size:14px}
 .tr-today{background:var(--hero);color:var(--on-hero);border-radius:22px;box-shadow:0 10px 28px rgba(108,60,225,.28);padding:18px;display:flex;flex-direction:column;gap:10px;border:0;text-align:start;width:100%}
@@ -3031,8 +3072,9 @@ const uid=(l,u)=>l+"-"+(u+1);
 const PLAYABLE={};["0-1","0-2","0-3","0-4","1-1","1-2","1-3","1-4","1-5","1-6","1-7","1-8","1-9","1-10","2-1","2-2","2-3","2-4","2-5","2-6","2-7","2-8","2-9","2-10","3-1","3-2","3-3","3-4","3-5","3-6","3-7","3-8","3-9","3-10","4-1","4-2","4-3","4-4","4-5","4-6","4-7","4-8"].forEach(id=>{if(L.has(id))PLAYABLE[id]=true;});
 const isDone=id=>!!P.units[id];
 function prevId(l,u){if(u>0)return uid(l,u-1);if(l>0)return uid(l-1,LEVELS[l-1].units.length-1);return null;}
-function unitState(l,u){const id=uid(l,u);if(isDone(id))return"done";if(P.admin)return PLAYABLE[id]?"current":"soon";const pv=prevId(l,u);if(!pv||isDone(pv))return PLAYABLE[id]?"current":"soon";return"locked";}
-function currentUnit(){for(const lv of LEVELS)for(let u=0;u<lv.units.length;u++){const s=unitState(lv.n,u);if(s==="current"||s==="soon")return{l:lv.n,u,s};}return null;}
+const ord=(l,u)=>l*100+u;const placedOK=(l,u)=>P.placed&&!P.placed.skip&&ord(l,u)<=ord(P.placed.lv,P.placed.u);
+function unitState(l,u){const id=uid(l,u);if(isDone(id))return"done";if(P.admin||placedOK(l,u))return PLAYABLE[id]?"current":"soon";const pv=prevId(l,u);if(!pv||isDone(pv))return PLAYABLE[id]?"current":"soon";return"locked";}
+function currentUnit(){const pl=P.placed&&!P.placed.skip?P.placed:null;for(const lv of LEVELS)for(let u=0;u<lv.units.length;u++){if(pl&&ord(lv.n,u)<ord(pl.lv,pl.u))continue;const s=unitState(lv.n,u);if(s==="current"||s==="soon")return{l:lv.n,u,s};}return null;}
 const doneCount=()=>Object.keys(P.units).length;
 
 let toastT;
@@ -3065,6 +3107,7 @@ V.home=()=>{
     ${c.s==="current"?`<div class="prog"><i style="width:${pct}%"></i></div><span class="go">${pct>0?"كمّل":"ابدأ"}</span>`:`<span class="go">قريبًا</span>`}
   </button>`:`<div class="panel"><b>خلصت كل الوحدات المتاحة 🎉</b></div>`}
   ${(()=>{const {pool}=trainPool(),c=srsCounts(pool),n=Math.min(12,c.due+c.fresh);return `<button type="button" class="panel tr-home" data-act="train"><span class="ic">${IC_T.srs}</span><span><b>مراجعة اليوم</b><small>${n?`${n} كلمة بتستناك بالتدريب`:"خلصت مراجعة اليوم 👏"}</small></span><span class="go">${n?"راجع":"تدرّب"}</span></button>`;})()}
+  ${!P.placed&&doneCount()===0?`<button type="button" class="panel pt-invite" data-act="placement"><span class="pt-inv-ic" lang="he">א→ה</span><span><b>بتعرف عبري شوي؟</b><small>اعمل اختبار تحديد المستوى (10–15 دقيقة) وابدأ من المكان المناسب إلك.</small></span><span class="go">ابدأ</span></button>`:""}
   <div class="cards2">
     <div class="mini"><span class="eyebrow">هدف اليوم</span><div class="ring" style="--p:${g}"><span>${P.today.xp}</span></div><small class="lead">من ${P.goal} نقطة</small></div>
     <div class="mini"><span class="eyebrow">تقدمك</span><b style="font-family:var(--f-display);font-size:28px;font-variant-numeric:tabular-nums">${doneCount()}/${TOTAL}</b><small class="lead">وحدة خلصتها</small></div>
@@ -3085,7 +3128,7 @@ V.path=()=>{
     ${open?`<div class="units">${lv.units.map((un,u)=>{const s=unitState(lv.n,u),lab={done:"خلصت ✓",current:"ابدأ",soon:"قريبًا",locked:"🔒"}[s];
       return `<button type="button" class="unit ${s}" data-unit="${uid(lv.n,u)}" data-s="${s}"><span class="dot">${s==="done"?"✓":u+1}</span><span class="u-name">${esc(un[0])}<small>${esc(un[1])}</small></span><span class="state">${lab}</span></button>`;}).join("")}</div>`:""}</div>`;}).join("");
   return `${brand()}<div><h1 style="font-size:24px">مسارك</h1><p class="lead">5 مستويات و${TOTAL} وحدة، من أول حرف لحد ما تشتغل بالعبري.</p></div>
-  <div class="panel placement"><div><b>بتعرف عبري أصلًا؟</b><p class="lead" style="font-size:14px">اختبار تحديد المستوى بيوفّر عليك الوحدات اللي بتعرفها.</p></div><button type="button" class="btn ghost" data-act="placement" style="min-height:44px;padding:8px 14px">قريبًا</button></div>
+  <div class="panel placement"><div><b>بتعرف عبري أصلًا؟</b><p class="lead" style="font-size:14px">اختبار تحديد المستوى بيوفّر عليك الوحدات اللي بتعرفها.</p></div><button type="button" class="btn ${P.placed&&!P.placed.skip?"ghost":""}" data-act="placement" style="min-height:44px;padding:8px 14px">${P.placed&&!P.placed.skip?"أعيده":"ابدأ"}</button></div>
   ${lvls}
   <div style="margin-top:8px"><h2 style="font-size:20px">مسارات التخصص</h2><p class="lead" style="font-size:14px">بعد الأساسيات، بتكمّل بالعبري المهني لمجالك.</p></div>
   ${tracksList()}`;
@@ -3377,8 +3420,569 @@ document.addEventListener("click",e=>{
   const f=e.target.closest("[data-pkflip]");if(f){const i=+f.dataset.pkflip,w=packWords(PK.id)[i];if(PK.flip.has(i))PK.flip.delete(i);else{PK.flip.add(i);}route("train");window.scrollTo(0,sy);if(w&&PK.flip.has(i))speakWord(w[0]);return;}
 });
 function speakWord(t){const b=document.createElement("button");b.setAttribute("data-say",t);b.hidden=true;document.body.appendChild(b);b.click();b.remove();}
+const PQ_1=[
+ // ===================== STATION 0 — letters & reading =====================
+ // slot 1 — letter → Arabic sound
+ {st:0, slot:1, skill:"letters", type:"mcq", prompt:"شو صوت هالحرف؟", he:"ל",
+  o:["ن","ر","ل","ك"], a:2, why:"ל هي اللامِد = ل، وهي الحرف الوحيد اللي بيطلع فوق السطر."},
+ {st:0, slot:1, skill:"letters", type:"mcq", prompt:"شو صوت هالحرف؟", he:"ק",
+  o:["ق","هـ","ف","ط"], a:0, why:"ק هي القوف = ق (اليوم بيلفظوها ك). الفخ: ה بتشبهها بس ما إلها رجل نازلة تحت السطر."},
+ {st:0, slot:1, skill:"letters", type:"mcq", prompt:"شو صوت هالحرف؟", he:"ש",
+  o:["ص","ع","ت","ش"], a:3, why:"ש هي الشين، وشكلها زي الشين العربية مقلوبة لفوق."},
+ // slot 2 — final letters
+ {st:0, slot:2, skill:"letters", type:"mcq", prompt:"كيف بتنكتب מ إذا إجت بآخر الكلمة؟",
+  o:["ן","ם","ס","ך"], heo:true, a:1, why:"الميم النهائية ם مربّع مسكّر. ס دايرة وهي حرف السين."},
+ {st:0, slot:2, skill:"letters", type:"mcq", prompt:"هالحرف ן هو الشكل النهائي لأي حرف؟",
+  o:["ו","ז","כ","נ"], heo:true, a:3, why:"ן هي النون النهائية. الفخ: ו بتشبهها بس أقصر وما بتنزل تحت السطر."},
+ {st:0, slot:2, skill:"letters", type:"mcq", prompt:"أي كلمة «يوم» مكتوبة صح؟",
+  o:["יום","יומ","יוס"], heo:true, a:0, why:"الميم بآخر الكلمة لازم تنكتب ם: יום. و ס هي السين مش الميم."},
+ // slot 3 — similar-letter traps
+ {st:0, slot:3, skill:"letters", type:"mcq", prompt:"أي حرف صوته «د»؟",
+  o:["ר","ה","ד","ך"], heo:true, a:2, why:"ד زاويته فوق حادة. ר زاويته مدوّرة وصوته ر."},
+ {st:0, slot:3, skill:"letters", type:"mcq", prompt:"أي حرف صوته «ح»؟",
+  o:["ח","ה","ת","ו"], heo:true, a:0, why:"ח مسكّر من فوق زي باب. ה فيه فتحة صغيرة، و ת إلها رجل صغيرة على الشمال."},
+ {st:0, slot:3, skill:"letters", type:"mcq", prompt:"أي حرف صوته «ب»؟",
+  o:["כ","פ","ב","נ"], heo:true, a:2, why:"ב قاعدتها طالعة لليمين. כ مدوّرة وبدون قاعدة طالعة وصوتها ك/خ."},
+ // slot 4 — Arabic sound → Hebrew letter
+ {st:0, slot:4, skill:"letters", type:"mcq", prompt:"أي حرف صوته «تس» (ts)؟",
+  o:["ע","ס","ש","צ"], heo:true, a:3, why:"צ هي التسادي = تس. الفخ: ע بتشبهها (زي Y) بس صوتها ع."},
+ {st:0, slot:4, skill:"letters", type:"mcq", prompt:"أي حرف صوته «ز»؟",
+  o:["ו","ז","ן","ר"], heo:true, a:1, why:"ז هي الزايِن، زي عصاية إلها راس. ו بدون راس وصوتها ڤ/و."},
+ {st:0, slot:4, skill:"letters", type:"mcq", prompt:"أي حرف صوته «س»؟",
+  o:["ם","ט","ס","צ"], heo:true, a:2, why:"ס دايرة مسكّرة = س. ם مربّع وهي الميم النهائية."},
+ // slot 5 — vowelled word → transliteration
+ {st:0, slot:5, skill:"reading", type:"mcq", prompt:"كيف بتنقرا هالكلمة؟", he:"דּוֹד",
+  o:["رود","دود","دور","ذود"], a:1, why:"ד = د بالأول وبالآخر: دود (عم أو خال). الفخ: ר بتشبه ד."},
+ {st:0, slot:5, skill:"reading", type:"mcq", prompt:"كيف بتنقرا هالكلمة؟", he:"כֶּלֶב",
+  o:["بيلِڤ","خيلِڤ","كيلِڤ","كيلِر"], a:2, why:"כּ بالنقطة = ك، و ב بآخر الكلمة بدون نقطة = ڤ: كيلِڤ (كلب)."},
+ {st:0, slot:5, skill:"reading", type:"mcq", prompt:"كيف بتنقرا هالكلمة؟", he:"חָבֵר",
+  o:["حاڤير","هاڤير","حاڤيد","حاكير"], a:0, why:"ח = ح، و ב بدون نقطة = ڤ، و ר = ر: حاڤير (صاحب)."},
+ // slot 6 — unvowelled common word → meaning
+ {st:0, slot:6, skill:"reading", type:"mcq", prompt:"شو معنى هالكلمة؟", he:"בית",
+  o:["بنت","بيت","يوم","ولد"], a:1, why:"בית = بايِت = بيت. الفخ: בת (بنت) ما فيها י."},
+ {st:0, slot:6, skill:"reading", type:"mcq", prompt:"شو معنى هالكلمة؟", he:"אבא",
+  o:["ماما","أخ","ستي","بابا"], a:3, why:"אבא = أبا = بابا. الفخ: אמא (ماما) فيها מ بدل ב."},
+ {st:0, slot:6, skill:"reading", type:"mcq", prompt:"شو معنى هالكلمة؟", he:"מים",
+  o:["مي (ماء)","يوم","بحر","أكل"], a:0, why:"מים = مايِم = مي. الفخ: יום (يوم) و ים (بحر) بيشبهوها."},
+ // slot 7 — 2-word phrase
+ {st:0, slot:7, skill:"reading", type:"mcq", prompt:"شو معنى هالجملة؟", he:"בֹּקֶר טוֹב",
+  o:["مسا الخير","صباح الخير","تصبح على خير","مع السلامة"], a:1, why:"בוקר = صباح، טוב = منيح (طيّب): صباح الخير."},
+ {st:0, slot:7, skill:"reading", type:"mcq", prompt:"شو معنى هالجملة؟", he:"תּוֹדָה רַבָּה",
+  o:["أهلا وسهلا","عفوًا","شكرًا كثير","يسعد مساك"], a:2, why:"תודה = شكرًا، רבה = كثير: شكرًا كثير."},
+ {st:0, slot:7, skill:"reading", type:"mcq", prompt:"هاي اللافتة على باب دكان. شو مكتوب؟", he:"בָּרוּךְ הַבָּא", doc:true,
+  o:["مع السلامة","ممنوع الدخول","صباح الخير","أهلا وسهلا"], a:3, why:"باروخ هابا = أهلا وسهلا. «باروخ» من نفس جذر «مبروك»."},
+ // slot 8 — transliteration → correct Hebrew spelling
+ {st:0, slot:8, skill:"reading", type:"mcq", prompt:"أي كلمة بتنقرا «ياد» (يد)؟",
+  o:["יר","יד","יך","וד"], heo:true, a:1, why:"י = ي و ד = د: יד. الفخ: ר و ך بيشبهوا ד."},
+ {st:0, slot:8, skill:"reading", type:"mcq", prompt:"أي كلمة هي «سَلَط» (سلطة)؟",
+  o:["םלט","סכט","סלט","סלצ"], heo:true, a:2, why:"ס = س، ל = ل، ט = ط: סלט. ם بتنكتب بس بآخر الكلمة."},
+ {st:0, slot:8, skill:"reading", type:"mcq", prompt:"أي كلمة بتنقرا «إيما» (ماما)؟",
+  o:["אמא","אבא","אנא","אמן"], heo:true, a:0, why:"א + מ + א = إيما. אבא هي بابا، و אמן هي «آمين»."},
+
+ // ===================== STATION 1 — A1 =====================
+ // slot 1 — everyday vocabulary
+ {st:1, slot:1, skill:"vocab", type:"mcq", prompt:"شو يعني «סבתא»؟",
+  o:["سيدي","ستي","عمتي","بنتي"], a:1, why:"סבתא = ستي، و סבא = سيدي."},
+ {st:1, slot:1, skill:"vocab", type:"mcq", prompt:"شو يعني «לחם»؟",
+  o:["لحمة","حليب","خبز","ملح"], a:2, why:"לחם = خبز! الفخ إنها بتشبه «لحم» بالعربي، واللحمة بالعبري בשר."},
+ {st:1, slot:1, skill:"vocab", type:"mcq", prompt:"شو يعني «מטבח»؟",
+  o:["مطبخ","حمام","غرفة نوم","صالون"], a:0, why:"מטבח = مطبخ، نفس الجذر ط-ب-خ."},
+ // slot 2 — numbers / time / days
+ {st:1, slot:2, skill:"vocab", type:"mcq", prompt:"قديش الساعة؟", he:"הַשָּׁעָה שְׁמוֹנֶה וָחֵצִי",
+  o:["7:30","8:15","8:30","9:30"], a:2, why:"שמונה = 8، וחצי = ونص: 8:30."},
+ {st:1, slot:2, skill:"vocab", type:"mcq", prompt:"بالسوق البيّاع حكالك هالجملة. قديش السعر؟", he:"זֶה עוֹלֶה עֶשְׂרִים שֶׁקֶל",
+  o:["12 ₪","20 ₪","2 ₪","10 ₪"], a:1, why:"עשרים = عشرين. الفخ: עשר = 10."},
+ {st:1, slot:2, skill:"vocab", type:"mcq", prompt:"أي يوم هو «יוֹם רִאשׁוֹן»؟",
+  o:["السبت","الجمعة","الاثنين","الأحد"], a:3, why:"יום ראשון = اليوم الأول بالأسبوع = الأحد. السبت هو שבת."},
+ // slot 3 — gender agreement
+ {st:1, slot:3, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"לִינָה ___ בַּבַּנְק.",
+  o:["עובד","עובדת","עובדים","עבודה"], heo:true, a:1, why:"لينا صبية، فالفعل مؤنث: עובדת."},
+ {st:1, slot:3, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"עוֹמֶר ___ בְּתֵל אָבִיב.",
+  o:["גרה","גרים","גר","לגור"], heo:true, a:2, why:"عومر شب، فالفعل مذكر مفرد: גר."},
+ {st:1, slot:3, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"הַדִּירָה שֶׁלָּנוּ ___.",
+  o:["קטנה","קטן","קטנים","קטנות"], heo:true, a:0, why:"דירה مؤنث مفرد (زي «شقة»)، فالصفة مؤنثة: קטנה."},
+ // slot 4 — present tense forms
+ {st:1, slot:4, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"אֲנַחְנוּ ___ עִבְרִית.",
+  o:["לומד","לומדת","לומדים","למדתי"], heo:true, a:2, why:"«احنا» جمع، فالمضارع بينتهي بـ ים: לומדים."},
+ {st:1, slot:4, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"דָּנָה וּמָאיָה ___ אֲרוּחַת בֹּקֶר.",
+  o:["אוכלים","אוכלת","אוכל","אוכלות"], heo:true, a:3, why:"دانا ومايا صبيتين، فالجمع المؤنث بينتهي بـ ות: אוכלות."},
+ {st:1, slot:4, skill:"grammar", type:"mcq", prompt:"لينا بتسأل كريم. كمّل السؤال:", he:"כָּרִים, אַתָּה ___ עִבְרִית?",
+  o:["מדבר","מדברת","מדברים","דיבר"], heo:true, a:0, why:"«אתה» = انتَ لشب، فالفعل مذكر مفرد: מדבר."},
+ // slot 5 — יש/אין + possessive
+ {st:1, slot:5, skill:"grammar", type:"mcq", prompt:"كيف بتحكي «عندي سيارة»؟",
+  o:["יש לך מכונית","אין לי מכונית","יש לי מכונית","יש אני מכונית"], heo:true, a:2, why:"«عندي» = יש לי (حرفيًا: في إلي)."},
+ {st:1, slot:5, skill:"grammar", type:"mcq", prompt:"كيف بتحكي «ما عنده وقت»؟",
+  o:["אין לה זמן","אין לו זמן","יש לו זמן","לא לו זמן"], heo:true, a:1, why:"«ما عنده» = אין לו. לה = إلها (للصبية)."},
+ {st:1, slot:5, skill:"grammar", type:"mcq", prompt:"كيف بتحكي «هاد الكتاب تبعها»؟",
+  o:["זה הספר שלו","זה הספר שלי","זה הספר שלך","זה הספר שלה"], heo:true, a:3, why:"«تبعها» = שלה. שלו = تبعه."},
+ // slot 6 — question words
+ {st:1, slot:6, skill:"grammar", type:"mcq", prompt:"اختار كلمة السؤال الصح:", he:"— ___ אַתָּה גָּר?\n— בְּחֵיפָה.",
+  o:["מתי","איפה","כמה","מי"], heo:true, a:1, why:"الجواب مكان (بحيفا)، فالسؤال «وين»: איפה."},
+ {st:1, slot:6, skill:"grammar", type:"mcq", prompt:"اختار كلمة السؤال الصح:", he:"— ___ עוֹלֶה הַלֶּחֶם?\n— שְׁמוֹנָה שְׁקָלִים.",
+  o:["איפה","למה","מה","כמה"], heo:true, a:3, why:"الجواب سعر، فالسؤال «قديش»: כמה."},
+ {st:1, slot:6, skill:"grammar", type:"mcq", prompt:"اختار كلمة السؤال الصح:", he:"— ___ אַתָּה לוֹמֵד עִבְרִית?\n— כִּי אֲנִי עוֹבֵד בְּתֵל אָבִיב.",
+  o:["למה","מתי","איך","איפה"], heo:true, a:0, why:"الجواب بيبلش بـ כי (لأنو)، فالسؤال «ليش»: למה."},
+ // slot 7 — word order
+ {st:1, slot:7, skill:"grammar", type:"order", prompt:"رتّب الكلمات عشان تطلع جملة صحيحة:",
+  ar:"أخوي ساكن بعكا.", order:["האח","שלי","גר","בעכו"], alt:[["בעכו","גר","האח","שלי"]], why:"«أخوي» = האח שלי (الاسم وبعده של)، وبعدين الفعل والمكان."},
+ {st:1, slot:7, skill:"grammar", type:"order", prompt:"رتّب الكلمات عشان تطلع جملة صحيحة:",
+  ar:"أنا ما بفهم عبري.", order:["אני","לא","מבין","עברית"], why:"النفي לא بيجي قبل الفعل مباشرة، زي «ما» بالعربي."},
+ {st:1, slot:7, skill:"grammar", type:"order", prompt:"رتّب الكلمات عشان تطلع سؤال صحيح:",
+  ar:"وين محطة الباص؟", order:["איפה","תחנת","האוטובוס"], why:"איפה بالأول، و«محطة الباص» = תחנת האוטובוס (زي الإضافة بالعربي: ال التعريف عالكلمة الثانية)."},
+ // slot 8 — mini-dialog
+ {st:1, slot:8, skill:"dialog", type:"mcq", prompt:"سامي بدكان أواعي. شو بيرد البيّاع؟", chat:true,
+  he:"המוכר: אפשר לעזור?\nסאמי: כן, כמה עולה החולצה?",
+  o:["בחיפה.","חמישים שקל.","בשמונה בבוקר.","לא, תודה."], heo:true, a:1, why:"سأل «قديش حقها؟»، فالجواب سعر: خمسين شيكل."},
+ {st:1, slot:8, skill:"dialog", type:"mcq", prompt:"سامي بيسأل سواق الباص. شو بيرد السواق؟", chat:true,
+  he:"סאמי: סליחה, האוטובוס הזה נוסע לחיפה?",
+  o:["אני בן עשרים.","תודה רבה, להתראות.","כן, לחיפה.","יש לי שני אחים."], heo:true, a:2, why:"سأل إذا الباص رايح على حيفا، فالرد المنطقي «أيوا، على حيفا»."},
+ {st:1, slot:8, skill:"dialog", type:"mcq", prompt:"انت كريم. شو بترد على الجارة؟", chat:true,
+  he:"השכנה: שלום! אתה גר פה?",
+  o:["כן, אני גר בקומה שלוש.","כן, אני גרה בקומה שלוש.","לא, אני בן שלושים.","כן, אתמול."], heo:true, a:0, why:"كريم شب، فبيحكي «אני גר» مش «גרה» (للصبية)."},
+
+ // ===================== STATION 2 — A2 =====================
+ // slot 1 — past tense
+ {st:2, slot:1, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"אתמול ___ עד שש בערב.",
+  o:["אני עובד","עבדתי","אעבוד","עבד"], heo:true, a:1, why:"«אתמול» = مبارح، و«أنا» بالماضي: עבדתי (زي «اشتغلتُ»)."},
+ {st:2, slot:1, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"בשבוע שעבר דנה ___ לאילת.",
+  o:["תיסע","נוסעת","נסעתי","נסעה"], heo:true, a:3, why:"«الأسبوع الماضي» + هي = נסעה. נסעתי = أنا سافرت."},
+ {st:2, slot:1, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"אנחנו ___ אתמול במסעדה בעכו.",
+  o:["אכלנו","נאכל","אוכלים","אכלו"], heo:true, a:0, why:"احنا + مبارح = אכלנו (زي «أكلنا»). אכלו = هم أكلوا."},
+ // slot 2 — future tense
+ {st:2, slot:2, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"מחר אני ___ לך הודעה.",
+  o:["שלחתי","אשלח","שולחת","ישלח"], heo:true, a:1, why:"«מחר» = بكرا، و«أنا» بالمستقبل بتبلش بـ א: אשלח."},
+ {st:2, slot:2, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"בשנה הבאה מאיה ___ באוניברסיטה בחיפה.",
+  o:["למדה","לומדת","ילמד","תלמד"], heo:true, a:3, why:"هي بالمستقبل بتبلش بـ ת: תלמד. ילמד = هو رح يتعلم."},
+ {st:2, slot:2, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"מחרתיים ___ קר בצפון.",
+  o:["יהיה","היה","תהיה","הייתה"], heo:true, a:0, why:"«بعد بكرا» = مستقبل، و«קר» بدون فاعل مؤنث فبنحكي יהיה."},
+ // slot 3 — פיעל / הפעיל
+ {st:2, slot:3, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"כרים ___ את חשבון החשמל כל חודש.",
+  o:["שולם","משלמת","משלם","תשלום"], heo:true, a:2, why:"وزن פיעל بالمضارع بيبلش بـ מ: משלם (للشب). תשלום اسم مش فعل."},
+ {st:2, slot:3, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"סאמי לא ___ את השאלה, אז הוא שאל שוב.",
+  o:["הבינה","הבין","מבינה","להבין"], heo:true, a:1, why:"وزن הפעיל بالماضي بيبلش بـ ה زي «أفعل»: הבין (هو فهم). הבינה للصبية."},
+ {st:2, slot:3, skill:"grammar", type:"mcq", prompt:"كمّل الجملة:", he:"מחר השיעור ___ בתשע וחצי.",
+  o:["התחיל","התחילו","מתחילה","יתחיל"], heo:true, a:3, why:"«بكرا» + الدرس (مذكر) = יתחיל، مستقبل وزن הפעיל."},
+ // slot 4 — prepositions with suffixes
+ {st:2, slot:4, skill:"grammar", type:"mcq", prompt:"«دانا، بدي أحكي معك.» كمّل الجملة:", he:"דנה, אני רוצה לדבר ___.",
+  o:["איתו","אצלך","איתך","שלך"], heo:true, a:2, why:"«معك» = איתך. אצלך = عندك، و איתו = معه."},
+ {st:2, slot:4, skill:"grammar", type:"mcq", prompt:"«المفتاح مش عندي، هو عند لينا.» كمّل الجملة:", he:"המפתח לא אצלי, הוא ___.",
+  o:["אצלה","אצלו","לה","שלו"], heo:true, a:0, why:"«عندها» (بمعنى معها هلأ) = אצלה. אצלו = عنده."},
+ {st:2, slot:4, skill:"grammar", type:"mcq", prompt:"«قلّه إني متأخر.» كمّل الجملة:", he:"תגיד ___ שאני מאחר.",
+  o:["לה","אותו","איתו","לו"], heo:true, a:3, why:"«قلّه» = תגיד לו (لـ + هو). לה = إلها."},
+ // slot 5 — comparison
+ {st:2, slot:5, skill:"comprehension", type:"mcq", prompt:"اقرا الجملة. شو الصحيح؟", he:"האוטובוס זול יותר מהרכבת, אבל הרכבת מהירה יותר.",
+  o:["الباص أرخص من القطار","القطار أرخص من الباص","الباص أسرع من القطار","هم نفس السعر"], a:0, why:"זול יותר מ = أرخص من، و מהירה יותר = أسرع: الباص أرخص، والقطار أسرع."},
+ {st:2, slot:5, skill:"grammar", type:"mcq", prompt:"«دانا أزغر من مايا.» كمّل الجملة:", he:"דנה צעירה ___.",
+  o:["יותר מאיה","יותר ממאיה","הכי מאיה","מאוד ממאיה"], heo:true, a:1, why:"المقارنة: יותר + מ ملزوقة بالاسم: יותר ממאיה. بدون מ الجملة غلط."},
+ {st:2, slot:5, skill:"comprehension", type:"mcq", prompt:"شو معنى الجملة؟", he:"הפלאפל פה הכי טוב בנצרת.",
+  o:["الفلافل هون أطيب من الناصرة","الفلافل هون أطيب إشي بالناصرة","الفلافل هون منيح شوي","الفلافل بالناصرة أطيب من هون"], a:1, why:"הכי = أكثر إشي (التفضيل): الأطيب بالناصرة. «أطيب من» بتكون יותר מ."},
+ // slot 6 — notice / SMS
+ {st:2, slot:6, skill:"comprehension", type:"mcq", prompt:"وصلت هالرسالة لسامي. إمتى الموعد الجديد؟", doc:true,
+  he:"שלום סאמי,\nהפגישה שלך בבנק עברה ליום שלישי בשעה 10:30.\nלאישור השב 1.",
+  o:["الأربعاء 10:30","الثلاثاء 1:00","الثلاثاء 10:30","اليوم 10:30"], a:2, why:"«עברה ליום שלישי» = انتقلت للثلاثاء، الساعة 10:30. الرقم 1 هو للتأكيد بس."},
+ {st:2, slot:6, skill:"comprehension", type:"mcq", prompt:"هاد الإعلان معلّق بمدخل البناية. شو رح يصير يوم الخميس؟", doc:true,
+  he:"הודעה לדיירים\nביום חמישי לא יהיו מים בבניין\nמ־9:00 עד 13:00.\nסליחה על אי הנוחות,\nועד הבית",
+  o:["ما في كهربا كل اليوم","ما في مي من 9 لـ 1","في اجتماع للجيران الساعة 9","المصعد خربان"], a:1, why:"«לא יהיו מים» = ما رح يكون في مي، من 9:00 لـ 13:00 (الساعة 1)."},
+ {st:2, slot:6, skill:"comprehension", type:"mcq", prompt:"هاي ورقة على باب دكان بعكا. شو مكتوب فيها؟", doc:true,
+  he:"החנות סגורה השבוע בגלל שיפוצים.\nנחזור לעבוד ביום ראשון הבא.\nתודה ונתראה!",
+  o:["الدكان فاتح بس يوم الأحد","في تنزيلات هالأسبوع","الدكان مسكّر للأبد","مسكّر هالأسبوع وبيرجع يفتح الأحد الجاي"], a:3, why:"סגורה השבוע = مسكّر هالأسبوع، ونחזור ביום ראשון הבא = منرجع الأحد الجاي."},
+ // slot 7 — practical phrases (bank / phone / post)
+ {st:2, slot:7, skill:"vocab", type:"mcq", prompt:"انت بالبنك وبدك تفتح حساب. شو بتحكي للموظف؟",
+  o:["אני רוצה לסגור את החלון.","פתחתי חשבון מחר.","אני רוצה לפתוח חשבון.","אני רוצה חשבון חשמל."], heo:true, a:2, why:"«بدي أفتح حساب» = אני רוצה לפתוח חשבון. חשבון חשמל = فاتورة كهربا."},
+ {st:2, slot:7, skill:"vocab", type:"mcq", prompt:"حدا اتصل فيك بالغلط. شو بتحكيله؟",
+  o:["טעית במספר.","המספר שלי חדש.","תתקשר מחר.","אני לא בבית."], heo:true, a:0, why:"«טעית במספר» = غلطت بالرقم، هيك بيحكوا لما حدا يتصل بالغلط."},
+ {st:2, slot:7, skill:"vocab", type:"mcq", prompt:"اتصلت على مكتب وبدك تحكي «ممكن أحكي مع دانا؟»",
+  o:["אפשר לדבר על דנה?","אני מדבר עם דנה.","דנה מדברת איתי?","אפשר לדבר עם דנה?"], heo:true, a:3, why:"«مع» = עם. לדבר על = نحكي عن، فالمعنى بيتغير."},
+ // slot 8 — dialog
+ {st:2, slot:8, skill:"dialog", type:"mcq", prompt:"انت عومر. شو بترد على دانا؟", chat:true,
+  he:"דנה: ראית את ההודעה ששלחתי לך?",
+  o:["כן, אראה אותה אתמול.","כן, ראיתי אותה הבוקר.","כן, אני רואה אותו אתמול.","לא, תודה."], heo:true, a:1, why:"سألت بالماضي، فبترد بالماضي: ראיתי (شفت). אראה = رح أشوف."},
+ {st:2, slot:8, skill:"dialog", type:"mcq", prompt:"انت كريم. شو بترد على يوسي؟", chat:true,
+  he:"יוסי: מה תעשה בסוף השבוע?",
+  o:["נסעתי לנצרת למשפחה.","הייתי בנצרת.","אני נסעתי מחר.","אסע לנצרת למשפחה."], heo:true, a:3, why:"سأل عن المستقبل (תעשה)، فبترد بالمستقبل: אסע = رح أسافر."},
+ {st:2, slot:8, skill:"dialog", type:"mcq", prompt:"انت بالبريد. شو بترد على الموظف؟", chat:true,
+  he:"הפקיד: זה 35 שקל. איך אתה רוצה לשלם?",
+  o:["בכרטיס אשראי, בבקשה.","בשמונה בבוקר.","עם אח שלי.","שילמתי מחר."], heo:true, a:0, why:"سأل «كيف بدك تدفع؟»، فالجواب طريقة الدفع: بكرت اعتماد."}
+];
+const PQ_2=[
+ // ===== Station 3 (B1) =====
+ // slot 1 — התפעל
+ {st:3, slot:1, skill:"grammar", type:"mcq",
+  prompt:"كمّل الجملة بالفعل الصحيح:",
+  he:"אתמול דנה ___ לראיון העבודה כל הערב.",
+  o:["מתכוננת","התכוננה","התכונן","תתכונן"], heo:true, a:1,
+  why:"«אתמול» يعني ماضي، ودانا مؤنث، فالصح התכוננה (התפעל ماضي مؤنث)."},
+ {st:3, slot:1, skill:"grammar", type:"mcq",
+  prompt:"كمّل الجملة: عومر مش عارف كيف يستعمل الماكينة الجديدة.",
+  he:"עומר לא יודע איך ___ במכונה החדשה.",
+  o:["להשתמש","להתשמש","לשמש","משתמש"], heo:true, a:0,
+  why:"لما الجذر بيبلش بـ ש، الـ ת بتتبادل مكانها معها: להשתמש مش להתשמש."},
+ {st:3, slot:1, skill:"grammar", type:"mcq",
+  prompt:"كمّل الجملة: كريم ومايا رح يتجوزوا الصيف الجاي.",
+  he:"כרים ומאיה ___ בקיץ הבא בחיפה.",
+  o:["התחתנו","מתחתן","יתחתנו","תתחתן"], heo:true, a:2,
+  why:"«בקיץ הבא» مستقبل والفاعل جمع، فالصح יתחתנו."},
+ // slot 2 — נפעל
+ {st:3, slot:2, skill:"grammar", type:"mcq",
+  prompt:"أي جملة صحيحة؟ (المعنى: الشباك انكسر بسبب الهوا)",
+  o:["החלון שבר בגלל הרוח","החלון נשברה בגלל הרוח","החלון ישבר אתמול בגלל הרוח","החלון נשבר בגלל הרוח"], heo:true, a:3,
+  why:"«انكسر» لحاله = נפעל: נשבר، وהחלון مذكر فما بنقول נשברה."},
+ {st:3, slot:2, skill:"grammar", type:"mcq",
+  prompt:"كمّل الجملة: الاجتماع تأجّل بسبب الإضراب.",
+  he:"הפגישה ___ אתמול בגלל השביתה.",
+  o:["דחתה","נדחה","נדחתה","תידחה"], heo:true, a:2,
+  why:"הפגישה مؤنث والحدث صار (ماضي) ومحدا عمله، فالصح נדחתה (נפעל)."},
+ {st:3, slot:2, skill:"grammar", type:"mcq",
+  prompt:"شو معنى الجملة؟",
+  he:"הכרטיסים להופעה נמכרו תוך שעה.",
+  o:["التذاكر بتنباع كل ساعة","رح يبيعوا التذاكر بعد ساعة","تذاكر الحفلة انباعت خلال ساعة","اشترى تذاكر الحفلة خلال ساعة"], a:2,
+  why:"נמכרו = انباعت (נפעל ماضي جمع)، و«תוך שעה» = خلال ساعة."},
+ // slot 3 — סמיכות
+ {st:3, slot:3, skill:"grammar", type:"mcq",
+  prompt:"كيف بنقول «مدير المدرسة» بالسמיכות؟",
+  o:["מנהל של הבית ספר","המנהל בית הספר","מנהל הבית הספר","מנהל בית הספר"], heo:true, a:3,
+  why:"بالסמיכות الـ ה بتيجي على آخر كلمة بس: מנהל בית הספר."},
+ {st:3, slot:3, skill:"grammar", type:"mcq",
+  prompt:"كيف بنقول «شقة الجيران»؟",
+  o:["דירה השכנים","דירת השכנים","הדירת השכנים","הדירה השכנים"], heo:true, a:1,
+  why:"الكلمة المؤنثة اللي بتخلص بـ ה بتصير ת بالסמיכות: דירה ← דירת השכנים."},
+ {st:3, slot:3, skill:"grammar", type:"mcq",
+  prompt:"كيف بنقول «مكاتب الشركة»؟",
+  o:["משרדים החברה","המשרדי חברה","משרדי החברה","המשרדים החברה"], heo:true, a:2,
+  why:"جمع المذكر ים بيصير י بالסמיכות، والـ ה على الكلمة الأخيرة: משרדי החברה."},
+ // slot 4 — connectors
+ {st:3, slot:4, skill:"grammar", type:"mcq",
+  prompt:"كمّل بأداة الربط المناسبة:",
+  he:"האוטובוס לא הגיע, ___ לקחתי מונית.",
+  o:["לכן","למרות ש","אלא","כיוון ש"], heo:true, a:0,
+  why:"الباص ما إجا والنتيجة أخدت تكسي، فالصح לכן = عشان هيك."},
+ {st:3, slot:4, skill:"grammar", type:"mcq",
+  prompt:"كمّل بأداة الربط المناسبة:",
+  he:"___ירד גשם חזק, יצאנו לטייל בעכו.",
+  o:["לכן ","כיוון ש","למרות ש","אלא "], heo:true, a:2,
+  why:"طلعنا رغم الشتا، فالصح למרות ש = مع إنه؛ כיוון ש (لأنه) بتعمل معنى غلط."},
+ {st:3, slot:4, skill:"grammar", type:"mcq",
+  prompt:"كمّل بأداة الربط المناسبة:",
+  he:"סאמי לא גר בחיפה, ___ בנצרת.",
+  o:["לכן","למרות ש","כיוון ש","אלא"], heo:true, a:3,
+  why:"بعد نفي («לא... ») بنصحّح بـ אלא = بل / إلا."},
+ // slot 5 — official letters, complaints, contracts
+ {st:3, slot:5, skill:"register", type:"mcq",
+  prompt:"شو يعني «הנדון» بالرسالة؟",
+  he:"לכבוד\nמר עומר\n\nהנדון: חוב ארנונה\n\nנבקש להסדיר את התשלום עד 30.11.\n\nבכבוד רב,\nמחלקת הגבייה, עיריית חיפה",
+  doc:true,
+  o:["موضوع الرسالة","اسم المرسِل","تاريخ الرسالة","التوقيع"], a:0,
+  why:"«הנדון» بالرسالة الرسمية = الموضوع، وبيجي بعد «לכבוד» واسم المستلم."},
+ {st:3, slot:5, skill:"register", type:"mcq",
+  prompt:"شو بدها مايا من الشركة؟",
+  he:"שלום רב,\nבחשבונית לחודש מאי חויבתי פעמיים על אותו שירות.\nאבקש לבטל את החיוב הכפול ולהחזיר לי את הכסף.\nבתודה מראש,\nמאיה",
+  doc:true,
+  o:["تلغي الاشتراك كله","يرجّعولها مصاري الدفعة الزايدة","تدفع الفاتورة بالتقسيط","تغيّر عنوان الفاتورة"], a:1,
+  why:"«חויבתי פעמיים» = انخصم منها مرتين، و«חיוב כפול» بدها تلغيه وترجعلها المصاري."},
+ {st:3, slot:5, skill:"register", type:"mcq",
+  prompt:"حسب البند، مين لازم يبلّغ، وشو العقوبة إذا ما بلّغ؟",
+  he:"סעיף 7: השוכר מתחייב להודיע למשכיר על עזיבת הדירה 60 יום מראש.\nהפרת סעיף זה תחייב את השוכר בתשלום דמי שכירות של חודש נוסף.",
+  doc:true,
+  o:["صاحب البيت؛ بيرجّع الضمانة","المستأجر؛ بيخسر الكفالة كلها","المستأجر؛ بيدفع إيجار شهر زيادة","صاحب البيت؛ بيدفع غرامة شهر"], a:2,
+  why:"השוכר = المستأجر، המשכיר = صاحب البيت، و«חודש נוסף» = شهر إيجار زيادة."},
+ // slot 6 — short news item
+ {st:3, slot:6, skill:"comprehension", type:"mcq",
+  prompt:"לפי הידיעה, מה נכון?",
+  he:"חדשות חיפה: בשבוע הבא ייסגר רחוב הנמל לתנועה בגלל עבודות תשתית. העבודות יימשכו שלושה שבועות. העירייה ממליצה לתושבים להשתמש בתחבורה ציבורית. קווי האוטובוס 3 ו־5 ישנו את המסלול שלהם.",
+  doc:true,
+  o:["האוטובוסים יפסיקו לנסוע","העבודות כבר הסתיימו","הרחוב ייסגר לשלושה שבועות","העירייה ממליצה לנסוע ברכב פרטי"], heo:true, a:2,
+  why:"الخبر بيحكي إنه الشارع رح يتسكّر والأشغال رح تطوّل 3 أسابيع؛ الباصات بس بتغيّر مسارها."},
+ {st:3, slot:6, skill:"comprehension", type:"mcq",
+  prompt:"מה העמדה של ארגוני הצרכנים?",
+  he:"מחר בחצות יעלה מחיר הדלק ב־20 אגורות לליטר. זו העלייה השלישית השנה. לדברי משרד האנרגיה, הסיבה היא עליית המחירים בעולם. ארגוני הצרכנים מבקרים את ההחלטה וטוענים שהיא תפגע במשפחות.",
+  doc:true,
+  o:["הם מתנגדים להעלאת המחיר","הם תומכים בהחלטה","הם העלו את המחיר","הם לא הגיבו"], heo:true, a:0,
+  why:"«מבקרים את ההחלטה» = بينتقدوا القرار، يعني هم ضد رفع السعر."},
+ {st:3, slot:6, skill:"comprehension", type:"mcq",
+  prompt:"לפי הידיעה, מתי צריך להירשם מראש?",
+  he:"בבאר שבע נפתח אתמול פארק חדש ליד תחנת הרכבת. בפארק יש מגרש כדורגל, מתקני כושר ושבילי אופניים. הכניסה חינם, אבל בסופי שבוע צריך להירשם מראש באתר העירייה. ראש העיר אמר שבשנה הבאה ייפתחו עוד שני פארקים.",
+  doc:true,
+  o:["כל יום","בסופי שבוע","רק בשנה הבאה","אף פעם, הכניסה חינם"], heo:true, a:1,
+  why:"الدخول ببلاش، بس «בסופי שבוע צריך להירשם מראש» = بآخر الأسبوع لازم تسجّل."},
+ // slot 7 — opinion language (word order)
+ {st:3, slot:7, skill:"grammar", type:"order",
+  prompt:"رتّب الكلمات عشان تطلع جملة صحيحة:",
+  ar:"أنا موافق معك، بس السعر غالي.",
+  order:["אני","מסכים","איתך","אבל","המחיר","גבוה"],
+  why:"«אני מסכים איתך» = أنا موافق معك، وبعدها «אבל» بتجيب الاعتراض."},
+ {st:3, slot:7, skill:"grammar", type:"order",
+  prompt:"رتّب الكلمات عشان تطلع جملة صحيحة:",
+  ar:"برأيي الاجتماع لازم يكون قصير.",
+  order:["לדעתי","הישיבה","צריכה","להיות","קצרה"],
+  alt:[["הישיבה","צריכה","להיות","קצרה","לדעתי"],["הישיבה","לדעתי","צריכה","להיות","קצרה"]],
+  why:"«לדעתי» بتفتح الرأي، والישיבה مؤنث فبنقول צריכה... קצרה."},
+ {st:3, slot:7, skill:"grammar", type:"order",
+  prompt:"رتّب الكلمات عشان تطلع جملة صحيحة:",
+  ar:"أنا ضد الفكرة لأنها بتكلّف كثير.",
+  order:["אני","נגד","הרעיון","כי","הוא","עולה","הרבה"],
+  why:"«אני נגד» = أنا ضد، و«רעיון» مذكر فبنرجعله بـ הוא، و«עולה הרבה» = بتكلّف كثير."},
+ // slot 8 — slang
+ {st:3, slot:8, skill:"dialog", type:"mcq",
+  prompt:"شو قصد عومر بـ«סבבה»؟",
+  he:"נור: נפגשים בשבע ליד הנמל?\nעומר: סבבה.",
+  chat:true,
+  o:["ماشي، تمام","لا، ما بقدر","يمكن، بشوف","رح أتأخر"], a:0,
+  why:"«סבבה» بالعامية = تمام / ماشي، يعني موافق."},
+ {st:3, slot:8, skill:"dialog", type:"mcq",
+  prompt:"كريم حب الفيلم ولا لا؟",
+  he:"דנה: ראית את הסרט החדש?\nכרים: כן, חבל על הזמן! אני רוצה לראות אותו שוב.",
+  chat:true,
+  o:["ما حبه، ضيعان الوقت","حبه كثير، كان رهيب","لسا ما شافه","بدّه يشوفه بس مع دانا"], a:1,
+  why:"«חבל על הזמן» بالعامية = رهيب/خرافي، مش «ضيعان الوقت» حرفيًا، وبدّه يشوفه كمان مرة."},
+ {st:3, slot:8, skill:"dialog", type:"mcq",
+  prompt:"اختار أنسب رد:",
+  he:"סאמי: יאללה, אני כבר למטה ליד האוטו. אתה יורד?",
+  chat:true,
+  o:["לא, אני גר בחיפה.","סבבה, נדבר מחר בבוקר.","שנייה, אני כבר בא!","יאללה, תודה על הארוחה."], heo:true, a:2,
+  why:"سامي بيستناك تحت و«יאללה» هون = يلا استعجل، فالرد المنطقي «שנייה, אני כבר בא!»."},
+
+ // ===== Station 4 (B2) =====
+ // slot 1 — register
+ {st:4, slot:1, skill:"register", type:"mcq",
+  prompt:"اختار الصيغة الرسمية لنفس المعنى (لإيميل شغل):",
+  he:"תגיד לי מתי זה מסתדר לך.",
+  o:["מתי בא לך, אחי?","אודה לך אם תעדכן אותי מתי נוח לך","תגיד מתי זה בא לך","תעדכן מתי מסתדר לך, סבבה?"], heo:true, a:1,
+  why:"«אודה לך אם...» و«מתי נוח לך» رسميين؛ «בא לך»، «אחי»، «סבבה» عامية."},
+ {st:4, slot:1, skill:"register", type:"mcq",
+  prompt:"شو الصيغة العامية لنفس الجملة (لصاحبك)؟",
+  he:"אני מבקש להביע את התנצלותי על העיכוב.",
+  o:["אני מבקש להביע תודה על העיכוב","הריני להודיעך על העיכוב","אל תתעכב, בבקשה","סליחה שהתעכבתי, אחי"], heo:true, a:3,
+  why:"«להביע את התנצלותי» = بدي أعتذر رسميًا؛ بالعامي ببساطة «סליחה שהתעכבתי»."},
+ {st:4, slot:1, skill:"register", type:"mcq",
+  prompt:"أي جملة مش مناسبة لإيميل لمديرة قسم؟",
+  o:["אשמח לקבל את המסמכים עד יום חמישי","מצורף הדוח לעיונך","שלחי לי ת׳קבצים כבר, יאללה","אודה לתשובתך בהקדם"], heo:true, a:2,
+  why:"«ת׳קבצים» و«יאללה» وصيغة الأمر المباشرة عامية ومش مؤدبة لإيميل رسمي."},
+ // slot 2 — professional email phrasing
+ {st:4, slot:2, skill:"register", type:"mcq",
+  prompt:"كمّل الإيميل بالعبارة المناسبة:",
+  he:"שלום רב,\n___ מאתמול, מצורפת הצעת המחיר המעודכנת.\nבברכה,\nלינה",
+  doc:true,
+  o:["בניגוד לשיחתנו","בהמשך לשיחתנו","בעקבות לשיחתנו","אחי, כמו שדיברנו"], heo:true, a:1,
+  why:"«בהמשך לשיחתנו» = متابعةً لحديثنا؛ «בעקבות» بتيجي بلا ל (בעקבות שיחתנו)."},
+ {st:4, slot:2, skill:"register", type:"mcq",
+  prompt:"كمّل الإيميل بالجملة المناسبة:",
+  he:"שלום רב,\nפניתי אליכם לפני שבועיים בנוגע להחזר הכספי, ועדיין לא קיבלתי מענה.\n___\nבכבוד רב,\nעומר",
+  doc:true,
+  o:["תענה לי כבר.","אני מודה לתשובתך אתמול.","תודה על התשובה המהירה.","אודה לתשובתך בהקדם."], heo:true, a:3,
+  why:"عومر لسا ما وصله رد، فبيطلب بأدب «אודה לתשובתך בהקדם»؛ «תודה על התשובה המהירה» فخ."},
+ {st:4, slot:2, skill:"register", type:"mcq",
+  prompt:"كمّل الإيميل بالعبارة الصحيحة:",
+  he:"שלום דנה,\n___ את הדוח החודשי לעיונך.\nאשמח להערות עד יום ראשון.\nבברכה,\nיוסי",
+  doc:true,
+  o:["מצורף בזאת","מצרפים אותי","אני מצרף בזאת","מצורפת בזאת"], heo:true, a:2,
+  why:"بعدها في «את הדוח» فبدنا فعل فاعل: «אני מצרף»؛ «מצורף» مبني للمجهول وما بيجي معه את."},
+ // slot 3 — report language
+ {st:4, slot:3, skill:"vocab", type:"mcq",
+  prompt:"أي جملة بتوصف الأرقام صح؟",
+  he:"הזמנות באתר\nרבעון 1: 200\nרבעון 2: 210\nרבעון 3: 220",
+  doc:true,
+  o:["ניכרת מגמת עלייה בהזמנות","ניכרת מגמת ירידה בהזמנות","מספר ההזמנות הוכפל","מספר ההזמנות נשאר זהה"], heo:true, a:0,
+  why:"الأرقام عم تطلع شوي شوي كل ربع، يعني «מגמת עלייה» = اتجاه صعود."},
+ {st:4, slot:3, skill:"vocab", type:"mcq",
+  prompt:"כמה השתנה מספר הלקוחות?",
+  he:"ינואר: 400 לקוחות\nפברואר: 420 לקוחות",
+  doc:true,
+  o:["ירידה של 5%","עלייה של 20%","עלייה של 5%","עלייה של 50%"], heo:true, a:2,
+  why:"زادوا 20 زبون من 400، يعني «עלייה של 5%»؛ الـ 20 هو عدد مش نسبة."},
+ {st:4, slot:3, skill:"vocab", type:"mcq",
+  prompt:"شو معنى الجملة؟",
+  he:"בהשוואה לשנה שעברה, חלה ירידה מתונה במספר המבקרים.",
+  doc:true,
+  o:["صار نزول حاد بعدد الزوار","عدد الزوار طلع شوي","عدد الزوار ضل زي ما هو","صار نزول خفيف بعدد الزوار مقارنة بالسنة الماضية"], a:3,
+  why:"«ירידה» = نزول، و«מתונה» = معتدلة/خفيفة (عكس «חדה» = حادة)."},
+ // slot 4 — advanced connectors
+ {st:4, slot:4, skill:"grammar", type:"mcq",
+  prompt:"كمّل بأداة الربط المناسبة:",
+  he:"___הרכבת התעכבה, הגענו לישיבה בזמן.",
+  o:["אף על פי ש","מאחר ש","לפיכך ","כדי ש"], heo:true, a:0,
+  why:"وصلنا بالوقت رغم تأخير القطار، فالصح אף על פי ש = مع إنه."},
+ {st:4, slot:4, skill:"grammar", type:"mcq",
+  prompt:"كمّل بأداة الربط المناسبة:",
+  he:"___המערכת אינה זמינה כרגע, לא נוכל לטפל בבקשתך היום.",
+  o:["לפיכך ","אף על פי ש","מאחר ש","אלא אם כן "], heo:true, a:2,
+  why:"النظام مش شغّال هو السبب، فالصح מאחר ש = بما إنه / نظرًا لأنه."},
+ {st:4, slot:4, skill:"grammar", type:"mcq",
+  prompt:"كمّل بأداة الربط المناسبة:",
+  he:"התקציב לא אושר. ___, הפרויקט יידחה לשנה הבאה.",
+  o:["אף על פי כן","מאחר ש","למרות זאת","לפיכך"], heo:true, a:3,
+  why:"تأجيل المشروع نتيجة لعدم الموافقة، فالصح לפיכך = لذلك؛ الباقي تناقض أو سبب."},
+ // slot 5 — inference from a longer paragraph
+ {st:4, slot:5, skill:"comprehension", type:"mcq",
+  prompt:"מה אפשר להסיק מהטקסט?",
+  he:"החברה שבה עובדת מאיה עברה בחודש שעבר למשרדים חדשים בתל אביב. המשרדים החדשים גדולים ומוארים, אבל הם רחוקים מתחנת הרכבת. מאיה גרה בחיפה ונוסעת לעבודה ברכבת כבר חמש שנים. בשבועות הראשונים היא הגיעה באיחור כמעט כל יום. השבוע היא שאלה את המנהלת שלה אם תוכל לעבוד מהבית יומיים בשבוע. המנהלת אמרה שהיא תבדוק את זה עם ההנהלה.",
+  doc:true,
+  o:["מאיה קיבלה אישור לעבוד מהבית","בגלל המעבר, קשה יותר למאיה להגיע בזמן","מאיה לא אוהבת את המשרדים החדשים","מאיה עברה לגור בתל אביב"], heo:true, a:1,
+  why:"المكاتب بعيدة عن القطار وصارت تتأخر، يعني الانتقال صعّب عليها؛ الموافقة لسا ما إجت."},
+ {st:4, slot:5, skill:"comprehension", type:"mcq",
+  prompt:"מה אפשר להבין מהטקסט?",
+  he:"בבניין של סאמי בעכו יש שתים עשרה דירות ומעלית אחת. בחודשיים האחרונים המעלית התקלקלה שלוש פעמים. ועד הבית פנה לחברת התחזוקה, אבל התיקונים היו זמניים בלבד. באסיפת הדיירים האחרונה רוב הדיירים הצביעו בעד החלפת המעלית, למרות העלות הגבוהה. שני דיירים התנגדו וטענו שעדיף לחכות לשנה הבאה. ההחלטה תיכנס לתוקף רק אחרי אישור החברה המנהלת.",
+  doc:true,
+  o:["המעלית כבר הוחלפה","כל הדיירים הסכימו לחכות לשנה הבאה","רוב הדיירים מוכנים לשלם יותר כדי לפתור את הבעיה","חברת התחזוקה פתרה את התקלה סופית"], heo:true, a:2,
+  why:"الأغلبية صوتت للتبديل «למרות העלות הגבוהה»، يعني مستعدين يدفعوا؛ التبديل لسا ما صار."},
+ {st:4, slot:5, skill:"comprehension", type:"mcq",
+  prompt:"מה ככל הנראה המטרה של השינוי שההנהלה הודיעה עליו?",
+  he:"בסקר שנערך בקרב עובדי רשת מסעדות בחיפה, 70% מהעובדים ציינו שהם מרוצים מהמשכורת. עם זאת, רק 35% אמרו שהם מרוצים מסידור המשמרות. רבים התלוננו שהם מקבלים את סידור העבודה רק ביום שישי בצהריים, יומיים לפני תחילת השבוע. ההנהלה הודיעה שמהחודש הבא הסידור יפורסם עשרה ימים מראש. בנוסף, העובדים יוכלו להחליף משמרות דרך אפליקציה.",
+  doc:true,
+  o:["להגדיל את שביעות הרצון מסידור המשמרות","להעלות את המשכורות","לצמצם את מספר העובדים","לפתוח סניפים חדשים"], heo:true, a:0,
+  why:"الشكوى كانت عن جدول الورديات، والتغيير (نشر مبكر وتبديل بالتطبيق) جاي يحلّها؛ الراتب أصلًا مرضي."},
+ // slot 6 — idioms
+ {st:4, slot:6, skill:"vocab", type:"mcq",
+  prompt:"شو معنى «לשבור את הראש» بالجملة؟",
+  he:"שברתי את הראש על הבעיה הזאת כל הבוקר.",
+  o:["فكّرت كثير وحاولت أحل مشكلة صعبة","انجرحت براسي","عصّبت وصرّخت","نسيت الموضوع"], a:0,
+  why:"«לשבור את הראש» تعبير = يكسّر راسه بالتفكير، يعني يفكّر كثير بإشي صعب."},
+ {st:4, slot:6, skill:"vocab", type:"mcq",
+  prompt:"كيف كانت المقابلة حسب عومر؟",
+  he:"דנה: איך היה הראיון?\nעומר: על הפנים, לא ידעתי לענות על כלום.",
+  chat:true,
+  o:["كانت ممتازة","كانت قصيرة","كانت وجهًا لوجه","كانت كثير سيئة"], a:3,
+  why:"«על הפנים» بالعامية = زفت/كثير سيء، مش «وجهًا لوجه» حرفيًا."},
+ {st:4, slot:6, skill:"vocab", type:"mcq",
+  prompt:"شو معنى «לא בא בחשבון» بالجملة؟",
+  he:"לעבוד גם בשבת? זה לא בא בחשבון מבחינתי.",
+  o:["ممكن، بس بدي أفكّر","مستحيل، مش وارد أبدًا","لازم أحسب الموضوع","ما دخل بالحساب البنكي"], a:1,
+  why:"«לא בא בחשבון» = مش وارد أبدًا / مرفوض؛ الترجمة الحرفية للحساب فخ."},
+ // slot 7 — precise word choice
+ {st:4, slot:7, skill:"vocab", type:"mcq",
+  prompt:"كمّل بالكلمة الأدق:",
+  he:"המנהל ___ את הבקשה שלי להעלאה במשכורת, ואני אקבל אותה מהחודש הבא.",
+  o:["הסכים","אישר","הרשה","התיר"], heo:true, a:1,
+  why:"«לאשר בקשה» هو التعبير الصح؛ «הסכים» بدها ל (הסכים לבקשה)، و«הרשה/התיר» = سمح بإشي مش طلب."},
+ {st:4, slot:7, skill:"vocab", type:"mcq",
+  prompt:"كمّل بالكلمة الأدق:",
+  he:"מזג האוויר ___ על מספר המבקרים בפסטיבל באילת.",
+  o:["שינה","גרם","השפיע","הוביל"], heo:true, a:2,
+  why:"بس «השפיע» بيجي مع «על» (أثّر على)؛ שינה/גרם/הוביל ما بيجوا مع על بهالمعنى."},
+ {st:4, slot:7, skill:"vocab", type:"mcq",
+  prompt:"كمّل بالكلمة الأدق: لينا انقبلت بشغل بالبنك.",
+  he:"אחרי שלושה ראיונות, לינה ___ לעבודה בבנק.",
+  o:["קיבלה","נלקחה","לקחה","התקבלה"], heo:true, a:3,
+  why:"«להתקבל לעבודה» = ينقبل بشغل؛ «קיבלה» بدها مفعول (קיבלה עבודה)."},
+ // slot 8 — build a formal sentence
+ {st:4, slot:8, skill:"register", type:"order",
+  prompt:"رتّب الكلمات عشان تطلع جملة رسمية:",
+  ar:"بكون ممنون إلك إذا بتبعتلي المستندات.",
+  order:["אודה","לך","אם","תשלח","לי","את","המסמכים"],
+  alt:[["אם","תשלח","לי","את","המסמכים","אודה","לך"]],
+  why:"«אודה לך אם...» = بكون ممنون إذا... ، وهي فتحة طلب رسمية ومؤدبة."},
+ {st:4, slot:8, skill:"register", type:"order",
+  prompt:"رتّب الكلمات عشان تطلع جملة رسمية:",
+  ar:"متابعةً لحديثنا، مرفق عرض السعر المحدَّث.",
+  order:["בהמשך","לשיחתנו","מצורפת","הצעת","המחיר","המעודכנת"],
+  alt:[["מצורפת","הצעת","המחיר","המעודכנת","בהמשך","לשיחתנו"],["בהמשך","לשיחתנו","הצעת","המחיר","המעודכנת","מצורפת"]],
+  why:"«בהמשך לשיחתנו» بتفتح الإيميل، و«הצעת המחיר» סמיכות مؤنث فبنقول מצורפת... המעודכנת."},
+ {st:4, slot:8, skill:"register", type:"order",
+  prompt:"رتّب الكلمات عشان تطلع جملة رسمية:",
+  ar:"بما إنه المدير برّا البلاد، الاجتماع تأجّل للأسبوع الجاي.",
+  order:["מאחר","שהמנהל","בחו״ל","הישיבה","נדחתה","לשבוע","הבא"],
+  alt:[["מאחר","שהמנהל","בחו״ל","נדחתה","הישיבה","לשבוע","הבא"],["הישיבה","נדחתה","לשבוע","הבא","מאחר","שהמנהל","בחו״ל"]],
+  why:"«מאחר ש...» = بما إنه (رسمي)، و«הישיבה נדחתה» = الاجتماع تأجّل (נפעל مؤنث)."}
+];
+const PQ=[...PQ_1,...PQ_2];
+/* ===== placement test ===== */
+const ST_INFO=[
+ {n:0,name:"الحروف والقراءة",cefr:"قبل A1",ic:"א"},
+ {n:1,name:"الحياة اليومية",cefr:"A1",ic:"ב"},
+ {n:2,name:"الماضي والمستقبل",cefr:"A2",ic:"ג"},
+ {n:3,name:"الاستقلالية",cefr:"B1",ic:"ד"},
+ {n:4,name:"الجاهزية المهنية",cefr:"B2",ic:"ה"}];
+const SKILL_AR={letters:"الحروف",reading:"القراءة",vocab:"الكلمات",grammar:"القواعد",comprehension:"فهم النصوص",dialog:"المحادثة",register:"الأسلوب الرسمي"};
+const PASS=6,PER=8;
+let PT=null;
+function ptBuild(st){const bank=PQ.filter(q=>q.st===st);const out=[];for(let s=1;s<=PER;s++){const v=bank.filter(q=>q.slot===s);if(v.length)out.push(v[Math.floor(Math.random()*v.length)]);}
+  return out.map(q=>q.type==="order"?{q,tiles:shuf(q.order.map((x,i)=>({x,i}))),picked:[]}:{q,ord:shuf(q.o.map((_,i)=>i))});}
+function ptStart(from){PT={from,st:from,qs:ptBuild(from),i:0,res:[],phase:"station",stScore:{},startTime:Date.now()};route("test");}
+const bridge=(cur,passed)=>`<div class="pt-bridge" aria-hidden="true">${ST_INFO.map(s=>`<span class="pt-pillar ${passed.includes(s.n)?"ok":""} ${s.n===cur?"cur":""}"><i lang="he">${s.ic}</i></span>`).join('<span class="pt-span"></span>')}</div>`;
+function ptPassed(){return Object.entries(PT.stScore).filter(([k,v])=>v>=PASS).map(([k])=>+k);}
+function ptIntro(){const last=P.placed;
+  return `<div class="pt-wrap"><div class="pt-top"><button type="button" class="tr-x" data-ptx aria-label="سكّر">✕</button></div>
+  <div class="pt-hero"><span class="eyebrow">اختبار تحديد المستوى</span><h1>وين انت على الجسر؟</h1>
+  <p class="lead">5 محطات، من الحروف لحد العبري المهني. كل محطة فيها 8 أسئلة. إذا جاوبت 6 منهم صح بتعبر للمحطة الجاية. بالآخر بنحكيلك من وين تبدأ، وشو نقاط قوتك.</p>${bridge(-1,[])}</div>
+  <div class="pt-tips"><div><b>⏱ حوالي 10–15 دقيقة</b><small>بالكثير 40 سؤال</small></div><div><b>🤷 في زر «ما بعرف»</b><small>لا تخمّن، هيك النتيجة بتطلع دقيقة</small></div><div><b>🔒 ما في علامة على كل سؤال</b><small>بتشوف أجوبتك كلها بالآخر</small></div></div>
+  <span class="eyebrow">من وين بدك تبدأ؟</span>
+  <div class="pt-starts">
+   <button type="button" class="pt-start" data-ptzero><b>ما بعرف ولا حرف</b><small>بدون اختبار، بتبدأ من أول وحدة</small></button>
+   <button type="button" class="pt-start" data-ptfrom="0"><b>بعرف أقرأ شوي</b><small>الاختبار بيبلش من محطة الحروف</small></button>
+   <button type="button" class="pt-start" data-ptfrom="2"><b>بحكي عبري منيح</b><small>الاختبار بيبلش من المحطة 2 (A2)</small></button>
+  </div>
+  ${last?`<p class="counter">آخر نتيجة إلك: المستوى ${last.lv} · ${esc(last.date)}</p>`:""}</div>`;}
+function ptStation(){const s=ST_INFO[PT.st];
+  return `<div class="pt-wrap pt-center"><div class="pt-top"><button type="button" class="tr-x" data-ptx aria-label="سكّر">✕</button></div>
+  ${bridge(PT.st,ptPassed())}<span class="eyebrow">المحطة ${PT.st+1} من 5 · ${s.cefr}</span><h1>${esc(s.name)}</h1>
+  <p class="lead">${PER} أسئلة. محتاج ${PASS} صح عشان تعبر.</p><button type="button" class="btn" data-ptgo>يلا نبلش</button></div>`;}
+function ptQ(){const it=PT.qs[PT.i],q=it.q,n=PT.qs.length;
+  let stim="";
+  if(q.he){if(q.chat)stim=`<div class="pt-chat" lang="he" dir="rtl">${q.he.split("\n").map((l,k)=>{const m=l.match(/^([^:]{1,18}):\s*(.*)$/);return `<div class="pt-bub ${k%2?"me":""}">${m?`<b>${esc(m[1])}</b>${esc(m[2])}`:esc(l)}</div>`;}).join("")}</div>`;
+    else stim=`<div class="pt-stim ${q.doc?"doc":""} ${q.he.length>60?"long":""}" lang="he" dir="rtl">${esc(q.he).replace(/\n/g,"<br>")}</div>`;}
+  let body="";
+  if(q.type==="order"){const sel=it.picked.map(i=>it.tiles[i].x);
+    body=`<p class="lead" style="font-size:14px">المعنى: ${esc(q.ar)}</p><div class="tr-slot sent" lang="he" dir="rtl">${sel.length?sel.map(x=>`<span>${esc(x)}</span>`).join(""):`<em>اكبس على الكلمات بالترتيب</em>`}</div>
+    <div class="tr-tiles sent" lang="he" dir="rtl">${it.tiles.map((t,i)=>`<button type="button" class="tr-tile" data-ptt="${i}" ${it.picked.includes(i)?"disabled":""}>${esc(t.x)}</button>`).join("")}</div>
+    <div class="tr-row"><button type="button" class="btn ghost" data-ptundo ${it.picked.length?"":"disabled"}>امسح</button><button type="button" class="btn" data-ptcheck ${it.picked.length===q.order.length?"":"disabled"}>التالي</button></div>`;}
+  else body=`<div class="pt-opts ${q.heo?"he":""}">${it.ord.map(i=>`<button type="button" class="tr-opt" data-pto="${i}" ${q.heo?'lang="he"':""}>${esc(q.o[i])}</button>`).join("")}</div>`;
+  return `<div class="pt-wrap"><div class="tr-head"><button type="button" class="tr-x" data-ptx aria-label="سكّر">✕</button><div class="pt-dots">${PT.qs.map((_,k)=>`<i class="${k<PT.i?"done":k===PT.i?"cur":""}"></i>`).join("")}</div><span class="counter">${PT.i+1}/${n}</span></div>
+  <span class="eyebrow">المحطة ${PT.st+1} · ${esc(ST_INFO[PT.st].name)} · ${esc(SKILL_AR[q.skill]||"")}</span>
+  <p class="tr-ask">${esc(q.prompt)}</p>${stim}${body}
+  <button type="button" class="pt-idk" data-ptidk>🤷 ما بعرف</button></div>`;}
+function ptAnswer(ok,given){const it=PT.qs[PT.i];PT.res.push({q:it.q,ok,given,st:PT.st});PT.i++;
+  if(PT.i>=PT.qs.length){const sc=PT.res.filter(r=>r.st===PT.st&&r.ok).length;PT.stScore[PT.st]=sc;
+    if(sc>=PASS&&PT.st<4){PT.st++;PT.qs=ptBuild(PT.st);PT.i=0;PT.phase="passed";}else{PT.phase="result";ptFinish();}}
+  route("test");}
+function ptPlacement(){const passed=ptPassed();let top=-1;for(let s=PT.from;s<=4;s++){if(passed.includes(s))top=s;else break;}
+  if(PT.from>0&&top<0&&(PT.stScore[PT.from]||0)<PASS){/* started high but failed first station */}
+  const failSt=top>=4?null:(top<0?PT.from:top+1);
+  if(failSt===null)return{lv:4,u:LEVELS[4].units.length-1,all:true};
+  const sc=PT.stScore[failSt]||0,lv=failSt,n=LEVELS[lv].units.length;
+  /* failed a high starting station: drop one level unless they were close */
+  if(top<0&&PT.from>0&&sc<=3)return{lv:PT.from-1,u:Math.floor(LEVELS[PT.from-1].units.length/2),down:true};
+  return{lv,u:sc>=4?Math.floor(n/2):0};}
+function ptFinish(){const pl=ptPlacement();PT.pl=pl;}
+function ptPassedView(){const prev=PT.st-1;
+  return `<div class="pt-wrap pt-center"><div class="pt-top"><button type="button" class="tr-x" data-ptx aria-label="سكّر">✕</button></div>
+  ${bridge(PT.st,ptPassed())}<div class="pt-badge">✓</div><h1>عبرت المحطة ${prev+1}!</h1><p class="lead">جاوبت ${PT.stScore[prev]} من ${PER} صح. المحطة الجاية: <b>${esc(ST_INFO[PT.st].name)}</b> (${ST_INFO[PT.st].cefr}).</p>
+  <div class="tr-row"><button type="button" class="btn ghost" data-ptstop>وقّف هون</button><button type="button" class="btn" data-ptgo>كمّل</button></div></div>`;}
+function ptResult(){const pl=PT.pl,lvl=LEVELS[pl.lv],unit=lvl.units[pl.u];
+  const sk={};PT.res.forEach(r=>{const k=r.q.skill;sk[k]=sk[k]||{t:0,ok:0};sk[k].t++;if(r.ok)sk[k].ok++;});
+  const rows=Object.entries(sk).sort((a,b)=>b[1].ok/b[1].t-a[1].ok/a[1].t);
+  const best=rows.filter(([k,v])=>v.ok/v.t>=.75).map(([k])=>SKILL_AR[k]),weak=rows.filter(([k,v])=>v.ok/v.t<.5).map(([k])=>SKILL_AR[k]);
+  const tot=PT.res.length,ok=PT.res.filter(r=>r.ok).length,mins=Math.max(1,Math.round((Date.now()-PT.startTime)/60000));
+  const miss=PT.res.filter(r=>!r.ok);
+  return `<div class="pt-wrap"><div class="pt-top"><button type="button" class="tr-x" data-ptx aria-label="سكّر">✕</button></div>
+  <div class="pt-result"><span class="eyebrow">نتيجتك</span>${bridge(pl.lv,ptPassed())}
+   <div class="pt-level"><span class="pt-num">${pl.all?"B2":lvl.cefr}</span><div><b>${pl.all?"وصلت لآخر الجسر!":`المستوى ${pl.lv}: ${esc(lvl.name)}`}</b><small>${ok} من ${tot} صح · ${mins} دقيقة</small></div></div>
+   <p class="lead">${pl.all?"جاوبت منيح بكل المحطات. بنقترح تبدأ من مشروع التخرج، وبعدها مسارات التخصص.":`بنقترح تبدأ من <b>الوحدة ${pl.lv}-${pl.u+1}: ${esc(unit[0])}</b>. الوحدات اللي قبلها رح تنفتحلك، وبتقدر ترجعلها وقت ما بدك.`}</p>
+  </div>
+  <div class="panel"><b>مهاراتك</b>${rows.map(([k,v])=>{const p=Math.round(v.ok/v.t*100);return `<div class="pt-skill"><span>${SKILL_AR[k]}</span><span class="pt-bar"><i style="width:${p}%" class="${p>=75?"hi":p<50?"lo":""}"></i></span><small>${v.ok}/${v.t}</small></div>`;}).join("")}
+   ${best.length?`<p class="lead" style="font-size:13.5px;margin-top:8px">💪 قوي بـ: ${best.join("، ")}</p>`:""}${weak.length?`<p class="lead" style="font-size:13.5px">🎯 ركّز على: ${weak.join("، ")}</p>`:""}</div>
+  <button type="button" class="btn" data-ptapply>ابدأ من ${pl.all?"مشروع التخرج":`الوحدة ${pl.lv}-${pl.u+1}`}</button>
+  ${miss.length?`<details class="panel pt-review"><summary><b>راجع أجوبتك (${miss.length} غلط أو «ما بعرف»)</b></summary>${miss.map(r=>{const q=r.q,right=q.type==="order"?q.order.join(" "):q.o[q.a];return `<div class="pt-rv"><small class="eyebrow">المحطة ${r.st+1} · ${esc(SKILL_AR[q.skill]||"")}</small><p>${esc(q.prompt)}</p>${q.he?`<p class="he" lang="he" dir="rtl">${esc(q.he).replace(/\n/g,"<br>")}</p>`:""}
+     <p class="pt-ans"><span class="${r.given===null?"idk":"bad"}">${r.given===null?"ما بعرف":esc(r.given)}</span> ← <span class="ok" ${q.heo||q.type==="order"?'lang="he"':""}>${esc(right)}</span></p><p class="lead" style="font-size:13.5px">${esc(q.why)}</p></div>`;}).join("")}</details>`:""}
+  <button type="button" class="btn ghost" data-ptagain>أعيد الاختبار</button></div>`;}
+V.test=()=>!PT?ptIntro():PT.phase==="station"?ptStation():PT.phase==="passed"?ptPassedView():PT.phase==="result"?ptResult():ptQ();
+document.addEventListener("click",e=>{
+  if(curView!=="test")return;
+  if(e.target.closest("[data-ptx]")){if(PT&&PT.phase==="q"&&!confirm("أكيد بدك تطلع؟ رح يضيع تقدمك بالاختبار."))return;PT=null;$("tabs").hidden=false;route("path");return;}
+  if(e.target.closest("[data-ptzero]")){P.placed={lv:0,u:0,date:today(),skip:true};save();$("tabs").hidden=false;route("home");toast("ولا يهمك! بتبدأ من الأبجدية، خطوة خطوة.");return;}
+  const f=e.target.closest("[data-ptfrom]");if(f){ptStart(+f.dataset.ptfrom);return;}
+  if(!PT)return;
+  if(e.target.closest("[data-ptgo]")){PT.phase="q";route("test");return;}
+  if(e.target.closest("[data-ptstop]")){PT.phase="result";PT.pl={lv:PT.st,u:0};route("test");return;}
+  if(e.target.closest("[data-ptagain]")){PT=null;route("test");return;}
+  if(e.target.closest("[data-ptapply]")){const pl=PT.pl;P.placed={lv:pl.lv,u:pl.u,date:today()};save();PT=null;$("tabs").hidden=false;openLv=pl.lv;route("path");toast(`انفتحتلك الوحدات لحد ${pl.lv}-${pl.u+1}. بالتوفيق!`);return;}
+  if(PT.phase!=="q")return;const it=PT.qs[PT.i];
+  if(e.target.closest("[data-ptidk]")){ptAnswer(false,null);return;}
+  const o=e.target.closest("[data-pto]");if(o){const i=+o.dataset.pto;ptAnswer(i===it.q.a,it.q.o[i]);return;}
+  const t=e.target.closest("[data-ptt]");if(t){const i=+t.dataset.ptt;if(!it.picked.includes(i))it.picked.push(i);route("test");return;}
+  if(e.target.closest("[data-ptundo]")){it.picked.pop();route("test");return;}
+  if(e.target.closest("[data-ptcheck]")){const got=it.picked.map(i=>it.tiles[i].x),eq=a=>a.length===got.length&&a.every((x,k)=>x===got[k]);const ok=eq(it.q.order)||(it.q.alt||[]).some(eq);ptAnswer(ok,got.join(" "));return;}
+});
 let curView="home";
-function route(v){if(v==="tracks")v="path";if(!V[v])v="home";curView=v;$("view").innerHTML=V[v]();document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.tab===v?"page":"false"));window.scrollTo(0,0);try{history.replaceState(null,"","#"+v);}catch(e){}}
+function route(v){if(v==="tracks")v="path";if(!V[v])v="home";curView=v;$("tabs").hidden=(v==="test");$("view").innerHTML=V[v]();document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.tab===v?"page":"false"));window.scrollTo(0,0);try{history.replaceState(null,"","#"+v);}catch(e){}}
 document.addEventListener("click",e=>{
   if(e.target.closest(".lesson-close")){window.closeLesson();return;}
   if(e.target.closest("[data-logo]")){logoTaps++;clearTimeout(logoT);logoT=setTimeout(()=>logoTaps=0,1500);if(logoTaps>=5){logoTaps=0;showAdmin=true;route("me");}return;}
@@ -3391,7 +3995,7 @@ document.addEventListener("click",e=>{
     else if(act==="admin-off"){P.admin=false;save();route("me");toast("وقّفت وضع المدير.");}
     else if(act==="train")route("train");
     else if(act==="dmore"){dlimit+=60;route("dict");}
-    else if(act==="placement")toast("اختبار تحديد المستوى قيد التحضير.");
+    else if(act==="placement")route("test");
     else if(act==="reset"){if(!confirmReset){confirmReset=true;route("me");}else{confirmReset=false;Object.assign(P,{xp:0,streak:0,last:null,today:{d:today(),xp:0},units:{},start:today(),saved:[]});save();L.reset();route("me");toast("انمسح تقدمك.");}}
     return;}
   const lv=e.target.closest("[data-lv]");if(lv){const n=+lv.dataset.lv;openLv=openLv===n?-1:n;route("path");return;}
