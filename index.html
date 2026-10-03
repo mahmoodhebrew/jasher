@@ -258,6 +258,17 @@ p{margin:0}
 .sign{background:#1E5A3C;color:#FFFFFF;border:4px solid #FFFFFF;outline:2px solid #1E5A3C;border-radius:10px;padding:18px;text-align:center}
 .sign .he{font-size:40px;font-weight:700;color:#FFFFFF}
 .opts.one{grid-template-columns:1fr}
+.hl{color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:0 2px}
+.bubble{align-self:center;background:#DCF8C6;color:#111B21;border-radius:14px 14px 4px 14px;padding:12px 16px;font-family:var(--f-he);font-size:30px;font-weight:500;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.signs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.msign{border:2px solid #1C2B4A;background:#1C2B4A;color:#FFFFFF;border-radius:10px;padding:16px 8px;min-height:72px}
+.msign .he{font-size:30px;font-weight:700;color:#FFFFFF}
+.msign.right{background:var(--good);border-color:var(--good)}
+.msign.wrong{background:var(--bad);border-color:var(--bad)}
+.msign[disabled]{cursor:default}
+.chip.admin{color:var(--surface);background:var(--accent);border-color:var(--accent)}
+.admin-form{display:flex;gap:8px;align-items:center}
+.admin-form input{width:110px;min-height:44px;border:1px solid var(--line);border-radius:10px;padding:0 10px;font:inherit;background:var(--surface);color:var(--fg)}
 .section-title{font-family:var(--f-display);font-size:18px;margin:0}
 
 /* path */
@@ -745,12 +756,92 @@ R2.done=()=>{if(window.onUnitDone)window.onUnitDone("0-2");screen.innerHTML=`<di
   <h1>صرت تقرأ أي كلمة مشكّلة</h1>
   <p class="lead">الحركات الخمس، والشْوا، والنقطة جوا الحرف، ونقطة الشين.</p>
   <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK2}</b><span>الفحص النهائي</span></div><div><b>5</b><span>أصوات</span></div></div>
-  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاية</span><p><b>الوحدة 3: القراءة بدون تشكيل</b></p><p class="lead" style="font-size:14px">كيف تقرأ العبري الحقيقي بالشارع</p></div><span class="counter">قريبًا</span></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاية</span><p><b>الوحدة 3: القراءة بدون تشكيل</b></p><p class="lead" style="font-size:14px">كيف تقرأ العبري الحقيقي بالشارع</p></div><span class="counter">جاهزة</span></div>
   <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
   screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
   screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,BLANK());save();$("xp").textContent="0 نقطة";go(0);});
   return true;};
 UNITS["0-2"]={steps:STEPS2,titles:TITLES2,screens:R2,crumb:"المستوى 0 · الوحدة 2"};
+
+/* ================= Unit 0-3: reading without niqqud ================= */
+const HELPERS=[
+ {h:"ו",t:"ו بالنص = o أو u",d:"لما ييجي ו بنص الكلمة، غالبًا هو حرف مد: o أو u، زي الواو بـ«يوم» و«سوق». بأول الكلمة غالبًا ڤ.",ex:[["שלום","شالوم"],["סוס","سوس"],["ורד","ڤيرِد (بأولها = ڤ)"]]},
+ {h:"י",t:"י بالنص = i أو e",d:"لما ييجي י بنص الكلمة، غالبًا هو حرف مد: i أو e، زي الياء بـ«مدينة».",ex:[["עיר","عير"],["תלמיד","تَلْميد"],["גינה","چينا"]]},
+ {h:"ה",t:"ה بالآخر = a",d:"ה بآخر الكلمة غالبًا ما بتنلفظ هاء، بتنلفظ a، زي التاء المربوطة: «مدرسة» = madrasa.",ex:[["תודה","تودا"],["ילדה","يَلْدا"],["שנה","شانا"]]},
+ {h:"וו",t:"וו مع بعض = ڤ",d:"لما تشوف واوين ورا بعض بنص الكلمة، هدول ڤ، مش مد.",ex:[["שווה","شاڤيه"],["תקווה","تِكڤا"]]}
+];
+const HL=[["שלום",2,"ou"],["סוס",1,"ou"],["תודה",1,"ou"],["ורד",0,"v"],["עיר",1,"ie"],["תלמיד",3,"ie"],["ילדה",3,"a"],["תודה",3,"a"],["שנה",2,"a"],["שווה",1,"v"],["גינה",1,"ie"],["יום",1,"ou"],["דוד",1,"ou"],["כיסא",1,"ie"],["ארוחה",2,"ou"],["ארוחה",4,"a"]];
+const HLAB={v:"ڤ · حرف عادي",ou:"o أو u · حرف مد",ie:"i أو e · حرف مد",a:"a · زي التاء المربوطة"};
+const UWORDS=[
+ {w:"שלום",r:"شالوم",d:["شيلام","شولِم"],m:"سلام"},{w:"עיר",r:"عير",d:["عور","عار"],m:"مدينة"},{w:"יום",r:"يوم",d:["يام","يِم"],m:"يوم"},
+ {w:"תלמיד",r:"تَلميد",d:["تولماد","تيلمود"],m:"تلميذ"},{w:"גינה",r:"چينا",d:["چونا","چانيه"],m:"جنينة"},{w:"ארוחה",r:"أروحا",d:["إيريحا","أراحو"],m:"وجبة"},
+ {w:"שולחן",r:"شولحان",d:["شالحين","شيلحون"],m:"طاولة"},{w:"חלון",r:"حالون",d:["حيلين","حولان"],m:"شباك"},{w:"רחוב",r:"رِحوڤ",d:["راحاڤ","روحيڤ"],m:"شارع"},
+ {w:"מכונית",r:"مِخونيت",d:["ماكانات","موخينوت"],m:"سيارة"},{w:"תחנה",r:"تاحانا",d:["تيحونيه","توحنا"],m:"محطة"},{w:"תודה",r:"تودا",d:["تيديه","تادو"],m:"شكرًا"}
+];
+const SEFER=[["סֵפֶר","سيفِر","كتاب","קראתי ספר מעניין.","قرأت كتاب ممتع."],["סַפָּר","سَپّار","حلاق","הלכתי לספר להסתפר.","رحت عالحلاق أقص شعري."],["סִפֵּר","سيپير","حكى / روى","הוא סיפר לי סיפור.","حكالي قصة."]];
+const MALL=[{w:"יציאה",m:"مخرج"},{w:"כניסה",m:"مدخل"},{w:"שירותים",m:"حمامات"},{w:"קופה",m:"صندوق الدفع"},{w:"סגור",m:"مسكّر"},{w:"פתוח",m:"مفتوح"}];
+const MALLT=[{ask:"خلصت شوبينغ وبدك تطلع من المول. أي لافتة بتلحق؟",a:"יציאה"},{ask:"بدك الحمامات. وين بتروح؟",a:"שירותים"},{ask:"بدك تدفع حق الأغراض. وين؟",a:"קופה"}];
+const CHATS=[{w:"מה נשמע?",r:"ما نِشماع؟",m:"شو الأخبار؟"},{w:"אני בדרך",r:"أني بَديريخ",m:"أنا بالطريق"},{w:"נתראה מחר",r:"نِترائيه ماحار",m:"منشوف بعض بكرا"},{w:"תודה רבה!",r:"تودا رَبّا!",m:"شكرًا كثير!"},{w:"איפה אתה?",r:"إيفو أتا؟",m:"وينك؟"}];
+const STEPS3=[{k:"intro"},{k:"helpers"},{k:"drill"},{k:"context"},{k:"read"},{k:"mall"},{k:"chat"},{k:"check"},{k:"done"}];
+const TITLES3={intro:"مقدمة",helpers:"الحروف المساعدة",drill:"تدريب",context:"السياق",read:"اقرأ بدون تشكيل",mall:"بالمول",chat:"رسايل واتساب",check:"صرت بقدر",done:"خلصت"};
+const PASS3=7,CHECK3=10;
+const R3={};
+const hlWord=(w,i)=>w.split("").map((c,k)=>k===i?`<span class="hl">${c}</span>`:c).join("");
+const hq=x=>{const o=shuffle(Object.keys(HLAB));return{prompt:`<span class="word" lang="he">${hlWord(x[0],x[1])}</span><p class="lead">الحرف الملوّن، شو بيعمل بهالكلمة؟</p>`,opts:o.map(k=>HLAB[k]),ans:o.indexOf(x[2]),explain:`بكلمة ${he(x[0])}، الحرف الملوّن ${HLAB[x[2]]}.`};};
+const uq=w=>{const o=shuffle([w.r,...w.d]);return{prompt:`<span class="word" lang="he">${w.w}</span><p class="lead">بدون حركات. كيف بتنقرأ؟</p>`,opts:o.map(x=>"«"+x+"»"),ans:o.indexOf(w.r),explain:`${he(w.w)} بتنقرأ «${w.r}» ومعناها ${w.m}.`};};
+const cq=c=>{const o=shuffle([c,...pick(CHATS,3,x=>x.w===c.w)]);return{prompt:`<div class="bubble" lang="he" dir="rtl">${esc(c.w)}</div><p class="lead">شو معنى الرسالة؟</p>`,opts:o.map(x=>x.m),ans:o.indexOf(c),explain:`${he(c.w)} بتنقرأ «${c.r}» ومعناها ${c.m}.`};};
+
+R3.intro=()=>{screen.innerHTML=`<div class="stack pop">
+  <h1>العبري الحقيقي بينكتب بدون حركات</h1>
+  <p class="lead">اللافتات، والجرايد، ورسايل الواتساب، والنماذج الرسمية: كلها بدون نيكود. بس في حروف بتساعدك تعرف الصوت، زي حروف المد بالعربي.</p>
+  <div class="panel hero"><span class="glyph" lang="he">שלום</span><span class="eq">=</span><span class="ar">شالوم</span></div>
+  <div class="note"><b>بنهاية الوحدة رح تقدر:</b> تقرأ لافتات المول، وتفهم رسايل واتساب قصيرة، وتعرف كيف تخمّن الكلمة من السياق.</div></div>`;return true;};
+
+R3.helpers=()=>{screen.innerHTML=`<div class="stack pop"><h2>الحروف المساعدة</h2>
+  <p class="lead">زي ما الواو والياء والألف بالعربي بتساعدك تعرف الحركة، بالعبري في 4 قواعد بتريحك.</p>
+  ${HELPERS.map(x=>`<div class="panel sp"><div class="sp-head"><span class="glyph" lang="he">${x.h}</span><b>${x.t}</b></div><p>${x.d}</p>
+    <div class="rows">${x.ex.map(e=>`<div class="row"><div><span class="he" lang="he">${e[0]}</span><small>«${e[1]}»</small></div>${speakBtn(e[0])}</div>`).join("")}</div></div>`).join("")}</div>`;
+  return true;};
+
+R3.drill=()=>quizScreen("drill","","تدريب الحروف المساعدة","شوف الحرف الملوّن، واختار شو بيعمل بالكلمة.",()=>pick(HL,10).map(hq));
+
+R3.context=()=>{screen.innerHTML=`<div class="stack pop"><h2>السياق بيحكي</h2>
+  <p class="lead">أحيانًا نفس الكتابة بتنقرأ بأكثر من طريقة، زي «علم» بالعربي: عِلْم ولا عَلَم؟ الجملة هي اللي بتحكيلك.</p>
+  <div class="panel hero"><span class="glyph" lang="he">ספר</span></div>
+  <div class="rows">${SEFER.map(x=>`<div class="row"><div><span class="he nq" lang="he">${x[0]}</span><small>«${x[1]}» = ${x[2]}</small><small class="he" lang="he" style="font-size:16px;color:var(--fg)">${x[3]}</small><small>${x[4]}</small></div>${speakBtn(x[3])}</div>`).join("")}</div>
+  <div class="note"><b>النصيحة:</b> ما توقف عند كلمة وحدة. اقرأ الجملة كلها، والمعنى بيوضح لحاله.</div></div>`;
+  return true;};
+
+R3.read=()=>quizScreen("read","","اقرأ بدون تشكيل","كلمات حقيقية بدون حركات. استعين بالحروف المساعدة.",()=>pick(UWORDS,8).map(uq));
+
+R3.mall=()=>{let ti=0;
+  function render(){const t=MALLT[ti],signs=shuffle([MALL.find(x=>x.w===t.a),...pick(MALL,3,x=>x.w===t.a)]);
+    screen.innerHTML=`<div class="stack pop"><h2>بالمول</h2><p class="lead">انت بمول بتل أبيب، وكل اللافتات بالعبري وبدون حركات.</p>
+    <div class="note"><b>المهمة ${ti+1} من ${MALLT.length}:</b> ${t.ask}</div>
+    <div class="signs">${signs.map(x=>`<button type="button" class="msign" data-w="${x.w}"><span class="he" lang="he">${x.w}</span></button>`).join("")}</div><div class="sfb"></div></div>`;
+    screen.querySelectorAll(".msign").forEach(b=>b.addEventListener("click",()=>{const ok=b.dataset.w===t.a;
+      screen.querySelectorAll(".msign").forEach(x=>{x.disabled=true;if(x.dataset.w===t.a)x.classList.add("right");else if(x===b)x.classList.add("wrong");});
+      if(ok)addXP(10);const last=ti+1>=MALLT.length,fb=screen.querySelector(".sfb");
+      fb.innerHTML=`<div class="feedback ${ok?"good":"bad"}">${ok?"صح!":"لا، هاي مش هي."} ${signs.map(x=>`${he(x.w)} = ${x.m}`).join(" · ")}</div><button type="button" class="btn sn" style="width:100%;margin-top:10px">${last?"خلصت":"المهمة الجاية"}</button>`;
+      fb.querySelector(".sn").addEventListener("click",()=>{if(!last){ti++;render();}else{S.done.mall=1;save();refreshNav(true);fb.querySelector(".sn").remove();toast("برافو، تدبرت أمورك بالمول!");}});}));}
+  render();return !!S.done.mall;};
+
+R3.chat=()=>quizScreen("chat","","رسايل واتساب","صاحبك بعتلك رسايل بالعبري. شو بيحكي؟",()=>shuffle(CHATS).map(cq));
+
+R3.check=()=>quizScreen("check","","صرت بقدر أقرأ بدون حركات؟",`${CHECK3} أسئلة من كل الوحدة. إذا جبت ${PASS3} أو أكثر، بتخلص الوحدة.`,()=>shuffle([...pick(HL,4).map(hq),...pick(UWORDS,4).map(uq),...pick(CHATS,2).map(cq)]),PASS3);
+
+R3.done=()=>{if(window.onUnitDone)window.onUnitDone("0-3");screen.innerHTML=`<div class="stack pop" style="text-align:center">
+  <div class="badge"><span class="glyph" lang="he">שלום</span><small>الوحدة 3</small></div>
+  <h1>صرت تقرأ العبري الحقيقي</h1>
+  <p class="lead">بدون حركات، زي ما بينكتب باللافتات والرسايل.</p>
+  <div class="stats"><div><b>${S.xp}</b><span>نقطة</span></div><div><b>${S.best}/${CHECK3}</b><span>الفحص النهائي</span></div><div><b>4</b><span>قواعد</span></div></div>
+  <div class="panel next-unit" style="text-align:start"><div><span class="eyebrow">الجاية</span><p><b>الوحدة 4: الكتابة</b></p><p class="lead" style="font-size:14px">خط اليد والكيبورد العبري</p></div><span class="counter">قريبًا</span></div>
+  <button type="button" class="btn back-path">رجوع للمسار</button><button type="button" class="btn ghost reset">ابدأ الوحدة من جديد</button></div>`;
+  screen.querySelector(".back-path").addEventListener("click",()=>window.closeLesson&&window.closeLesson());
+  screen.querySelector(".reset").addEventListener("click",()=>{Object.assign(S,BLANK());save();$("xp").textContent="0 نقطة";go(0);});
+  return true;};
+UNITS["0-3"]={steps:STEPS3,titles:TITLES3,screens:R3,crumb:"المستوى 0 · الوحدة 3"};
+
 
 
 /* ---------- nav ---------- */
@@ -1194,10 +1285,10 @@ const LEVELS=[
 ];
 const TOTAL=LEVELS.reduce((a,l)=>a+l.units.length,0);
 const uid=(l,u)=>l+"-"+(u+1);
-const PLAYABLE={};["0-1","0-2"].forEach(id=>{if(L.has(id))PLAYABLE[id]=true;});
+const PLAYABLE={};["0-1","0-2","0-3"].forEach(id=>{if(L.has(id))PLAYABLE[id]=true;});
 const isDone=id=>!!P.units[id];
 function prevId(l,u){if(u>0)return uid(l,u-1);if(l>0)return uid(l-1,LEVELS[l-1].units.length-1);return null;}
-function unitState(l,u){const id=uid(l,u);if(isDone(id))return"done";const pv=prevId(l,u);if(!pv||isDone(pv))return PLAYABLE[id]?"current":"soon";return"locked";}
+function unitState(l,u){const id=uid(l,u);if(isDone(id))return"done";if(P.admin)return PLAYABLE[id]?"current":"soon";const pv=prevId(l,u);if(!pv||isDone(pv))return PLAYABLE[id]?"current":"soon";return"locked";}
 function currentUnit(){for(const lv of LEVELS)for(let u=0;u<lv.units.length;u++){const s=unitState(lv.n,u);if(s==="current"||s==="soon")return{l:lv.n,u,s};}return null;}
 const doneCount=()=>Object.keys(P.units).length;
 
@@ -1214,7 +1305,7 @@ function openLesson(id){$("lessonView").hidden=false;$("tabs").hidden=true;docum
 
 /* chips */
 function chips(){document.querySelectorAll("[data-xp]").forEach(e=>e.textContent=P.xp);document.querySelectorAll("[data-streak]").forEach(e=>e.textContent=P.streak);}
-const brand=()=>`<div class="brand"><div class="logo"><b>جسر</b><span lang="he">גשר</span></div><div class="chips"><span class="chip fire" title="أيام متتالية">🔥 <span data-streak>${P.streak}</span></span><span class="chip star" title="نقاطك">★ <span data-xp>${P.xp}</span></span></div></div>`;
+const brand=()=>`<div class="brand"><div class="logo" data-logo><b>جسر</b><span lang="he">גשר</span></div><div class="chips"><span class="chip fire" title="أيام متتالية">🔥 <span data-streak>${P.streak}</span></span>${P.admin?`<span class="chip admin">مدير</span>`:""}<span class="chip star" title="نقاطك">★ <span data-xp>${P.xp}</span></span></div></div>`;
 
 /* views */
 const V={};
@@ -1263,7 +1354,7 @@ V.tracks=()=>`${brand()}<div><h1 style="font-size:24px">التخصصات</h1><p 
   <div class="track"><span class="ic">${IC.law}</span><div><b>العبري للقانون</b><small>للمحامين وطلاب القانون.</small></div><span class="tag">لاحقًا</span></div>
   <div class="track"><span class="ic">${IC.more}</span><div><b>تخصصات أخرى</b><small>بنضيفها حسب طلبكم.</small></div><span class="tag">لاحقًا</span></div>
   <div class="note"><b>إمتى بيفتح مسار التخصص؟</b> بعد المستوى 4، أو مباشرة إذا مستواك عالي باختبار تحديد المستوى.</div>`;
-let confirmReset=false;
+let confirmReset=false,showAdmin=false,logoTaps=0,logoT=null;
 V.me=()=>{const seen=L.state("0-1").seen||{};const letters=L.ALL.map(l=>`<span class="${seen[l.h]?"on":""}" lang="he">${l.h}</span>`).join("");const nSeen=L.ALL.filter(l=>seen[l.h]).length;
   return `${brand()}<h1 style="font-size:24px">حسابي</h1>
   <div class="statgrid">
@@ -1279,6 +1370,7 @@ V.me=()=>{const seen=L.state("0-1").seen||{};const letters=L.ALL.map(l=>`<span c
   <div class="panel setting"><div><b>هدفي اليومي</b><p class="lead" style="font-size:14px">نقاط بدك تجمعها كل يوم</p></div>
     <div class="seg" role="group" aria-label="الهدف اليومي">${[20,50,100].map(g=>`<button type="button" data-goal="${g}" aria-pressed="${P.goal===g}">${g}</button>`).join("")}</div></div>
   <div class="panel setting"><div><b>ابدأ من جديد</b><p class="lead" style="font-size:14px">بيمسح كل تقدمك على هالجهاز</p></div><button type="button" class="btn ghost" data-act="reset" style="min-height:44px;padding:8px 14px;${confirmReset?"color:var(--bad);border-color:var(--bad)":""}">${confirmReset?"متأكد؟ اكبس مرة ثانية":"امسح"}</button></div>
+  ${(showAdmin||P.admin)?`<div class="panel setting"><div><b>وضع المدير</b><p class="lead" style="font-size:14px">${P.admin?"مفعّل: كل الوحدات الجاهزة مفتوحة بدون ترتيب":"بيفتح كل الوحدات الجاهزة للمراجعة"}</p></div>${P.admin?`<button type="button" class="btn ghost" data-act="admin-off" style="min-height:44px;padding:8px 14px">إيقاف</button>`:`<div class="admin-form"><input id="admin-code" type="password" placeholder="الرمز" autocomplete="off"><button type="button" class="btn ghost" data-act="admin-on" style="min-height:44px;padding:8px 14px">تفعيل</button></div>`}</div>`:""}
   <p class="lead" style="font-size:13px">تقدمك محفوظ على هالجهاز بس. بالنسخة الرسمية رح يكون في حساب بيحفظ تقدمك على كل أجهزتك.</p>`;};
 
 /* router */
@@ -1286,11 +1378,14 @@ let curView="home";
 function route(v){curView=v;$("view").innerHTML=V[v]();document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.tab===v?"page":"false"));window.scrollTo(0,0);try{history.replaceState(null,"","#"+v);}catch(e){}}
 document.addEventListener("click",e=>{
   if(e.target.closest(".lesson-close")){window.closeLesson();return;}
+  if(e.target.closest("[data-logo]")){logoTaps++;clearTimeout(logoT);logoT=setTimeout(()=>logoTaps=0,1500);if(logoTaps>=5){logoTaps=0;showAdmin=true;route("me");}return;}
   const t=e.target.closest(".tab");if(t){confirmReset=false;route(t.dataset.tab);return;}
   const a=e.target.closest("[data-act]");
   if(a){const act=a.dataset.act;
     if(act==="lesson")openLesson(a.dataset.id);
     else if(act==="soon")toast("هاي الوحدة قيد التحضير، رح تنفتح قريبًا.");
+    else if(act==="admin-on"){const v=(document.getElementById("admin-code")||{}).value||"";if(v.trim()==="jasher-admin"){P.admin=true;save();route("me");toast("تفعّل وضع المدير. كل الوحدات الجاهزة صارت مفتوحة.");}else toast("الرمز غلط. جرب كمان مرة.");}
+    else if(act==="admin-off"){P.admin=false;save();route("me");toast("وقّفت وضع المدير.");}
     else if(act==="placement")toast("اختبار تحديد المستوى قيد التحضير.");
     else if(act==="reset"){if(!confirmReset){confirmReset=true;route("me");}else{confirmReset=false;Object.assign(P,{xp:0,streak:0,last:null,today:{d:today(),xp:0},units:{},start:today(),saved:[]});save();L.reset();route("me");toast("انمسح تقدمك.");}}
     return;}
