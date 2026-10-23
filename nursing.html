@@ -540,6 +540,7 @@ p{margin:0}
 .n-alarm{display:block;width:96px;height:auto;margin:0 auto;animation:nPulse 1s ease-in-out infinite}@keyframes nPulse{50%{transform:scale(1.08)}}
 .n-shart{display:flex;justify-content:center;align-items:center;gap:6px}.n-shart .n-av{width:56px;height:56px}.n-mic{width:48px;height:48px}
 .n-mag{width:110px;height:auto;align-self:center;margin-bottom:4px}
+.n-big{font-size:26px;font-variant-numeric:tabular-nums}.n-prow{display:flex;justify-content:space-between;font-size:14px;border-top:1px solid var(--line);padding:6px 0;margin-top:6px}.n-weak{margin:10px 0 0;font-size:14px;color:var(--bad);font-weight:700}
 .n-gender{border-color:var(--brass);display:flex;flex-direction:column;gap:8px}
 .n-note{font-size:12.5px;color:var(--muted);text-align:center;margin:0}
 .n-back{text-align:center;text-decoration:none;display:block}
@@ -3950,7 +3951,7 @@ const stripN=t=>String(t).replace(/[֑-ׇ]/g,"");
 const NK="gesher-nursing-v1",PK="gesher-v1";
 const N={g:null,eps:{},saved:[],tools:{}};
 try{const r=localStorage.getItem(NK);if(r)Object.assign(N,JSON.parse(r));}catch(e){}
-if(!N.eps||typeof N.eps!=="object")N.eps={};if(!Array.isArray(N.saved))N.saved=[];if(!N.tools||typeof N.tools!=="object")N.tools={};
+if(!N.eps||typeof N.eps!=="object")N.eps={};if(!Array.isArray(N.saved))N.saved=[];if(!N.tools||typeof N.tools!=="object")N.tools={};if(!N.srs||typeof N.srs!=="object")N.srs={};if(!Array.isArray(N.days))N.days=[];
 const save=()=>{try{localStorage.setItem(NK,JSON.stringify(N));}catch(e){}};
 const dstr=d=>{try{return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Jerusalem",year:"numeric",month:"2-digit",day:"2-digit"}).format(d);}catch(e){return d.toISOString().slice(0,10);}};
 function loadP(){let P={xp:0,streak:0,last:null,today:{d:null,xp:0}};try{const r=localStorage.getItem(PK);if(r)Object.assign(P,JSON.parse(r));}catch(e){}return P;}
@@ -4049,6 +4050,8 @@ V.home=()=>{const nextK=EPS.findIndex(e=>!epState(e.id).done),ep=EPS[nextK>=0?ne
   ${!N.g?`<div class="panel n-gender"><b>قبل أن تبدأ: كيف نخاطبك؟</b><p class="lead" style="font-size:14px">العبرية تفرّق بين المذكّر والمؤنّث، فسنعرض الجمل حسب اختيارك.</p><div class="tr-row"><button type="button" class="btn" data-g="m">أنا ممرّض</button><button type="button" class="btn" data-g="f">أنا ممرّضة</button></div></div>`:""}
   ${ep&&N.g?`<button type="button" class="continue n-cont" data-ep="${ep.id}">${cover(ep.id,"n-cover n-cover-cont")}<span class="eyebrow">${nextK<0?"أنهيت كل الحلقات المتاحة 🎉 · أعد":"الحلقة "+ep.n} · <span lang="he">${esc(ep.he)}</span></span><h2>${esc(ep.ar)}</h2><div class="prog"><i style="width:${nextK<0?100:pct}%"></i></div><span class="go">${st.i>0&&nextK>=0?"تابع":"ابدأ"}</span></button>`:""}
   ${N.g&&FEAT.daily?`<button type="button" class="panel tr-home" data-tool="daily"><span class="ic">☕</span><span><b>5 دقائق قبل المناوبة</b><small>${N.daily===todayKey()?"أنهيت جرعة اليوم ✓":"5 مصطلحات، جملة، وسؤال من مريض"}</small></span><span class="go">${N.daily===todayKey()?"أعد":"ابدأ"}</span></button>`:""}
+  ${N.g?(()=>{const c=srsCounts(),n=Math.min(12,c.due+(c.learned<c.total?12:0));return `<button type="button" class="panel tr-home" data-srs><span class="ic">🧠</span><span><b>مراجعة المصطلحات</b><small>${c.due?`${c.due} مصطلحًا للمراجعة اليوم`:c.learned?`تعرّفت على ${c.learned} مصطلحًا · أضف مصطلحات جديدة`:"ابدأ بأول 12 مصطلحًا"}</small></span><span class="go">راجع</span></button>`;})():""}
+  ${N.g?`<button type="button" class="panel tr-home" data-tab="prog"><span class="ic">📊</span><span><b>تقدّمي</b><small>الحلقات، المصطلحات، ونتائج التدريب</small></span><span class="go">افتح</span></button>`:""}
   <div class="tr-grid">
    <button type="button" class="tr-mode" data-tab="pocket"><span class="ic">🎒</span><b>جيبة المناوبة</b><small>${PHR.length} جملة جاهزة لكل موقف</small></button>
    <button type="button" class="tr-mode" data-tab="dict"><span class="ic">📖</span><b>القاموس الطبي</b><small>${DICT.length} مصطلح · عبري، عربي، إنجليزي</small></button>
@@ -4171,6 +4174,39 @@ let QZ=null,SP=null,TMR=null;
 const clearT=()=>{if(TMR){clearInterval(TMR);TMR=null;}};
 const heO=t=>/[א-ת]/.test(t);
 const mcqItems=(arr,n)=>shuf(arr).slice(0,n);
+/* ===== spaced review of dictionary terms ===== */
+const SRS_I=[0,1,2,4,7,15,30];
+const dKey=w=>stripN(w[0]);
+const addDaysN=n=>dstr(new Date(Date.now()+n*864e5));
+function srsPoolOrder(){const seen=new Set(),out=[];const push=w=>{const k=dKey(w);if(!seen.has(k)){seen.add(k);out.push(w);}};
+  EPS.forEach(e=>{if(epState(e.id).done)e.scenes.forEach(sc=>{if(sc.t==="cards")sc.w.forEach(w=>push([w[0],w[1],w[2],w[3],"ep"]));});});
+  ["vitals","body","symptoms","ward","equipment","meds","verbs","procedures","conditions","communication","docs","abbr"].forEach(c=>DICT.filter(w=>w[4]===c).forEach(push));return out;}
+function srsCounts(){const t=dstr(new Date());let due=0,learned=0,strong=0;Object.values(N.srs).forEach(v=>{learned++;if(v[1]<=t)due++;if(v[0]>=4)strong++;});return {due,learned,strong,total:DICT.length};}
+function srsMarkN(k,ok){const c=N.srs[k]||[0,""];const b=ok?Math.min(c[0]+1,SRS_I.length-1):0;N.srs[k]=[b,addDaysN(ok?SRS_I[b]:1)];}
+function buildSRS(){const t=dstr(new Date()),all=srsPoolOrder();const due=all.filter(w=>N.srs[dKey(w)]&&N.srs[dKey(w)][1]<=t).sort((a,b)=>N.srs[dKey(a)][0]-N.srs[dKey(b)][0]);
+  const fresh=all.filter(w=>!N.srs[dKey(w)]);const pick=due.slice(0,12);for(const w of fresh){if(pick.length>=12)break;pick.push(w);}
+  if(!pick.length){toast("أنهيت مراجعة اليوم 👏 عُد غدًا.");return;}
+  const items=pick.map((w,i)=>{const pool=DICT.filter(x=>x[4]===w[4]&&dKey(x)!==dKey(w)&&x[2]!==w[2]);const ds=shuf(pool.length>=3?pool:DICT.filter(x=>dKey(x)!==dKey(w))).slice(0,3);const o=shuf([w,...ds]);const mode=N.srs[dKey(w)]?i%3:0;
+    if(mode===1)return {key:dKey(w),stim:`<div class="pt-stim">${esc(w[2])}<small class="n-stim-sub" dir="ltr" lang="en">${esc(w[3])}</small></div>`,q:"كيف يُقال بالعبرية؟",opts:o.map(x=>({t:x[0],he:true})),a:o.indexOf(w),why:"",after:`<p class="lead" style="text-align:center">«${esc(w[1])}» ${sayBtn(w[0])}</p>`};
+    if(mode===2)return {key:dKey(w),stim:`<div class="n-listen"><button type="button" class="tr-big n-auto" data-say="${esc(stripN(w[0]))}">${SAY}<span>اسمع</span></button></div>`,q:"ما معنى المصطلح الذي سمعته؟",opts:o.map(x=>({t:x[2],he:false})),a:o.indexOf(w),why:"",after:`<p class="he n-reveal" lang="he" dir="rtl">${esc(w[0])}</p>`};
+    return {key:dKey(w),stim:`<div class="pt-stim" lang="he" dir="rtl">${esc(w[0])}<small class="n-stim-sub">«${esc(w[1])}»</small></div>`,q:"ما معنى هذا المصطلح؟",opts:o.map(x=>({t:x[2],he:false})),a:o.indexOf(w),why:"",after:`<p class="lead" style="text-align:center" dir="ltr" lang="en">${esc(w[3])}</p>`};});
+  QZ={k:"srs",title:"مراجعة المصطلحات",items,i:0,a:null,ok:0};clearT();route("tools");autoPlay();}
+/* ===== progress ===== */
+V.prog=()=>{const P=loadP(),c=srsCounts(),eDone=EPS.filter(e=>epState(e.id).done);
+  const trust=EPS.reduce((a,e)=>{const t=epState(e.id).trust;return {p:a.p+t.patient,t:a.t+t.team};},{p:0,t:0});
+  const NAMES={ward:"لوحة القسم",sbar:"تسليم المناوبة",mon:"المونيتور",emg:"الطوارئ",role:"أنت المريض",pat:"عبري المرضى",abbr:"الاختصارات",cog:"جسر اللغتين",cult:"الأدب والثقافة",mist:"غلطات شائعة",myst:"ملف الغموض",doc1:"التوثيق 1",doc2:"التوثيق 2",doc3:"التوثيق 3",call1:"مكالمة 1",call2:"مكالمة 2",call3:"مكالمة 3"};
+  const rows=Object.entries(N.tools).filter(([k])=>NAMES[k]).sort((a,b)=>b[1]-a[1]);
+  const wardDone=Object.keys(N.tools).filter(k=>k.startsWith("ward:")).length;
+  const weak=rows.filter(([k,v])=>v<60).map(([k])=>NAMES[k]);
+  const bar=(lab,v,tot,cls)=>`<div class="pt-skill"><span>${lab}</span><span class="pt-bar"><i style="width:${tot?Math.round(v/tot*100):0}%" class="${cls||""}"></i></span><small>${v}/${tot}</small></div>`;
+  return `${brand()}<div><h1 style="font-size:24px">تقدّمي</h1><p class="lead">صورة كاملة عن طريقك في مسار التمريض.</p></div>
+  <div class="cards2"><div class="mini"><span class="eyebrow">النقاط</span><b class="n-big">★ ${P.xp||0}</b></div><div class="mini"><span class="eyebrow">أيام متتالية</span><b class="n-big">🔥 ${P.streak||0}</b></div></div>
+  <div class="panel"><b>الحلقات</b>${bar("حلقات منتهية",eDone.length,EPS.length,"hi")}${eDone.length?`<p class="lead" style="font-size:13.5px;margin:8px 0 0">مجموع 🫶 ثقة المرضى: <b>${trust.p}</b> · 🤝 ثقة الفريق: <b>${trust.t}</b></p>`:""}${EPS.map(e=>{const st=epState(e.id);return st.done?`<div class="n-prow"><span>${esc(e.ar)}</span><b>${st.best}%</b></div>`:"";}).join("")}</div>
+  <div class="panel"><b>المصطلحات</b>${bar("تعرّفت عليها",c.learned,c.total)}${bar("ثابتة في الذاكرة",c.strong,c.total,"hi")}<p class="lead" style="font-size:13.5px;margin:8px 0 0">${c.due?`لديك ${c.due} مصطلحًا للمراجعة اليوم.`:"لا مراجعة مستحقّة الآن."}</p><button type="button" class="btn" data-srs style="margin-top:8px">مراجعة المصطلحات</button></div>
+  <div class="panel"><b>التدريب</b>${rows.length?rows.map(([k,v])=>`<div class="pt-skill"><span>${NAMES[k]}</span><span class="pt-bar"><i style="width:${v}%" class="${v>=75?"hi":v<50?"lo":""}"></i></span><small>${v}%</small></div>`).join(""):`<p class="lead" style="font-size:14px">لم تبدأ التدريب بعد.</p>`}${wardDone?`<p class="lead" style="font-size:13.5px;margin:8px 0 0">أنهيت جولة على ${wardDone} من ${WARD.length} أسرّة.</p>`:""}
+   ${weak.length?`<p class="n-weak">🎯 ركّز على: ${weak.join("، ")}</p>`:""}</div>
+  <div class="panel"><b>الجيبة</b><p class="lead" style="font-size:14px;margin:4px 0 0">حفظت ${N.saved.length} جملة. ${N.days.length?`أنهيت «5 دقائق قبل المناوبة» ${N.days.length} مرّة.`:""}</p></div>
+  <button type="button" class="btn ghost" data-tab="home">رجوع</button>`;};
 const MTYPE={"gender":"المذكّر والمؤنّث","preposition":"حروف الجرّ","false friend":"كلمة خادعة تشبه العربية","sound":"اللفظ","word order":"ترتيب الكلمات","register":"الأسلوب المناسب"};
 function buildQZ(k){let items=[],title="";const opts=(o,he)=>o.map(t=>({t:G(t),he:he==null?heO(G(t)):he}));
   if(k==="mon"){title="المونيتور";items=mcqItems(MON,8).map(m=>({stim:monitorHTML(m.v),q:m.q,opts:opts(m.o),a:m.a,why:m.why,after:m.say?`<div class="n-bub me"><b>تقول:</b><p lang="he" dir="rtl">${esc(G(m.say))}</p><span class="n-bub-tools">${sayBtn(G(m.say))}</span></div>`:""}));}
@@ -4284,9 +4320,10 @@ document.addEventListener("click",e=>{const T=e.target;
   const st=T.closest("[data-start]");if(st){startTool(st.dataset.start,+st.dataset.lvl);return;}
   if(T.closest("[data-toolx]")){TL=null;route("tools");return;}
 
-  const mm=T.closest("[data-m]");if(mm){const k=mm.dataset.m;TL=null;SP=null;if(["mon","emg","role","pat","abbr","cog","cult","mist"].includes(k))buildQZ(k);else startSP(k);return;}
+  const sr=T.closest("[data-srs]");if(sr){TL=null;SP=null;buildSRS();return;}
+  const mm=T.closest("[data-m]");if(mm){const k=mm.dataset.m;TL=null;SP=null;if(k==="srs"){buildSRS();return;}if(["mon","emg","role","pat","abbr","cog","cult","mist"].includes(k))buildQZ(k);else startSP(k);return;}
   if(T.closest("[data-mx]")){QZ=null;SP=null;clearT();route("tools");return;}
-  if(QZ){const qa=T.closest("[data-qa]");if(qa&&QZ.a==null){clearT();QZ.a=+qa.dataset.qa;if(QZ.a===QZ.items[QZ.i].a)QZ.ok++;rerender();return;}
+  if(QZ){const qa=T.closest("[data-qa]");if(qa&&QZ.a==null){clearT();QZ.a=+qa.dataset.qa;const it=QZ.items[QZ.i];if(QZ.a===it.a)QZ.ok++;if(QZ.k==="srs"){srsMarkN(it.key,QZ.a===it.a);save();}rerender();return;}
     if(T.closest("[data-qnext]")){QZ.i++;QZ.a=null;route("tools");autoPlay();return;}}
   if(SP){const k=SP.k;
     const bd=T.closest("[data-bed]");if(bd){SP.bed=+bd.dataset.bed;SP.t=0;SP.a=null;SP.ok=0;SP.saved=false;route("tools");return;}
@@ -4311,7 +4348,7 @@ document.addEventListener("click",e=>{const T=e.target;
     if(T.closest("[data-mnext]")){SP.i++;SP.a=null;SP.open=null;route("tools");return;}
     const df=T.closest("[data-df]");if(df){const j=+df.dataset.df;SP.f[j]=!SP.f[j];if(SP.f[j])speak(dailySet().words[j][0]);rerender();return;}
     const da=T.closest("[data-da]");if(da&&SP.da==null){SP.da=+da.dataset.da;rerender();return;}
-    if(T.closest("[data-ddone]")&&N.daily!==todayKey()){N.daily=todayKey();save();addXP(5);toast("أحسنت! نراك غدًا قبل المناوبة 👋");rerender();return;}
+    if(T.closest("[data-ddone]")&&N.daily!==todayKey()){N.daily=todayKey();if(!N.days.includes(N.daily))N.days.push(N.daily);save();addXP(5);toast("أحسنت! نراك غدًا قبل المناوبة 👋");rerender();return;}
   }
   if(TL){const td=T.closest("[data-tdoc]");if(td&&TL.a==null){TL.a=+td.dataset.tdoc;if(TL.a===TL.qs[TL.i].a)TL.ok++;rerender();return;}
     const tc=T.closest("[data-tcall]");if(tc&&TL.a==null){TL.a=+tc.dataset.tcall;if(TL.a===TL.qs[TL.i].a)TL.ok++;rerender();return;}
