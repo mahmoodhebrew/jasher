@@ -11,6 +11,7 @@ An interactive Hebrew-learning platform for Arabic speakers. The whole site is o
 ## Content rules (must follow)
 - **No personal details about the owner anywhere on the site**: no name, no mention of nursing studies, nothing about him.
 - Explanations in **simple Modern Standard Arabic**; dialogues and tips in **Palestinian colloquial Arabic**.
+- Nursing track (owner decision, Oct 2026): translations of Hebrew lines (flip cards) are in **accurate MSA**; only the mentor's tips stay colloquial.
 - **No recorded lessons.** Everything is interactive: dictionary, flashcards, sentence completion, many exercise types. Learning should feel enjoyable.
 - Teaching only, **no exam prep** for now.
 - Unit 1 covers the **whole alphabet in parts**, with both **print and handwritten (cursive)** forms.
