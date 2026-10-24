@@ -742,11 +742,53 @@ body.nx-inep .n-next{bottom:calc(14px + env(safe-area-inset-bottom,0px))}
 .tr-opt[lang="he"],.tr-opt span[lang="he"]{font-family:var(--f-he);font-size:19px;line-height:1.5}
 .tr-opt small{display:block;margin-top:4px;color:var(--muted);font-size:13.5px;font-family:var(--f-body);font-weight:500;line-height:1.5}
 .tr-opt.ok small,.tr-opt.bad small{color:inherit;opacity:.85}
+/* ===== shifts + pager ===== */
+.nx-dictbtn{width:40px;height:40px;border-radius:999px;border:0;background:var(--accent);color:var(--surface);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.nx-dictbtn.light{background:rgba(255,255,255,.16);color:#fff;border-radius:14px;width:44px;height:44px}
+.n-top .nx-dictbtn{width:44px;height:44px;border-radius:14px;background:var(--surface);color:var(--accent);border:1px solid var(--line)}
+.nx-retbar{display:flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--accent);border:0;border-radius:14px;padding:12px 14px;font-weight:700;font-size:15px;min-height:48px}
+.nx-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:10px}
+.nx-day{border:0;border-radius:12px;padding:7px 2px;display:flex;flex-direction:column;align-items:center;gap:0;background:var(--bg);color:var(--muted);min-height:64px;line-height:1.3}
+.nx-day small{font-size:10.5px;font-weight:700}.nx-day b{font-size:17px}
+.nx-day.done{background:var(--accent-soft);color:var(--accent)}.nx-day.today{background:var(--hero);color:#fff}
+.nx-cont-chips{display:flex;gap:6px;flex-wrap:wrap}.nx-cont-chips span{background:rgba(255,255,255,.14);border-radius:10px;padding:4px 9px;font-size:12.5px}
+.nx-coffee{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;text-align:start;color:var(--fg);width:100%}
+.nx-coffee .nx-gic{background:#FDF3E3;color:#A86A12}
+.nx-all{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:4px 14px}
+.nx-all summary{cursor:pointer;font-weight:700;font-size:15px;padding:10px 0;min-height:24px}
+.nx-allw{display:flex;flex-direction:column;gap:4px;padding:6px 0 10px}.nx-allw>b{font-size:13px;color:var(--muted);margin:4px 0}
+.nx-shrow{display:flex;gap:10px;align-items:center;background:none;border:0;border-top:1px solid var(--line);padding:10px 2px;text-align:start;color:var(--fg);font-size:14.5px;min-height:46px}
+.nx-shrow[data-locked]{opacity:.55}
+.nx-shn{width:28px;height:28px;border-radius:999px;background:var(--sunk);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:0 0 auto}
+.nx-shrow.done .nx-shn{background:var(--accent);color:#fff}
+.nx-pager-h{background:var(--hero);color:#fff;border-radius:22px;padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.nx-pager-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;opacity:.95}
+.nx-iconbtn.light{background:rgba(255,255,255,.16);border:0;color:#fff}
+.nx-pager-k{font-size:13px;opacity:.85}.nx-pager-t{font-size:21px;line-height:1.35}
+.nx-segs{display:grid;gap:5px}.nx-segs i{height:6px;border-radius:9px;background:rgba(255,255,255,.22)}.nx-segs i.on{background:var(--amber)}.nx-segs i.cur{background:rgba(255,255,255,.6)}
+.nx-msgs{display:flex;flex-direction:column;gap:10px}
+.nx-msg{display:flex;gap:12px;align-items:flex-start;border-radius:18px;padding:14px;text-align:start;color:var(--fg);width:100%;font:inherit}
+.nx-msg.done{background:var(--surface);border:1px solid var(--line)}
+.nx-msg.act{background:var(--surface);border:2px solid var(--accent);box-shadow:0 8px 20px rgba(14,107,102,.15);cursor:pointer}
+.nx-msg.wait{background:var(--sunk);border:1px dashed var(--line)}
+.nx-av{flex:0 0 auto;width:40px;height:40px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;font-family:var(--f-he)}
+.nx-msg-b{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}
+.nx-msg-from b{font-size:13.5px;font-family:var(--f-he)}
+.nx-msg-text{font-family:var(--f-he);font-size:17px;line-height:1.5}
+.nx-msg.wait .nx-msg-text{filter:blur(3px);opacity:.6}
+.nx-msg-tag{align-self:flex-start;margin-top:4px;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;color:var(--muted)}
+.nx-msg.act .nx-msg-tag{background:var(--accent);color:var(--surface)}.nx-msg.done .nx-msg-tag{background:var(--accent-soft);color:var(--accent)}.nx-msg.wait .nx-msg-tag{padding:0}
+.nx-done{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding-top:18px}
+.nx-done-ic{width:92px;height:92px;border-radius:999px;background:var(--hero);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px var(--accent-soft);margin-bottom:10px}
+.nx-done h1{margin:0;font-size:26px}.nx-done p{margin:0;font-family:var(--f-he);font-size:19px;color:var(--muted)}
+.nx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.nx-stats div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 6px;display:flex;flex-direction:column;align-items:center}.nx-stats b{font-size:22px;color:var(--accent)}.nx-stats small{font-size:12px;color:var(--muted)}
+.nx-nextnote{background:#FDF3E3;border:1px solid #F2D6A8;color:#5A3D12;border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .nx-nextnote{background:#2E2414;border-color:#5A4522;color:#F3DDB5}:root:not([data-theme="light"]) .nx-msg.wait{background:#1A2523}}
 </style>
 </head>
 <body>
 <div class="shell" dir="rtl" lang="ar"><main id="view" class="view"></main></div>
-<nav class="tabs" id="tabs" dir="rtl" aria-label="التنقل"><div class="tabs-in"><button type="button" class="tab" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>اليوم</button><button type="button" class="tab" data-tab="eps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6M8 11h6"/></svg>تعلّم</button><button type="button" class="tab" data-tab="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>تدرّب</button><button type="button" class="tab" data-tab="refs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>مراجع</button></div></nav>
+<nav class="tabs" id="tabs" dir="rtl" aria-label="التنقل"><div class="tabs-in"><button type="button" class="tab" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>مناوباتي</button><button type="button" class="tab" data-tab="refs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6M8 11h6"/></svg>القاموس</button><button type="button" class="tab" data-tab="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>تدرّب بحرّية</button></div></nav>
 <div class="toast" id="toast" hidden role="status"></div>
 <script>
 window.NFEAT={"train": true, "daily": true, "myst": true, "body": true, "human": true};
@@ -5329,8 +5371,12 @@ function scene(s,i,active){const st=epState(EP.id),a=st.ans[i];
 const interactive=s=>["choice","listen","doc","order"].includes(s.t);
 function epView(){const ep=EP,st=epState(ep.id),n=ep.scenes.length;
   if(st.i>=n)return epCheck();
-  let h="";for(let i=0;i<=st.i;i++)h+=`<div class="n-scene ${i===ANIM?"anim":""}" data-si="${i}">${scene(ep.scenes[i],i,i===st.i)}</div>`;
+  if(CH&&st.i>=CH.e)st.i=CH.e-1;const s0=CH?CH.s:0;
+  let h="";for(let i=s0;i<=st.i;i++)h+=`<div class="n-scene ${i===ANIM?"anim":""}" data-si="${i}">${scene(ep.scenes[i],i,i===st.i)}</div>`;
   const s=ep.scenes[st.i],blocked=interactive(s)&&st.ans[st.i]==null;
+  if(CH){const sh=SH[SHM?SHM.k:curSh().k],last=st.i+1>=CH.e;return `<div class="n-top"><button type="button" class="tr-x" data-shback aria-label="رجوع إلى الرسائل">${ico("close",18)}</button><div><b>مناوبة ${AR_D(sh.k+1)} · ${esc(ep.ar)}</b><div class="pt-dots n-prog"><i style="width:${Math.round((st.i-CH.s)/Math.max(1,CH.e-CH.s)*100)}%"></i></div></div>${dictBtn()}</div>
+  ${st.i===0?`<div class="panel n-intro">${cover(ep.id,"n-cover n-cover-intro")}<span class="eyebrow">الحلقة ${ep.n} · <span lang="he">${esc(ep.he)}</span></span><h2>${esc(ep.ar)}</h2><p class="lead">${esc(ep.lead)}</p></div>`:""}
+  <div class="n-feed">${h}</div>${blocked?"":last?`<button type="button" class="btn n-next" data-chunkdone>إنهاء الرسالة والعودة</button>`:`<button type="button" class="btn n-next" data-next>التالي</button>`}`;}
   return `<div class="n-top"><button type="button" class="tr-x" data-tab="eps" aria-label="رجوع">→</button><div><b>${UNIT(ep)} ${ep.n}: ${esc(ep.ar)}</b><div class="pt-dots n-prog"><i style="width:${Math.round(st.i/n*100)}%"></i></div></div>${ep.intro?"":`<span class="n-meters"><span title="ثقة المريض">🫶 ${st.trust.patient}</span><span title="ثقة الفريق">🤝 ${st.trust.team}</span></span>`}</div>
   ${st.i===0?`<div class="panel n-intro">${cover(ep.id,"n-cover n-cover-intro")}<span class="eyebrow">${UNIT(ep)} ${ep.n} · <span lang="he">${esc(ep.he)}</span></span><h2>${esc(ep.ar)}</h2><p class="lead">${esc(ep.lead)}</p><ul>${ep.goals.map(g=>`<li>${esc(g)}</li>`).join("")}</ul></div>`:""}
   <div class="n-feed">${h}</div>${blocked?"":`<button type="button" class="btn n-next" data-next>${st.i+1<n?"التالي":"إلى الاختبار القصير"}</button>`}`;}
@@ -5376,7 +5422,7 @@ V.dict=()=>{REFT="dict";return V.refs();};
 /* ----- tools ----- */
 V.tools=()=>{if(TL&&TL.kind==="doc")return docView();if(TL&&TL.kind==="call")return callView();if(QZ)return qzView();if(SP)return spView();return PG?groupView():practiceHub();};
 function startTool(kind,lvl){const src=(kind==="doc"?DOCS:CALLS).filter(x=>x.lvl===lvl);if(!src.length){toast("لا توجد تمارين في هذا المستوى بعد.");return;}
-  N.trainDay=todayKey();save();TL={kind,lvl,qs:shuf(src).slice(0,kind==="doc"?8:5),i:0,ok:0,a:null,rb:null,shown:0,ord:null};route("tools");}
+  N.trainDay=todayKey();save();TL={kind,lvl,qs:shuf(src).slice(0,SHM?(kind==="doc"?4:2):(kind==="doc"?8:5)),i:0,ok:0,a:null,rb:null,shown:0,ord:null};route("tools");}
 function toolHead(title){return `<div class="n-top"><button type="button" class="tr-x" data-toolx aria-label="رجوع">→</button><div><b>${title}</b><div class="pt-dots n-prog"><i style="width:${Math.round(TL.i/TL.qs.length*100)}%"></i></div></div><span class="counter">${Math.min(TL.i+1,TL.qs.length)}/${TL.qs.length}</span></div>`;}
 function toolEnd(){const tot=TL.kind==="doc"?TL.qs.length:TL.qs.length*2;if(!TL.saved){TL.saved=true;addXP(TL.ok*2);const k=TL.kind+TL.lvl;N.tools[k]=Math.max(N.tools[k]||0,Math.round(TL.ok/tot*100));save();}
   return `<div class="tr-wrap tr-end"><div class="ring" style="--p:${Math.round(TL.ok/tot*100)}"><span>${TL.ok}/${tot}</span></div><h2>${TL.ok>=tot*.75?"ممتاز! 🌟":"تدريب جيد، كرّر لتتقن"}</h2><p class="lead">+${TL.ok*2} نقطة</p><div class="tr-row"><button type="button" class="btn ghost" data-toolx>رجوع</button><button type="button" class="btn" data-start="${TL.kind}" data-lvl="${TL.lvl}">مرة أخرى</button></div></div>`;}
@@ -5435,7 +5481,7 @@ V.prog=()=>{const P=loadP(),c=srsCounts(),eDone=EPS.filter(e=>epState(e.id).done
   return `<div class="nx-sub"><button type="button" class="nx-iconbtn" data-tab="home" aria-label="رجوع">${ico("back",20)}</button><div><span class="nx-kicker">اليوم</span><h1>تقدّمي</h1></div></div><p class="nx-small" style="text-align:start;margin-top:-6px">صورة كاملة عن طريقك في مسار التمريض.</p>
   <div class="cards2"><div class="mini"><span class="eyebrow">النقاط</span><b class="n-big">★ ${P.xp||0}</b></div><div class="mini"><span class="eyebrow">أيام متتالية</span><b class="n-big">🔥 ${P.streak||0}</b></div></div>
   ${INTRO.length?`<div class="panel"><b>المحور التمهيدي</b>${bar("دروس منتهية",INTRO.filter(e=>epState(e.id).done).length,INTRO.length,"hi")}</div>`:""}
-  <div class="panel"><b>الحلقات</b>${bar("حلقات منتهية",eDone.length,EPS.length,"hi")}${eDone.length?`<p class="lead" style="font-size:13.5px;margin:8px 0 0">مجموع 🫶 ثقة المرضى: <b>${trust.p}</b> · 🤝 ثقة الفريق: <b>${trust.t}</b></p>`:""}${EPS.map(e=>{const st=epState(e.id);return st.done?`<div class="n-prow"><span>${esc(e.ar)}</span><b>${st.best}%</b></div>`:"";}).join("")}</div>
+  <div class="panel"><b>المناوبات</b>${bar("مناوبات منتهية",SH.filter(shDone).length,SH.length,"hi")}${bar("حلقات القصة المكتملة",eDone.length,EPS.length)}${eDone.length?`<p class="lead" style="font-size:13.5px;margin:8px 0 0">مجموع 🫶 ثقة المرضى: <b>${trust.p}</b> · 🤝 ثقة الفريق: <b>${trust.t}</b></p>`:""}${EPS.map(e=>{const st=epState(e.id);return st.done?`<div class="n-prow"><span>${esc(e.ar)}</span><b>${st.best}%</b></div>`:"";}).join("")}</div>
   <div class="panel"><b>المصطلحات</b>${bar("تعرّفت عليها",c.learned,c.total)}${bar("ثابتة في الذاكرة",c.strong,c.total,"hi")}<p class="lead" style="font-size:13.5px;margin:8px 0 0">${c.due?`لديك ${c.due} مصطلحًا للمراجعة اليوم.`:"لا مراجعة مستحقّة الآن."}</p><button type="button" class="btn" data-srs style="margin-top:8px">مراجعة المصطلحات</button></div>
   <div class="panel"><b>التدريب</b>${rows.length?rows.map(([k,v])=>`<div class="pt-skill"><span>${NAMES[k]}</span><span class="pt-bar"><i style="width:${v}%" class="${v>=75?"hi":v<50?"lo":""}"></i></span><small>${v}%</small></div>`).join(""):`<p class="lead" style="font-size:14px">لم تبدأ التدريب بعد.</p>`}${wardDone?`<p class="lead" style="font-size:13.5px;margin:8px 0 0">أنهيت جولة على ${wardDone} من ${WARD.length} أسرّة.</p>`:""}
    ${weak.length?`<p class="n-weak">🎯 ركّز على: ${weak.join("، ")}</p>`:""}</div>
@@ -5452,7 +5498,7 @@ function buildQZ(k){let items=[],title="";const opts=(o,he,ar)=>o.map((t,j)=>({t
   else if(k==="cult"){title="الأدب والثقافة";items=mcqItems(CULT,8).map(c=>({stim:`<div class="n-narr">${esc(c.sit)}</div>`,q:c.q,opts:c.o.map(o=>({t:G(o.he),he:true,sub:G(o.ar)})),a:c.a,why:c.why}));}
   else if(k==="mist"){title="غلطات شائعة";items=mcqItems(MIST,10).map(m=>{const o=shuf([{t:m.right,he:true,ok:1},{t:m.wrong,he:true}]);return {stim:"",q:"أيّ جملة صحيحة؟",opts:o,a:o.findIndex(x=>x.ok),why:m.ar,after:`<span class="eyebrow">نوع الخطأ: ${esc(MTYPE[m.type]||m.type)}</span>`};});}
   if(!items.length){toast("هذا التمرين قيد التحضير.");return;}
-  N.trainDay=todayKey();save();QZ={k,title,items,i:0,a:null,ok:0};clearT();route("tools");autoPlay();}
+  if(SHM)items=items.slice(0,5);N.trainDay=todayKey();save();QZ={k,title,items,i:0,a:null,ok:0};clearT();route("tools");autoPlay();}
 function monitorHTML(v){const cell=(lab,val,u)=>`<div class="n-mv"><small>${lab}</small><b>${esc(val)}</b><i>${u}</i></div>`;
   return `<div class="n-monitor" dir="ltr">${cell("HR",v.HR,"bpm")}${cell("BP",v.BP,"mmHg")}${cell("SpO2",v.SpO2,"%")}${cell("RR",v.RR,"/min")}${cell("T",v.T,"°C")}</div>`;}
 function qzView(){if(QZ.i>=QZ.items.length){const tot=QZ.items.length,pct=Math.round(QZ.ok/tot*100);if(!QZ.saved){QZ.saved=true;addXP(QZ.ok*2);N.tools[QZ.k]=Math.max(N.tools[QZ.k]||0,pct);save();}
@@ -5467,7 +5513,7 @@ function autoPlay(){const b=document.querySelector(".n-auto");if(b)setTimeout(()
 /* ----- special screens ----- */
 function startSP(k){clearT();QZ=null;if(k!=="daily"){N.trainDay=todayKey();save();}
   if(k==="ward")SP={k,bed:null};
-  else if(k==="sbar"){if(!SBAR.length){toast("قيد التحضير.");return;}SP={k,cases:shuf(SBAR).slice(0,5),i:0,ok:0,tot:0};spPrep();}
+  else if(k==="sbar"){if(!SBAR.length){toast("قيد التحضير.");return;}SP={k,cases:shuf(SBAR).slice(0,SHM?2:5),i:0,ok:0,tot:0};spPrep();}
   else if(k==="shadow"){if(!SHADOW.length){toast("قيد التحضير.");return;}SP={k,lvl:1,i:0,rec:null};}
   else if(k==="body")SP={k,mode:"o",quiz:null,sel:null};
   else if(k==="myst"){if(!MYST){toast("قيد التحضير.");return;}SP={k,i:-1,a:null,open:null,ok:0};}
@@ -5558,16 +5604,16 @@ let ABOUT=null,PG=null,REFT="dict";
 const AR_D=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
 /* ----- section explainers (first visit + «ما هذا؟») ----- */
 const ABOUTS={
- home:{t:"كيف يعمل المسار؟",ic:"sun",lead:"تتعلّم عبرية التمريض كما تُقال فعلًا في القسم، من خلال مسلسل تفاعلي في مستشفى خيالي ذكي اسمه «קִדְמָה». أنت الممرّض الجديد في قسم الباطنية.",
-  steps:[["اليوم","تجد هنا ما ينتظرك اليوم: الحلقة التالية ومهمّة قصيرة."],["تعلّم","١٢ حلقة متسلسلة، كل حلقة مناوبة كاملة في القسم."],["تدرّب","تمارين قصيرة لكل مهارة: السماع، القراءة، الكتابة، والحفظ."],["مراجع","القاموس الطبي وجمل المناوبة الجاهزة، للبحث السريع."]],
-  when:"عشر دقائق يوميًا تكفي: حلقة أو جزء منها، ثم مهمّة اليوم."},
+ home:{t:"كيف يعمل المسار؟",ic:"cal",lead:"المسار شهر عمل في قسم الباطنية بمستشفى خيالي ذكي اسمه «קִדְמָה»: ٢٤ مناوبة قصيرة، كل مناوبة نحو ١٠ دقائق. أنت الممرّض الجديد، والعبرية تتعلّمها وأنت تعمل.",
+  steps:[["ادخل «مناوبة اليوم»","من الصفحة الرئيسية «مناوباتي». الترتيب ثابت، فلا تحتار من أين تبدأ."],["الرسائل تصلك بالترتيب","من رُوتي والطبيب والمرضى ونظام المستشفى. كل رسالة تمرين قصير: كلمات، مشهد، مكالمة، أو أسئلة."],["اضغط على أي جملة عبرية","ينقلب الكرت وتظهر ترجمتها الدقيقة بالفصحى."],["القاموس دائمًا قريب","زرّ البحث في أعلى كل شاشة، وتبويب «القاموس» في الأسفل."]],
+  when:"مناوبة واحدة يوميًا تكفي. وإن أردت المزيد: «مناوبة إضافية» أو «تدرّب بحرّية»."},
  eps:{t:"تعلّم",ic:"book",lead:"١٢ حلقة تساوي شهرًا في قسم الباطنية. كل حلقة مناوبة: تقرأ الموقف، تسمع الحوار، وتختار ما تقوله. كل اختيار يؤثّر على ثقة المريض والفريق بك.",
   steps:[["اضغط على أي جملة عبرية","ينقلب الكرت وتظهر ترجمتها الدقيقة بالعربية الفصحى."],["اختر ردّك","تعرف فورًا إن كان صحيحًا ولماذا."],["أنهِ الحلقة","باختبار قصير، واحفظ عباراتها المهمّة في «مراجع»."]],
   when:"حلقة كل يوم أو يومين. الحلقة التالية تُفتح بعد إنهاء السابقة."},
- tools:{t:"تدرّب",ic:"pulse",lead:"تمارين قصيرة تحاكي مواقف حقيقية في القسم: مكالمة طبيب، تسليم مناوبة، شاشة مونيتور، ومريض يشرح ألمه بكلامه هو.",
+ tools:{t:"تدرّب بحرّية",ic:"pulse",lead:"كل تمارين المسار في مكان واحد. في المناوبات نختار لك التمارين تلقائيًا، وهنا تختار أنت ما تريد إعادته أو تقويته.",
   steps:[["اختر مهارة","سماع وكلام، قراءة القسم، كتابة وتوثيق، أو حفظ وثقافة."],["تمرّن ٣–٥ دقائق","كل تمرين موقف واحد، وتعرف فورًا الصحيح ولماذا."],["ارجع للأصعب","بعض التمارين لها ثلاثة مستويات، ونتائجك تُحفظ في «تقدّمي»."]],
-  when:"بعد كل حلقة، أو حين تريد تقوية مهارة بعينها."},
- refs:{t:"مراجع",ic:"search",lead:"كل الكلمات والجمل في مكان واحد: القاموس الطبي بثلاث لغات، وجمل جاهزة لكل موقف في المناوبة، والجمل التي حفظتها.",
+  when:"بعد مناوبتك اليومية، أو حين تريد تقوية مهارة بعينها."},
+ refs:{t:"القاموس",ic:"search",lead:"كل الكلمات والجمل في مكان واحد: القاموس الطبي بثلاث لغات، وجمل جاهزة لكل موقف في المناوبة، والجمل التي حفظتها.",
   steps:[["ابحث بأي لغة","بالعبرية أو العربية أو الإنجليزية."],["اسمع اللفظ","اضغط زر الصوت بجانب أي كلمة أو جملة."],["احفظ ما تحتاجه","اضغط + لتجده لاحقًا في «المحفوظة»."]],
   when:"قبل المناوبة أو أثناءها، حين تحتاج كلمة أو جملة بسرعة."}};
 function aboutView(sec){const a=ABOUTS[sec],first=!N.seen[sec];
@@ -5583,7 +5629,7 @@ function aboutView(sec){const a=ABOUTS[sec],first=!N.seen[sec];
 const whatBtn=sec=>`<button type="button" class="nx-what" data-about="${sec}">ما هذا؟</button>`;
 const secHead=(t,sub,sec)=>`<div class="nx-head"><div><h1>${t}</h1>${sub?`<p>${sub}</p>`:""}</div>${sec?whatBtn(sec):""}</div>`;
 /* ----- brand bar ----- */
-function brandX(){const P=loadP();return `<div class="nx-brand"><a class="nx-logo" href="index.html" aria-label="العودة إلى المنصة"><small>مسار التمريض</small><b lang="he">קִדְמָה</b></a><div class="nx-chips"><button type="button" class="nx-chip nx-rate" data-rate aria-pressed="${isSlow()}" aria-label="لفظ بطيء" title="لفظ بطيء">${ico("slow",18)}</button><span class="nx-chip" title="أيام متتالية">${ico("flame",16)}<span data-streak>${P.streak||0}</span></span><span class="nx-chip" title="النقاط">${ico("star",16)}<span data-xp>${P.xp||0}</span></span></div></div>`;}
+function brandX(){const P=loadP();return `<div class="nx-brand"><a class="nx-logo" href="index.html" aria-label="العودة إلى المنصة"><small>مسار التمريض</small><b lang="he">קִדְמָה</b></a><div class="nx-chips">${dictBtn()}<button type="button" class="nx-chip nx-rate" data-rate aria-pressed="${isSlow()}" aria-label="لفظ بطيء" title="لفظ بطيء">${ico("slow",18)}</button><span class="nx-chip" title="أيام متتالية">${ico("flame",16)}<span data-streak>${P.streak||0}</span></span><span class="nx-chip" title="النقاط">${ico("star",16)}<span data-xp>${P.xp||0}</span></span></div></div>`;}
 /* ----- today ----- */
 const SUGG=["pat","mon","abbr","call","doc","emg","sbar","pat","cult","role","doc","ward"];
 function toolDef(k){for(const g of GROUPS())for(const t of g.tools)if(t.k===k)return Object.assign({g},t);return null;}
@@ -5638,6 +5684,7 @@ function GROUPS(){const abbrN=DICT.filter(w=>w[4]==="abbr").length;const L=[
   {k:"doc",name:"محوّل التوثيق",what:"حوّل الكلام اليومي إلى صياغة الملف الطبي.",min:4,n:DOCS.length,lv:true},
   {k:"sbar",name:"تسليم المناوبة (SBAR)",what:"صنّف جمل التسليم: الوضع، الخلفية، التقييم، التوصية.",min:5,n:SBAR.length}]},
  {id:"memory",name:"حفظ وثقافة",desc:"ثبّت المصطلحات وتجنّب الأخطاء الشائعة.",ic:"heart",tools:[
+  {k:"daily",name:"٥ دقائق قبل المناوبة",what:"٥ مصطلحات اليوم، وجملة، وسؤال من مريض.",min:5,n:FEAT.daily?1:0},
   {k:"srs",name:"مراجعة المصطلحات",what:"بطاقات ذكية تعود إليك في الوقت المناسب.",min:5,n:DICT.length},
   {k:"cog",name:"كلمات تشبه العربية",what:"كلمات عبرية من نفس الجذر العربي، تحفظها بسرعة.",min:3,n:COG.length},
   {k:"body",name:"خريطة الجسم",what:"اضغط على الجسم لتسمع الاسم، ثم اختبر نفسك.",min:4,n:FEAT.body?BODY.length:0},
@@ -5646,40 +5693,145 @@ function GROUPS(){const abbrN=DICT.filter(w=>w[4]==="abbr").length;const L=[
   L.forEach(g=>g.tools=g.tools.filter(t=>t.n));return L.filter(g=>g.tools.length);}
 function toolBest(t){if(t.lv){const v=[1,2,3].map(l=>N.tools[t.k+l]).filter(x=>x!=null);return v.length?Math.max(...v):null;}if(t.k==="ward"){const v=Object.keys(N.tools).filter(k=>k.startsWith("ward:"));return v.length?null:null;}return N.tools[t.k]!=null&&t.k!=="shadow"?N.tools[t.k]:null;}
 function practiceHub(){const sg=suggestion(),G_=GROUPS();
-  return `${brandX()}${secHead("تدرّب","اختر المهارة التي تريد تقويتها.","tools")}
+  return `${brandX()}${secHead("تدرّب بحرّية","اختر المهارة التي تريد تقويتها.","tools")}
   ${sg?`<div class="nx-sugg"><div><span class="nx-kicker">مقترح لك الآن</span><b>${sg.name}</b><small>${AR_D(sg.min)} دقائق · ${sg.what}</small></div><button type="button" class="btn" ${sg.lv?`data-pg="${sg.g.id}"`:sg.k==="srs"?"data-srs":`data-m="${sg.k}"`}>ابدأ</button></div>`:""}
   <div class="nx-groups">${G_.map(g=>`<button type="button" class="nx-group g-${g.id}" data-pg="${g.id}"><span class="nx-gic">${ico(g.ic)}</span><b>${g.name}</b><small>${g.desc}</small><span class="nx-gcount">${AR_D(g.tools.length)} ${g.tools.length>2?"تمارين":g.tools.length===2?"تمرينان":"تمرين"}</span></button>`).join("")}</div>`;}
 function groupView(){const g=GROUPS().find(x=>x.id===PG);if(!g){PG=null;return practiceHub();}
-  return `<div class="nx-sub"><button type="button" class="nx-iconbtn" data-pgx aria-label="رجوع إلى تدرّب">${ico("back",20)}</button><div><span class="nx-kicker">تدرّب</span><h1>${g.name}</h1></div></div>
+  return `<div class="nx-sub"><button type="button" class="nx-iconbtn" data-pgx aria-label="رجوع إلى تدرّب">${ico("back",20)}</button><div><span class="nx-kicker">تدرّب بحرّية</span><h1>${g.name}</h1></div></div>
   <div class="nx-gbanner g-${g.id}"><span class="nx-gic">${ico(g.ic,26)}</span><p>${g.desc}</p></div>
   <div class="nx-tools">${g.tools.map(t=>{const b=toolBest(t),act=t.k==="srs"?"data-srs":`data-m="${t.k}"`;
    return `<div class="nx-tool"><div class="nx-tool-t"><b>${t.name}</b><small>${t.what}</small><span class="nx-meta">${AR_D(t.min)} دقائق${b!=null?` · أفضل نتيجة ${AR_D(b)}٪`:""}</span></div>
    ${t.lv?`<div class="nx-levels">${[1,2,3].map(l=>`<button type="button" class="nx-lv" data-start="${t.k}" data-lvl="${l}">المستوى ${AR_D(l)}${N.tools[t.k+l]!=null?`<small>${AR_D(N.tools[t.k+l])}٪</small>`:""}</button>`).join("")}</div>`:`<button type="button" class="btn nx-start" ${act}>ابدأ</button>`}</div>`;}).join("")}</div>`;}
 /* ----- references ----- */
 V.refs=()=>{const seg=(v,l)=>`<button type="button" data-reft="${v}" aria-pressed="${REFT===v}">${l}</button>`;
-  return `${brandX()}${secHead("مراجع","",'refs')}<div class="nx-seg" role="group" aria-label="نوع المرجع">${seg("dict","القاموس الطبي")}${seg("pocket","جمل المناوبة")}${seg("saved","المحفوظة")}</div>${REFT==="dict"?dictBody():pocketBody()}`;};
+  return `${RET?`<button type="button" class="nx-retbar" data-ret>${ico("back",18)} رجوع إلى ${RET.v==="ep"?"المشهد":RET.v==="shift"?"الرسائل":"حيث كنت"}</button>`:brandX()}${secHead("القاموس","",'refs')}<div class="nx-seg" role="group" aria-label="نوع المرجع">${seg("dict","كلمات "+AR_D(DICT.length))}${seg("pocket","جمل "+AR_D(PHR.length))}${seg("saved","محفوظ")}</div>${REFT==="dict"?dictBody():pocketBody()}`;};
 /* ----- flip card bubble ----- */
 function flipBub(who,he,ar,key,me,open){const H=G(he),A=G(ar);
   return `<div class="n-line ${me?"me":""}">${avatar(me?whoKey("أنت"):whoKey(who),who)}<div class="nx-flipwrap ${me?"me":""}"><button type="button" class="nx-flip ${open?"on":""} ${me?"me":""}" data-trk="${key}" aria-pressed="${open?"true":"false"}" aria-label="${open?"اضغط للعودة إلى العبرية":"اضغط لترى الترجمة"}">
    ${open?`<span class="nx-flip-who">الترجمة</span><span class="nx-flip-ar">${esc(A)}</span><span class="nx-flip-hint">${ico("flip",14)} اضغط للعودة إلى العبرية</span>`
    :`<span class="nx-flip-who">${esc(who)}</span><span class="nx-flip-he" lang="he" dir="rtl">${esc(H)}</span><span class="nx-flip-hint">${ico("flip",14)} اضغط لترى الترجمة</span>`}</button>${sayBtn(H,"nx-say")}</div></div>`;}
 
+/* ===== shifts: 24 short shifts built from the 12 episodes; tasks arrive as pager messages ===== */
+IC.cal='<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>';
+IC.coffee='<path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/>';
+if(!N.sh||typeof N.sh!=="object")N.sh={};
+const SHT=[["cog","role"],["mon","pat"],["abbr","call"],["doc","mist"],["call","abbr"],["mon","sbar"],["doc","pat"],["cult","emg"],["cult","call"],["role","sbar"],["doc","mist"],["emg","sbar"]];
+const TOOLMSG={
+ cog:["מערכת קדמה","ק",{m:"מילים שדומות לערבית: תנסה לזהות אותן",f:"מילים שדומות לערבית: תנסי לזהות אותן"}],
+ role:["סמיר","ס",{m:"בוא נתרגל: הפעם אתה המטופל",f:"בואי נתרגל: הפעם את המטופלת"}],
+ mon:["מערכת קדמה","ק","התראה: ערכים חריגים במוניטור"],
+ pat:["מטופל","מ","מטופל קורא: ״אחות! אפשר רגע?״"],
+ abbr:["מערכת קדמה","ק","יש קיצורים חדשים בתיק הרפואי"],
+ call:["ד״ר אמיר","א","שיחה נכנסת מהרופא"],
+ doc:["רותי","ר",{m:"תעדכן את הרשומה, בבקשה",f:"תעדכני את הרשומה, בבקשה"}],
+ sbar:["רותי","ר",{m:"תעביר לי דיווח קצר לפני הסבב",f:"תעבירי לי דיווח קצר לפני הסבב"}],
+ mist:["סמיר","ס",{m:"שים לב לטעות הזאת, היא נפוצה",f:"שימי לב לטעות הזאת, היא נפוצה"}],
+ cult:["סמיר","ס","רגע של כבוד ותרבות במחלקה"],
+ emg:["קוד!","!","קוד! כולם לחדר 3, מהר!"]};
+const TOOLAR={cog:"كلمات تشبه العربية",role:"أنت المريض",mon:"المونيتور",pat:"عبري المرضى",abbr:"الاختصارات",call:"مكالمة",doc:"توثيق",sbar:"تسليم SBAR",mist:"أخطاء شائعة",cult:"الأدب والثقافة",emg:"طوارئ"};
+const SENDC={"ר":["#DCE9F5","#2E5E8A"],"ס":["#E3F0EE","#0E6B66"],"א":["#FCEBDD","#A2481F"],"ק":["#E8ECF8","#2F4A9E"],"מ":["#F6E7EE","#9A2F5E"],"!":["#FBE9E7","#C2413A"]};
+function cutAt(sc,s,e,want){let m=Math.max(s+1,Math.min(e-1,want));while(m<e-2&&!interactive(sc[m-1]))m++;return m;}
+const SH=(()=>{const out=[];EPS.forEach((ep,ei)=>{const sc=ep.scenes,n=sc.length,mid=cutAt(sc,0,n,Math.floor(n/2));
+  [[0,mid],[mid,n]].forEach(([s,e],h)=>{const words=[];for(let i=s;i<e;i++)if(sc[i].t==="cards")words.push(...sc[i].w);
+    const m2=cutAt(sc,s,e,Math.floor((s+e)/2)),half=Math.ceil(ep.phrases.length/2);
+    out.push({id:ep.id+"_"+h,ep,ei,h,k:out.length,words,chunks:[[s,m2],[m2,e]],tool:SHT[ei%SHT.length][h],chk:ep.check.slice(h*4,h*4+4),phr:ep.phrases.map((p,k)=>[p,k]).filter(([p,k])=>h?k>=half:k<half)});});});return out;})();
+const shS=sh=>{if(!N.sh[sh.id])N.sh[sh.id]={m:{},done:false};return N.sh[sh.id];};
+const shDone=sh=>!!(N.sh[sh.id]&&N.sh[sh.id].done)||epState(sh.ep.id).done;
+const shOpen=k=>k===0||shDone(SH[k-1]);
+const nextShift=()=>{const k=SH.findIndex(s=>!shDone(s));return k<0?SH.length-1:k;};
+function shMsgs(sh){const L=[],sc=sh.ep.scenes;
+  if(sh.words.length)L.push({kind:"words",from:"מערכת קדמה",ini:"ק",text:"מילים למשמרת: "+sh.words.length+" מונחים",tag:"كلمات المناوبة"});
+  sh.chunks.forEach(([s,e],c)=>{let w=null;for(let i=s;i<e;i++){const x=sc[i];if((x.t==="say"||x.t==="choice")&&x.who&&x.he){w=x;break;}}
+    L.push({kind:"scene",s,e,from:w?w.who:"מערכת קדמה",ini:w?(w.who.replace(/^(מר|ד״ר)\s*/,"")[0]||"ק"):"ק",text:w?G(w.he):"ממשיכים במשמרת…",tag:c?"مشهد ٢":"مشهد"});});
+  const tm=TOOLMSG[sh.tool];if(tm&&toolDef(sh.tool))L.push({kind:"tool",tool:sh.tool,from:tm[0],ini:tm[1],text:G(tm[2]),tag:TOOLAR[sh.tool]});
+  if(sh.chk.length)L.push({kind:"check",from:"רותי",ini:"ר",text:"כמה שאלות קצרות לסיום המשמרת",tag:"أسئلة الختام"});
+  return L;}
+function msgDone(sh,j,m){const st=N.sh[sh.id];if(st&&st.m[j])return true;if(st&&st.replay)return false;if(epState(sh.ep.id).done)return true;if(m.kind==="scene"&&epState(sh.ep.id).i>=m.e)return true;return false;}
+let SHK=null,SHM=null,CH=null,WF={},RET=null;
+const curSh=()=>SH[SHK==null?nextShift():SHK];
+function markMsg(sh,j){const st=shS(sh);st.m[j]=1;const L=shMsgs(sh);
+  if(L.every((m,i)=>msgDone(sh,i,m))&&!st.done){st.done=true;addXP(10);
+    const e=epState(sh.ep.id);const both=SH.filter(x=>x.ep===sh.ep).every(x=>N.sh[x.id]&&N.sh[x.id].done);
+    if(both&&!e.done){const v=SH.filter(x=>x.ep===sh.ep).map(x=>N.tools["chk:"+x.id]).filter(x=>x!=null);e.done=true;e.best=v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):100;}
+    save();return "shdone";}
+  save();return "shift";}
+const shTitle=sh=>`${esc(sh.ep.ar)}${sh.h?" · الجزء ٢":" · الجزء ١"}`;
+const dictBtn=(light)=>`<button type="button" class="nx-dictbtn ${light?"light":""}" data-dict aria-label="ابحث في القاموس">${ico("search",20)}</button>`;
+/* ----- home: my shifts ----- */
+V.home=()=>{
+  if(!N.g)return `${brandX()}<div class="nx-welcome">${HERO}<span class="nx-kicker">مسار التمريض</span><h1 lang="he" dir="rtl">הַמֶּרְכָּז הָרְפוּאִי קִדְמָה</h1><p>شهر عمل في قسم الباطنية: ٢٤ مناوبة قصيرة، كل مناوبة نحو ١٠ دقائق. المهامّ تصلك كرسائل من الطاقم والمرضى، وتتعلّم العبرية وأنت تعمل.</p></div>
+  <div class="panel nx-gender"><b>قبل أن تبدأ: كيف نخاطبك؟</b><p>العبرية تفرّق بين المذكّر والمؤنّث، فنعرض الجمل حسب اختيارك.</p><div class="tr-row"><button type="button" class="btn" data-g="m">أنا ممرّض</button><button type="button" class="btn" data-g="f">أنا ممرّضة</button></div></div>
+  <p class="n-note">هذا المسار يعلّم اللغة فقط، وليس مرجعًا طبيًا. الأسماء والأرقام والمستشفى في الأمثلة خيالية.</p>`;
+  const k=nextShift(),sh=SH[k],all=SH.every(shDone),L=shMsgs(sh),nd=L.filter((m,j)=>msgDone(sh,j,m)).length,wk=Math.floor(k/8)+1;
+  const from=Math.max(0,Math.min(SH.length-6,k-2)),strip=SH.slice(from,from+6);
+  const c=srsCounts();
+  return `${brandX()}
+  <div class="nx-hi"><span class="nx-kicker">الأسبوع ${AR_D(wk)} · قسم الباطنية</span><h1>جدول مناوباتي</h1></div>
+  <div class="nx-strip">${strip.map(s=>{const d=shDone(s),t=s.k===k&&!all;return `<button type="button" class="nx-day ${d?"done":t?"today":""}" data-shk="${s.k}" ${shOpen(s.k)?"":"data-locked"} aria-label="مناوبة ${s.k+1}${d?" — منتهية":t?" — اليوم":""}"><small>مناوبة</small><b>${AR_D(s.k+1)}</b><small>${d?"✓":t?"اليوم":""}</small></button>`;}).join("")}</div>
+  <button type="button" class="nx-continue" data-shk="${k}">
+   <span class="nx-cont-art">${cover(sh.ep.id,"nx-cont-cover")}</span>
+   <span class="nx-cont-top"><span>${all?"أنهيت كل المناوبات 🎉":"مناوبة اليوم · "+AR_D(k+1)+" من "+AR_D(SH.length)}</span><span class="nx-pill">١٠ دقائق</span></span>
+   <span class="nx-cont-he" lang="he">${esc(sh.ep.he)}</span>
+   <b class="nx-cont-t">${shTitle(sh)}</b>
+   <span class="nx-cont-chips"><span>${AR_D(L.length)} رسائل</span>${sh.words.length?`<span>${AR_D(sh.words.length)} كلمة جديدة</span>`:""}</span>
+   <span class="nx-bar"><i style="width:${Math.round(nd/L.length*100)}%"></i></span>
+   <span class="nx-cont-go">${all?"افتح":nd?"تابِع المناوبة":"ابدأ المناوبة"}</span></button>
+  <button type="button" class="nx-coffee" data-srs><span class="nx-gic">${ico("coffee",20)}</span><span class="nx-task-t"><b>استراحة قهوة: ${c.due?AR_D(Math.min(12,c.due))+" مصطلحات للمراجعة":"راجع ١٢ مصطلحًا"}</b><small>مصطلحات من مناوبات سابقة · دقيقتان</small></span><span class="nx-go">راجع</span></button>
+  <details class="nx-all"><summary>كل المناوبات (${AR_D(SH.filter(shDone).length)} من ${AR_D(SH.length)})</summary>${[0,1,2].map(w=>`<div class="nx-allw"><b>${["الأسبوع ١ · الأساس","الأسبوع ٢ · مواقف أصعب","الأسبوع ٣ · المسؤولية"][w]}</b>${SH.slice(w*8,w*8+8).map(s=>`<button type="button" class="nx-shrow ${shDone(s)?"done":""}" data-shk="${s.k}" ${shOpen(s.k)?"":"data-locked"}><span class="nx-shn">${shDone(s)?ico("check",14):shOpen(s.k)?AR_D(s.k+1):ico("lock",13)}</span><span>${shTitle(s)}</span></button>`).join("")}</div>`).join("")}</details>
+  <div class="nx-links"><button type="button" class="nx-tile" data-tab="prog">${ico("chart")}<b>تقدّمي</b><small>المناوبات والمصطلحات والتدريب</small></button><button type="button" class="nx-tile" data-about="home">${ico("info")}<b>كيف يعمل المسار؟</b><small>شرح سريع في دقيقة</small></button></div>
+  <button type="button" class="n-gswitch" data-gsw>${N.g==="f"?"تخاطبك المنصة كممرّضة":"تخاطبك المنصة كممرّض"} · تغيير</button>
+  <p class="n-note">هذا المسار يعلّم اللغة فقط، وليس مرجعًا طبيًا. الأسماء والأرقام والمستشفى في الأمثلة خيالية.</p>
+  <a class="nx-link" href="index.html">← العودة إلى المنصة</a>`;};
+/* ----- pager ----- */
+V.shift=()=>{const sh=curSh(),L=shMsgs(sh),act=L.findIndex((m,j)=>!msgDone(sh,j,m)),done=act<0;
+  return `<div class="nx-pager-h"><div class="nx-pager-top"><button type="button" class="nx-iconbtn light" data-tab="home" aria-label="رجوع إلى الجدول">${ico("back",20)}</button><span lang="he">משמרת ${sh.ep.n<=4?"בוקר":sh.ep.n===10?"לילה":"בוקר"}</span>${dictBtn(true)}</div>
+   <span class="nx-pager-k">مناوبة ${AR_D(sh.k+1)} من ${AR_D(SH.length)}</span><b class="nx-pager-t">${shTitle(sh)}</b>
+   <div class="nx-segs" style="grid-template-columns:repeat(${L.length},1fr)">${L.map((m,j)=>`<i class="${msgDone(sh,j,m)?"on":j===act?"cur":""}"></i>`).join("")}</div></div>
+  <p class="nx-small" style="text-align:start">${done?"أنهيت كل رسائل هذه المناوبة.":"الرسائل تصلك بالترتيب. أنهِ الحالية لتصلك التالية."}</p>
+  <div class="nx-msgs">${L.map((m,j)=>{const d=msgDone(sh,j,m),a=j===act,cl=SENDC[m.ini]||SENDC["ק"];
+    return `<button type="button" class="nx-msg ${d?"done":a?"act":"wait"}" ${a?`data-msg="${j}"`:"disabled"} aria-label="${esc(m.tag)}${d?" — منتهية":a?" — افتح":" — لاحقًا"}">
+    <span class="nx-av" style="background:${a||d?cl[0]:"#DCD8CD"};color:${a||d?cl[1]:"#56626C"}" lang="he">${esc(m.ini)}</span>
+    <span class="nx-msg-b"><span class="nx-msg-from"><b lang="he">${esc(m.from)}</b></span><span class="nx-msg-text" lang="he" dir="rtl">${esc(m.text)}</span><span class="nx-msg-tag">${d?"✓ "+m.tag:a?m.tag+" · افتح":m.tag+" · بعد الرسالة الحالية"}</span></span></button>`;}).join("")}</div>
+  ${done?`<button type="button" class="btn" data-shnext>${shDone(sh)&&sh.k+1<SH.length?"المناوبة التالية":"العودة إلى الجدول"}</button><button type="button" class="nx-link" data-shreplay>أعد هذه المناوبة</button>`:""}`;};
+/* ----- words ----- */
+V.shwords=()=>{const sh=curSh();
+  return `<div class="nx-sub"><button type="button" class="nx-iconbtn" data-shback aria-label="رجوع إلى الرسائل">${ico("back",20)}</button><div><span class="nx-kicker">مناوبة ${AR_D(sh.k+1)}</span><h1>كلمات المناوبة</h1></div></div>
+  <p class="nx-small" style="text-align:start">اضغط على كل كلمة لتسمعها وترى معناها. ستقابلها في رسائل اليوم.</p>
+  <div class="pk-grid">${sh.words.map((w,j)=>{const f=WF[j];return `<button type="button" class="pk-card ${f?"on":""}" data-wf="${j}">${f?`<b>${esc(w[2])}</b><small>«${esc(w[1])}» · ${esc(w[3])}</small>`:`<span class="he" lang="he">${esc(w[0])}</span>`}</button>`;}).join("")}</div>
+  <button type="button" class="btn" data-wordsdone>تعرّفت عليها، التالي</button>`;};
+/* ----- shift done ----- */
+V.shdone=()=>{const sh=curSh(),L=shMsgs(sh),nx=SH[sh.k+1],pc=N.tools["chk:"+sh.id];
+  return `<div class="nx-done"><span class="nx-done-ic">${ico("check",44)}</span><span class="nx-kicker">مناوبة ${AR_D(sh.k+1)} من ${AR_D(SH.length)}</span><h1>انتهت مناوبتك</h1><p lang="he">״${N.g==="f"?"עבודה טובה היום, את בדרך הנכונה.":"עבודה טובה היום, אתה בדרך הנכונה."}״ — רותי</p></div>
+  <div class="nx-stats"><div><b>${AR_D(L.length)}/${AR_D(L.length)}</b><small>رسائل</small></div><div><b>${AR_D(sh.words.length)}</b><small>كلمة جديدة</small></div><div><b>${pc!=null?AR_D(pc)+"٪":"+١٠"}</b><small>${pc!=null?"أسئلة الختام":"نقاط"}</small></div></div>
+  <div class="panel"><b>جمل اليوم المهمّة</b>${sh.phr.map(([p,k])=>{const key=sh.ep.id+":"+k,sv=N.saved.includes(key);return `<div class="rd-w"><span class="he" lang="he">${esc(G(p[0]))}</span><span>${esc(G(p[1]))}</span>${sayBtn(G(p[0]),"dsay")}<button type="button" class="rd-sv ${sv?"on":""}" data-savep="${key}" aria-label="احفظ">${sv?"✓":"+"}</button></div>`;}).join("")}</div>
+  ${nx?`<div class="nx-nextnote">المناوبة القادمة: «${shTitle(nx)}». ننصح بمناوبة واحدة يوميًا، ويمكنك المتابعة الآن إن أردت.</div>`:`<div class="nx-nextnote">أنهيت الشهر كله في القسم. أحسنت! راجع المصطلحات وتدرّب بحرّية لتبقى جاهزًا.</div>`}
+  <button type="button" class="btn" data-tab="home">العودة إلى الجدول</button>${nx?`<button type="button" class="nx-link" data-shk="${nx.k}">مناوبة إضافية الآن</button>`:""}`;};
+/* ----- open a message ----- */
+function openMsg(j){const sh=curSh(),m=shMsgs(sh)[j];if(!m)return;SHM={k:sh.k,j,kind:m.kind};TL=null;QZ=null;SP=null;clearT();
+  if(m.kind==="words"){WF={};route("shwords");return;}
+  if(m.kind==="scene"){EP=sh.ep;const st=epState(EP.id);if(st.i<m.s)st.i=m.s;CH={s:m.s,e:m.e};save();route("ep");const ns=EP.scenes[st.i];if(ns&&ns.t==="say")speak(G(ns.he));return;}
+  if(m.kind==="tool"){const t=m.tool;if(t==="call"||t==="doc"){startTool(t,Math.min(3,Math.floor(sh.ei/4)+1));return;}if(t==="sbar"){startSP("sbar");return;}buildQZ(t);return;}
+  if(m.kind==="check"){const items=sh.chk.map(c=>{const ord=shuf(c.o.map((_,k)=>k));return {stim:c.he?`<div class="pt-stim ${c.he.length>40?"long":""}" lang="he" dir="rtl">${esc(c.he)}</div>`:"",q:c.q,opts:ord.map(k=>({t:c.o[k],he:heO(c.o[k]),sub:c.oAr?c.oAr[k]:""})),a:ord.indexOf(c.a),why:c.why};});
+    QZ={k:"chk:"+sh.id,title:"أسئلة ختام المناوبة",items,i:0,a:null,ok:0};route("tools");return;}}
+function toolFinished(){return (QZ&&QZ.i>=QZ.items.length)||(TL&&TL.i>=TL.qs.length)||(SP&&SP.k==="sbar"&&SP.i>=SP.cases.length);}
+function backFromTool(){if(!SHM)return false;const sh=SH[SHM.k],fin=toolFinished();QZ=null;SP=null;TL=null;clearT();const j=SHM.j;SHM=null;SHK=sh.k;route(fin?markMsg(sh,j):"shift");return true;}
+
 /* ---------- routing & events ---------- */
-const TABOF={ep:"eps",dict:"refs",pocket:"refs",prog:"home"};
-function route(v,keep){cur=v;$("view").innerHTML=ABOUT?aboutView(ABOUT):(V[v]||V.home)();document.body.classList.toggle("nx-inep",v==="ep"&&!ABOUT);document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.tab===(TABOF[v]||v)?"page":"false"));
+const TABOF={ep:"home",shift:"home",shwords:"home",shdone:"home",eps:"home",dict:"refs",pocket:"refs",prog:"home"};
+function route(v,keep){cur=v;$("view").innerHTML=ABOUT?aboutView(ABOUT):(V[v]||V.home)();document.body.classList.toggle("nx-inep",(v==="ep"||v==="shwords")&&!ABOUT);document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-current",t.dataset.tab===(TABOF[v]||v)?"page":"false"));
   if(!keep)window.scrollTo(0,0);try{history.replaceState(null,"","#"+v);}catch(e){}chips();}
 function rerender(scrollEnd){const y=window.scrollY;route(cur,true);if(scrollEnd){const f=document.querySelectorAll(".n-scene");if(f.length)f[f.length-1].scrollIntoView({behavior:"smooth",block:"start"});}else window.scrollTo(0,y);}
 document.addEventListener("click",e=>{const T=e.target;
   const sb=T.closest("[data-say]");if(sb){speak(sb.getAttribute("data-say"));}
   if(T.closest("[data-rate]")){const v=!isSlow();try{localStorage.setItem("gesher-rate",v?"slow":"normal");}catch(err){}document.querySelectorAll("[data-rate]").forEach(b=>b.setAttribute("aria-pressed",String(v)));toast(v?"🐢 أصبح اللفظ أبطأ.":"عاد اللفظ إلى سرعته الطبيعية.");return;}
-  const tb=T.closest("[data-tab]");if(tb){TL=null;QZ=null;SP=null;PG=null;clearT();const v=tb.dataset.tab;ABOUT=(N.g&&ABOUTS[v]&&v!=="home"&&!N.seen[v])?v:null;route(v);return;}
+  const tb=T.closest("[data-tab]");if(tb){TL=null;QZ=null;SP=null;PG=null;SHM=null;CH=null;SHK=null;RET=null;clearT();const v=tb.dataset.tab;ABOUT=(N.g&&ABOUTS[v]&&v!=="home"&&!N.seen[v])?v:null;route(v);return;}
   const ab=T.closest("[data-about]");if(ab){ABOUT=ab.dataset.about;route(cur);return;}
   if(T.closest("[data-aboutx]")){if(ABOUT){N.seen[ABOUT]=1;save();}ABOUT=null;route(cur);return;}
   const pg=T.closest("[data-pg]");if(pg){TL=null;QZ=null;SP=null;clearT();PG=pg.dataset.pg;route("tools");return;}
   if(T.closest("[data-pgx]")){PG=null;route("tools");return;}
   const rt=T.closest("[data-reft]");if(rt){REFT=rt.dataset.reft;route("refs",true);return;}
   if(T.closest("[data-gsw]")){N.g=N.g==="f"?"m":"f";save();route("home",true);toast(N.g==="f"?"سنخاطبك الآن كممرّضة.":"سنخاطبك الآن كممرّض.");return;}
-  const g=T.closest("[data-g]");if(g){N.g=g.dataset.g;save();route("home");toast(N.g==="f"?"أهلًا بكِ في القسم!":"أهلًا بك في القسم!");return;}
+  const g=T.closest("[data-g]");if(g){const first=!N.seen.home;N.g=g.dataset.g;save();ABOUT=first?"home":null;route("home");toast(N.g==="f"?"أهلًا بكِ في القسم!":"أهلًا بك في القسم!");return;}
   const ep=T.closest("[data-ep]");if(ep){if(ep.hasAttribute("data-locked")){toast(/^p/.test(ep.dataset.ep)?"أنهِ الدرس السابق أولًا.":"أنهِ الحلقة السابقة أولًا.");return;}if(!N.g){route("home");toast("اختر أولًا: ممرّض أو ممرّضة.");return;}EP=ALLEP.find(x=>x.id===ep.dataset.ep);route("ep");return;}
   const rp=T.closest("[data-replay]");if(rp){const id=rp.dataset.replay,s=epState(id);Object.assign(s,{i:0,ans:{},trust:{patient:0,team:0},tr:{},chk:null});save();route("ep");return;}
   const tool=T.closest("[data-tool]");if(tool){TL=null;QZ=null;SP=null;route("tools");if(tool.dataset.tool==="daily")startSP("daily");return;}
@@ -5688,11 +5840,21 @@ document.addEventListener("click",e=>{const T=e.target;
   const dc=T.closest("[data-dcat]");if(dc){dcat=dc.dataset.dcat;dlim=60;route("dict",true);return;}
   if(T.closest("[data-dmore]")){dlim+=60;rerender();return;}
   const st=T.closest("[data-start]");if(st){startTool(st.dataset.start,+st.dataset.lvl);return;}
-  if(T.closest("[data-toolx]")){TL=null;route("tools");return;}
+  if(T.closest("[data-toolx]")){if(backFromTool())return;TL=null;route("tools");return;}
+  const shk=T.closest("[data-shk]");if(shk){if(shk.hasAttribute("data-locked")){toast("أنهِ المناوبة السابقة أولًا.");return;}SHK=+shk.dataset.shk;SHM=null;CH=null;route("shift");return;}
+  const msg=T.closest("[data-msg]");if(msg){openMsg(+msg.dataset.msg);return;}
+  if(T.closest("[data-shback]")){SHM=null;CH=null;route("shift");return;}
+  if(T.closest("[data-chunkdone]")&&CH&&EP){const st=epState(EP.id);st.i=CH.e;save();const sh=SH[SHM?SHM.k:curSh().k],j=SHM?SHM.j:0;CH=null;SHM=null;SHK=sh.k;route(markMsg(sh,j));return;}
+  const wf=T.closest("[data-wf]");if(wf){const j=+wf.dataset.wf;WF[j]=!WF[j];if(WF[j])speak(curSh().words[j][0]);rerender();return;}
+  if(T.closest("[data-wordsdone]")&&SHM){const sh=SH[SHM.k],j=SHM.j;SHM=null;SHK=sh.k;route(markMsg(sh,j));return;}
+  if(T.closest("[data-shnext]")){const sh=curSh();if(shDone(sh)&&sh.k+1<SH.length){SHK=sh.k+1;route("shift");}else route("home");return;}
+  if(T.closest("[data-shreplay]")){const sh=curSh();N.sh[sh.id]={m:{},done:false,replay:true};const st=epState(sh.ep.id),s=sh.chunks[0][0],e=sh.chunks[1][1];st.i=s;for(let i=s;i<e;i++){delete st.ans[i];delete st.tr["o"+i];}save();route("shift");return;}
+  if(T.closest("[data-dict]")){RET={v:cur,ch:CH,shm:SHM};REFT="dict";route("refs");const f=$("dq");if(f)f.focus();return;}
+  if(T.closest("[data-ret]")&&RET){const r=RET;RET=null;CH=r.ch;SHM=r.shm;route(r.v);return;}
 
   const sr=T.closest("[data-srs]");if(sr){TL=null;SP=null;buildSRS();return;}
   const mm=T.closest("[data-m]");if(mm){const k=mm.dataset.m;TL=null;SP=null;if(k==="srs"){buildSRS();return;}if(["mon","emg","role","pat","abbr","cog","cult","mist"].includes(k))buildQZ(k);else startSP(k);return;}
-  if(T.closest("[data-mx]")){QZ=null;SP=null;clearT();route("tools");return;}
+  if(T.closest("[data-mx]")){if(backFromTool())return;QZ=null;SP=null;clearT();route("tools");return;}
   if(QZ){const qa=T.closest("[data-qa]");if(qa&&QZ.a==null){clearT();QZ.a=+qa.dataset.qa;const it=QZ.items[QZ.i];if(QZ.a===it.a)QZ.ok++;if(QZ.k==="srs"){srsMarkN(it.key,QZ.a===it.a);save();}rerender();return;}
     if(T.closest("[data-qnext]")){QZ.i++;QZ.a=null;route("tools");autoPlay();return;}}
   if(SP){const k=SP.k;
